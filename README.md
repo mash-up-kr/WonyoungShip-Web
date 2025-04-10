@@ -1,4 +1,4 @@
-# WonyoungShip Server
+# WonyoungShip Web
 Web for Mash-Up 15th WonyoungShip Team
 # Maintainers
 <table>
