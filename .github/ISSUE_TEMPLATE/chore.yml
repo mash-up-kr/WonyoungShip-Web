@@ -1,0 +1,26 @@
+name: "작업 정리 (Chore)"
+description: 설정, 환경, 빌드 관련 작업을 작성해주세요.
+title: "[ Chore ] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        작성 예시 : "[ Chore ] ESLint 설정 추가"
+  - type: textarea
+    id: chore-description
+    attributes:
+      label: 🔧 Issue
+      description: 이번 작업이 필요한 이유나 관련 이슈가 있다면 작성해주세요.
+      placeholder: 예) 설정 누락으로 인한 빌드 실패 <#2>
+    validations:
+      required: true
+  - type: textarea
+    id: chore-target
+    attributes:
+      label: ⚙️ 작업 대상
+      description: 수정 또는 추가할 설정/환경에 대해 작성해주세요.
+      placeholder: |
+        1. Vite 설정 파일 수정
+        2. GitHub Actions 워크플로우 추가
+    validations:
+      required: true
