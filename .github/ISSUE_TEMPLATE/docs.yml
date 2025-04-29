@@ -1,0 +1,26 @@
+name: "문서 작업 (Docs)"
+description: 문서 작성 및 수정 사항을 작성해주세요.
+title: "[ Docs ] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        작성 예시 : "[ Docs ] README 업데이트"
+  - type: textarea
+    id: docs-description
+    attributes:
+      label: 📄 Issue
+      description: 문서 작업의 목적이나 관련된 기능/작업을 작성해주세요.
+      placeholder: 예) 신규 기능 문서화 필요 <#3>
+    validations:
+      required: true
+  - type: textarea
+    id: docs-target
+    attributes:
+      label: 🗂 문서 항목
+      description: 작성 또는 수정할 문서 항목을 구체적으로 작성해주세요.
+      placeholder: |
+        1. README 개요 섹션 보완
+        2. API 명세서에 응답 예시 추가
+    validations:
+      required: true
