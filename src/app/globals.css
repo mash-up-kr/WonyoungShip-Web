@@ -1,26 +1,85 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@theme {
+  /* Common */
+  --color-white: #ffffff;
+  --color-black: #000000;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  /* Neutral */
+  --color-neutral-10: #f2f5f7;
+  --color-neutral-20: #e3e9ed;
+  --color-neutral-30: #d0d8de;
+  --color-neutral-40: #bdcada;
+  --color-neutral-50: #a5b5c1;
+  --color-neutral-60: #8797a3;
+  --color-neutral-70: #63717c;
+  --color-neutral-80: #2e363c;
+  --color-neutral-90: #1e2227;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+  /* Orange */
+  --color-orange-10: #ffeee2;
+  --color-orange-50: #fdc9a3;
+  --color-orange-100: #f0761e;
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  /* Green */
+  --color-green-10: #e9f5f0;
+  --color-green-50: #c0e7d8;
+  --color-green-100: #2bb881;
+
+  /* Blue */
+  --color-blue-10: #e7f1f7;
+  --color-blue-50: #b9dbed;
+  --color-blue-100: #5fa9d1;
+
+  /* Red */
+  --color-red-100: #dd2626;
+
+  /* Alpha (rgba) */
+  --color-alpha-20: rgba(0, 0, 0, 0.2);
+  --color-alpha-40: rgba(0, 0, 0, 0.4);
+  --color-alpha-60: rgba(0, 0, 0, 0.6);
+
+  /* — Text 색상 토큰 — */
+  --color-text-primary: var(--color-neutral-90);
+  --color-text-secondary: var(--color-neutral-70);
+  --color-text-tertiary: var(--color-neutral-50);
+  --color-text-assistive: var(--color-neutral-40);
+  --color-text-disabled: var(--color-neutral-30);
+  --color-text-inverse: var(--color-white);
+  --color-text-brand: var(--color-orange-100);
+
+  /* — Icon 색상 토큰 — */
+  --color-icon-primary: var(--color-neutral-90);
+  --color-icon-secondary: var(--color-neutral-70);
+  --color-icon-tertiary: var(--color-neutral-50);
+  --color-icon-assistive: var(--color-neutral-40);
+  --color-icon-disabled: var(--color-neutral-30);
+  --color-icon-inverse: var(--color-white);
+  --color-icon-brand: var(--color-orange-100);
+
+  /* — Border 색상 토큰 — */
+  --color-border-primary: var(--color-neutral-70);
+  --color-border-secondary: var(--color-neutral-30);
+  --color-border-tertiary: var(--color-neutral-20);
+  --color-border-assistive: var(--color-neutral-10);
+
+  /* — Background 색상 토큰 — */
+  --color-background-primary: var(--color-neutral-80);
+  --color-background-assistive: var(--color-neutral-10);
+  --color-background-dimmer: var(--color-alpha-40);
+  --color-background-brand: var(--color-orange-100);
+  --color-background-brandassistive: var(--color-orange-10);
+  --color-background-white: var(--color-white);
+
+  /* — Skeleton 색상 토큰 — */
+  --color-skeleton-primary: var(--color-neutral-10);
+
+  /* — Shadow 색상 토큰 — */
+  --color-shadow-primary: var(--color-neutral-40);
+
+  /* font-weight 토큰 */
+  --font-weight-bold: 700;
+  --font-weight-semi-bold: 600;
+  --font-weight-medium: 500;
+  --font-weight-regular: 400;
 }

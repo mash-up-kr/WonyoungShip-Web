@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "lint:staged": "next lint --fix --files",
     "prepare": "husky"
   },
   "dependencies": {
@@ -34,7 +35,7 @@
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
-      "pnpm lint"
+      "pnpm lint:staged"
     ]
   }
 }
