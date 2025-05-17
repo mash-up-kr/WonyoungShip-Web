@@ -76,4 +76,10 @@
 
   /* — Shadow 색상 토큰 — */
   --color-shadow-primary: var(--color-neutral-40);
+
+  /* font-weight 토큰 */
+  --font-weight-bold: 700;
+  --font-weight-semi-bold: 600;
+  --font-weight-medium: 500;
+  --font-weight-regular: 400;
 }
