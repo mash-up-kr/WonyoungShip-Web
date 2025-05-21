@@ -1,5 +1,13 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: "Ownglyph_ryurue-Rg";
+  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/2405-2@1.0/Ownglyph_ryurue-Rg.woff2")
+    format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
 @theme {
   /* Common */
   --color-white: #ffffff;
@@ -82,4 +90,6 @@
   --font-weight-semi-bold: 600;
   --font-weight-medium: 500;
   --font-weight-regular: 400;
+
+  --font-point: "Ownglyph_ryurue-Rg", sans-serif;
 }
