@@ -4,9 +4,18 @@ import { ElementType, HTMLAttributes, PropsWithChildren } from "react"
 type TextVariant = "heading" | "body" | "description"
 type TextSize = "small" | "medium" | "large"
 type TextFont = "pretendard" | "Ownglyph ryurue"
+type TextColor =
+  | "primary"
+  | "secondary"
+  | "tertiary"
+  | "assistive"
+  | "disabled"
+  | "inverse"
+  | "brand"
 
 interface TextProps extends PropsWithChildren, HTMLAttributes<HTMLElement> {
   variant: TextVariant
+  color?: TextColor
   size?: TextSize
   font?: TextFont
   as?: ElementType
@@ -33,6 +42,17 @@ const TEXT_VARIANTS: Record<
   },
 }
 
+const TEXT_COLORS: Record<TextColor, HTMLAttributes<HTMLElement>["className"]> =
+  {
+    primary: "text-text-primary",
+    secondary: "text-text-secondary",
+    tertiary: "text-text-tertiary",
+    assistive: "text-text-assistive",
+    disabled: "text-text-disabled",
+    inverse: "text-text-inverse",
+    brand: "text-text-brand",
+  }
+
 const TEXT_FONT: Record<TextFont, HTMLAttributes<HTMLElement>["className"]> = {
   pretendard: "font-pretendard",
   "Ownglyph ryurue": "font-ryurue",
@@ -44,6 +64,7 @@ export const Text = ({
   variant,
   font = "pretendard",
   size = "medium",
+  color = "primary",
   className,
   ...props
 }: TextProps) => {
@@ -51,7 +72,12 @@ export const Text = ({
 
   return (
     <Component
-      className={clsx(className, TEXT_VARIANTS[variant][size], TEXT_FONT[font])}
+      className={clsx(
+        TEXT_VARIANTS[variant][size],
+        TEXT_FONT[font],
+        TEXT_COLORS[color],
+        className,
+      )}
       {...props}
     >
       {children}
