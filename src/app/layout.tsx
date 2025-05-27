@@ -21,9 +21,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${pretendard.className} antialiased bg-background-assistive`}
+        className={`${pretendard.className} bg-background-assistive antialiased`}
       >
-        <div className="w-full max-w-[420px] m-auto">{children}</div>
+        <div className="m-auto w-full max-w-[420px]">{children}</div>
       </body>
     </html>
   )
