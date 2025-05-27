@@ -20,7 +20,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${pretendard.className} antialiased`}>{children}</body>
+      <body
+        className={`${pretendard.className} bg-background-assistive antialiased`}
+      >
+        <div className="m-auto w-full max-w-[420px]">{children}</div>
+      </body>
     </html>
   )
 }
