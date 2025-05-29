@@ -44,7 +44,7 @@ export const Tooltip = ({
         <div
           role="tooltip"
           className={cn(
-            "bg-background-primary absolute bottom-[calc(100%+20px)] flex max-w-[15rem] items-center justify-center gap-2 rounded-lg px-3 py-2",
+            "bg-background-primary absolute bottom-[calc(100%+6px)] flex max-w-[15rem] items-center justify-center gap-2 rounded-lg px-3 py-2",
             TOOLTIP_POSITIONS[arrowPosition],
             className,
           )}
