@@ -14,11 +14,11 @@ type IconSize = "sm" | "md" | "lg"
 
 interface IconProps {
   icon: IconName
-  ariaLabel: string
   fill?: IconColor
   stroke?: IconColor
   size?: IconSize
   className?: string
+  ariaLabel?: string
 }
 
 const FILL_COLORS: Record<IconColor, string> = {
@@ -50,7 +50,7 @@ const ICON_SIZES: Record<IconSize, string> = {
 
 export const Icon = ({
   icon,
-  ariaLabel,
+  ariaLabel = "",
   fill,
   stroke,
   size = "md",
