@@ -1,4 +1,4 @@
-import { Text } from "@/components"
+import { Icon, Text } from "@/components/common"
 
 export default function Home() {
   return (
@@ -224,6 +224,20 @@ export default function Home() {
         >
           안녕하세요
         </Text>
+      </div>
+      <div>
+        <Icon icon="chevronDown" size="sm" stroke="primary" />
+        <Icon icon="chevronDown" size="md" stroke="primary" />
+        <Icon icon="chevronDown" size="lg" stroke="primary" />
+        <Icon icon="chevronDown" size="sm" stroke="secondary" />
+        <Icon icon="chevronDown" size="md" stroke="secondary" />
+        <Icon icon="chevronDown" size="lg" stroke="secondary" />
+        <Icon icon="chevronDown" size="sm" stroke="assistive" />
+        <Icon icon="chevronDown" size="md" stroke="assistive" />
+        <Icon icon="chevronDown" size="lg" stroke="assistive" />
+        <Icon icon="chevronDown" size="sm" stroke="brand" />
+        <Icon icon="chevronDown" size="md" stroke="brand" />
+        <Icon icon="chevronDown" size="lg" stroke="brand" />
       </div>
     </div>
   )
