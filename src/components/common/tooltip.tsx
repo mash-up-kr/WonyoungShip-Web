@@ -23,9 +23,9 @@ const TOOLTIP_ARROW_POSITIONS: Record<TooltipArrowPosition, string> = {
 }
 
 const TOOLTIP_POSITIONS: Record<TooltipArrowPosition, string> = {
-  left: "left-0",
-  center: "left-1/2 -translate-x-1/2",
-  right: "right-0",
+  left: "left-0 origin-bottom-left",
+  center: "left-1/2 -translate-x-1/2 origin-bottom",
+  right: "right-0 origin-bottom-right",
 }
 
 export const Tooltip = ({
@@ -44,7 +44,7 @@ export const Tooltip = ({
         <div
           role="tooltip"
           className={cn(
-            "bg-background-primary absolute bottom-[calc(100%+6px)] flex max-w-[15rem] items-center justify-center gap-2 rounded-lg px-3 py-2",
+            "bg-background-primary animate-tooltip-show absolute bottom-[calc(100%+6px)] flex max-w-[15rem] items-center justify-center gap-2 rounded-lg px-3 py-2",
             TOOLTIP_POSITIONS[arrowPosition],
             className,
           )}
