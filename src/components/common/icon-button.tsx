@@ -1,8 +1,9 @@
 "use client"
 
-import { ReactNode, HTMLAttributes, PropsWithChildren } from "react"
+import { HTMLAttributes, PropsWithChildren } from "react"
 
-import { Text } from "@/components/common"
+import { IconName } from "@/assets/svg"
+import { Icon, Text } from "@/components/common"
 import { cn } from "@/utils/cn"
 
 type BackgroundColor =
@@ -12,11 +13,11 @@ type BackgroundColor =
   | "blue-50"
   | "blue-100"
 
-type TextColor = "primary" | "inverse"
+type TextColor = "inverse" | "tertiary"
 
 interface ButtonProps extends PropsWithChildren, HTMLAttributes<HTMLElement> {
   color?: BackgroundColor
-  icon: ReactNode
+  icon: IconName
 }
 
 const BACKGROUND_COLORS: Record<
@@ -34,7 +35,7 @@ const TEXT_COLORS: Record<BackgroundColor, TextColor> = {
   primary: "inverse",
   "blue-50": "inverse",
   "blue-100": "inverse",
-  "neutral-20": "primary",
+  "neutral-20": "tertiary",
   "neutral-40": "inverse",
 }
 
@@ -52,7 +53,7 @@ export const IconButton = ({
       )}
       {...props}
     >
-      {icon}
+      <Icon icon={icon} size="lg" fill={TEXT_COLORS[color]} />
       <Text variant="body" color={TEXT_COLORS[color]}>
         {children}
       </Text>
