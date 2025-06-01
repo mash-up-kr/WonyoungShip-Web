@@ -1,4 +1,4 @@
-import { Icon, Text } from "@/components/common"
+import { Icon, Text, IconButton } from "@/components/common"
 
 export default function Home() {
   return (
@@ -31,6 +31,7 @@ export default function Home() {
         <Text variant="description" size="small">
           안녕하세요
         </Text>
+        <IconButton >버튼</IconButton>
       </div>
       <div className="flex flex-col gap-1">
         <Text
