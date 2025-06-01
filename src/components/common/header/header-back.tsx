@@ -10,7 +10,7 @@ export const HeaderBack = () => {
   return (
     <header className="flex w-full justify-start px-4 py-3">
       <button onClick={() => router.back()} aria-label="뒤로 가기">
-        <Icon icon="chevronLeft" size="lg" />
+        <Icon icon="chevronLeft" size="lg" fill="secondary" />
       </button>
     </header>
   )

@@ -3,12 +3,12 @@ import { Icon, Text } from "@/components/common"
 
 const MAX_COUNT = 99
 
-export const Header = (notificationCount: number) => {
+export const Header = ({ notificationCount }: { notificationCount: number }) => {
   return (
     <header className="flex w-full justify-between px-4 py-3">
-      <h1 aria-label="둥둥">
+      <h1 className=" flex items-center" aria-label="둥둥">
         <button>
-          <Logo />
+          <Logo className="h-[37px] w-[142px] "/>
         </button>
       </h1>
 
