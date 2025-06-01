@@ -31,9 +31,13 @@ export default function Home() {
         <Text variant="description" size="small">
           안녕하세요
         </Text>
-        <IconButton icon="link" >버튼</IconButton>
-        <IconButton type="primary" icon="link" >버튼</IconButton>
-        <IconButton type="disabled" icon="link" >버튼</IconButton>
+        <IconButton icon="link">버튼</IconButton>
+        <IconButton type="primary" icon="link">
+          버튼
+        </IconButton>
+        <IconButton type="disabled" icon="link">
+          버튼
+        </IconButton>
       </div>
       <div className="flex flex-col gap-1">
         <Text

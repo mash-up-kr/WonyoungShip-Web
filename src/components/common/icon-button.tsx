@@ -1,6 +1,6 @@
 "use client"
 
-import { HTMLAttributes, PropsWithChildren, useState } from "react"
+import { HTMLAttributes, PropsWithChildren } from "react"
 
 import { IconName } from "@/assets/svg"
 import { Icon, Text } from "@/components/common"
@@ -25,12 +25,12 @@ const BACKGROUND_COLORS: Record<
   disabled: "bg-neutral-40",
 }
 
-const PRESSED_BACKGROUND_COLORS: Record<
+const ACTIVE_BACKGROUND_COLORS: Record<
   ButtonState,
   HTMLAttributes<HTMLElement>["className"]
 > = {
-  primary: "bg-neutral-40",
-  blue: "bg-blue-50",
+  primary: "active:bg-neutral-40",
+  blue: "active:bg-blue-50",
   disabled: "bg-neutral-40",
 }
 
@@ -48,16 +48,6 @@ export const IconButton = ({
   onClick,
   ...props
 }: ButtonProps) => {
-  const [isPressed, setIsPressed] = useState(false)
-
-  const handleTouchStart = () => {
-    setIsPressed(true)
-  }
-
-  const handleTouchEnd = () => {
-    setIsPressed(false)
-  }
-
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (onClick) {
       onClick(e)
@@ -68,11 +58,9 @@ export const IconButton = ({
     <button
       className={cn(
         "flex h-8 w-fit items-center justify-center gap-1.5 rounded-lg px-2.5 py-2 transition-colors",
-        isPressed ? PRESSED_BACKGROUND_COLORS[type] : BACKGROUND_COLORS[type],
+        BACKGROUND_COLORS[type],
+        ACTIVE_BACKGROUND_COLORS[type],
       )}
-      onTouchStart={handleTouchStart}
-      onTouchEnd={handleTouchEnd}
-      onTouchCancel={handleTouchEnd}
       onClick={handleClick}
       disabled={type == "disabled"}
       aria-label={ariaLabel}
