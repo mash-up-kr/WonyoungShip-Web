@@ -32,10 +32,8 @@ export default function Home() {
           안녕하세요
         </Text>
         <IconButton icon="link" >버튼</IconButton>
-        <IconButton color="blue-50" icon="link" >버튼</IconButton>
-        <IconButton color="neutral-20" icon="link" >버튼</IconButton>
-        <IconButton color="primary" icon="link" >버튼</IconButton>
-        <IconButton color="neutral-40" icon="link" >버튼</IconButton>
+        <IconButton type="primary" icon="link" >버튼</IconButton>
+        <IconButton type="disabled" icon="link" >버튼</IconButton>
       </div>
       <div className="flex flex-col gap-1">
         <Text
