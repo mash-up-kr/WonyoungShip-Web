@@ -53,8 +53,13 @@ export const IconButton = ({
       )}
       {...props}
     >
-      <Icon icon={icon} size="lg" fill={TEXT_COLORS[color]} />
-      <Text variant="body" color={TEXT_COLORS[color]}>
+      <Icon icon={icon} size="md" stroke={TEXT_COLORS[color]} />
+      <Text
+        variant="body"
+        size="small"
+        color={TEXT_COLORS[color]}
+        className="font-medium"
+      >
         {children}
       </Text>
     </button>

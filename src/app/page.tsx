@@ -31,11 +31,11 @@ export default function Home() {
         <Text variant="description" size="small">
           안녕하세요
         </Text>
-        <IconButton icon="chevronDown" >버튼</IconButton>
-        <IconButton color="blue-50" icon="chevronDown" >버튼</IconButton>
-        <IconButton color="neutral-20" icon="chevronDown" >버튼</IconButton>
-        <IconButton color="primary" icon="chevronDown" >버튼</IconButton>
-        <IconButton color="neutral-40" icon="chevronDown" >버튼</IconButton>
+        <IconButton icon="link" >버튼</IconButton>
+        <IconButton color="blue-50" icon="link" >버튼</IconButton>
+        <IconButton color="neutral-20" icon="link" >버튼</IconButton>
+        <IconButton color="primary" icon="link" >버튼</IconButton>
+        <IconButton color="neutral-40" icon="link" >버튼</IconButton>
       </div>
       <div className="flex flex-col gap-1">
         <Text
