@@ -22,7 +22,7 @@ export const WriteLetterButton = () => {
         </span>
       </div>
       {/* TODO : icon size 회의 후 18px로 맞추기 */}
-      <Icon icon="chevronDown" fill="secondary" />
+      <Icon icon="chevronRight" stroke="secondary" />
     </Link>
   )
 }
