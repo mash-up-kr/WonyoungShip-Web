@@ -45,14 +45,9 @@ export const IconButton = ({
   type = "blue",
   icon,
   ariaLabel = "",
-  onClick,
   ...props
 }: ButtonProps) => {
-  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    if (onClick) {
-      onClick(e)
-    }
-  }
+
 
   return (
     <button
@@ -61,7 +56,6 @@ export const IconButton = ({
         BACKGROUND_COLORS[type],
         ACTIVE_BACKGROUND_COLORS[type],
       )}
-      onClick={handleClick}
       disabled={type == "disabled"}
       aria-label={ariaLabel}
       {...props}
