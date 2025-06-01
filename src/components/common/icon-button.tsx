@@ -13,6 +13,7 @@ type TextColor = "inverse" | "tertiary"
 interface ButtonProps extends PropsWithChildren, HTMLAttributes<HTMLElement> {
   type?: ButtonState
   icon: IconName
+  ariaLabel?: string
 }
 
 const BACKGROUND_COLORS: Record<
@@ -43,6 +44,7 @@ export const IconButton = ({
   children,
   type = "blue",
   icon,
+  ariaLabel = "",
   onClick,
   ...props
 }: ButtonProps) => {
@@ -73,6 +75,7 @@ export const IconButton = ({
       onTouchCancel={handleTouchEnd}
       onClick={handleClick}
       disabled={type == "disabled"}
+      aria-label={ariaLabel}
       {...props}
     >
       <Icon icon={icon} size="md" stroke={TEXT_COLORS[type]} />
