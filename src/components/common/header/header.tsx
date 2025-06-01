@@ -3,23 +3,27 @@ import { Icon, Text } from "@/components/common"
 
 const MAX_COUNT = 99
 
-export const Header = ({ notificationCount }: { notificationCount: number }) => {
+export const Header = ({
+  notificationCount,
+}: {
+  notificationCount: number
+}) => {
   return (
     <header className="flex w-full justify-between px-4 py-3">
-      <h1 className=" flex items-center" aria-label="둥둥">
+      <h1 className="flex items-center" aria-label="둥둥">
         <button>
-          <Logo className="h-[37px] w-[142px] "/>
+          <Logo className="h-[37px] w-[142px]" />
         </button>
       </h1>
 
       <div className="flex items-center gap-3">
         <button className="relative" aria-label="알림 버튼">
           {notificationCount > 0 && (
-            <div className="absolute -top-0.5 left-[22px] grid h-fit min-h-[14px] w-fit min-w-[14px] place-items-center rounded-full bg-[#ff6464]">
+            <div className="absolute -top-0.5 left-[22px] flex h-[14px] min-w-[14px] items-center justify-center rounded-full bg-[#ff6464] px-1">
               <Text
                 variant="description"
                 color="inverse"
-                className="font-normal"
+                className="leading-none font-normal"
               >
                 {notificationCount > MAX_COUNT ? "99+" : notificationCount}
               </Text>
