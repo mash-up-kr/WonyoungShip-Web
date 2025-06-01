@@ -2,7 +2,7 @@ import type { Metadata } from "next"
 import localFont from "next/font/local"
 
 import "./globals.css"
-import { Top } from "@/components/common"
+import { TopBack } from "@/components/common"
 
 const pretendard = localFont({
   src: "../assets/fonts/PretendardVariable.woff2",
@@ -25,7 +25,7 @@ export default function RootLayout({
       <body
         className={`${pretendard.className} bg-background-assistive antialiased`}
       > 
-        <div className="m-auto w-full max-w-[420px]"><Top />{children}</div>
+        <div className="m-auto w-full max-w-[420px]"><TopBack />{children}</div>
       </body>
     </html>
   )
