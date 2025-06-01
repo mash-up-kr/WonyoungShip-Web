@@ -1,28 +1,36 @@
 import Logo from "@/assets/svg/logo.svg"
 import { Icon, Text } from "@/components/common"
 
-export const Top = ( notificationCount : number ) => {
-  return (
-    <div className="flex w-full justify-between px-4 py-3">
-      <button>
-        <Logo />
-      </button>
+const MAX_COUNT = 99
 
-      <div className="flex gap-3">
-        <button className="relative">
-            {notificationCount > 0 && (
-                // TODO : 배경 색 확인하기
-              <div className="absolute -top-0.5 left-[22px] flex h-[14px] w-fit min-w-[14px] items-center justify-center rounded-full bg-red-100">
-                <Text variant="description" color="inverse">
-                {notificationCount > 99 ? '99+' : notificationCount}
-                </Text>
-              </div>)}
-          <Icon icon="letter" size="xlg" />
-        </button>
+export const Header = (notificationCount: number) => {
+  return (
+    <header className="flex w-full justify-between px-4 py-3">
+      <h1 aria-label="둥둥">
         <button>
-          <Icon icon="setting" size="xlg" />
+          <Logo />
+        </button>
+      </h1>
+
+      <div className="flex items-center gap-3">
+        <button className="relative" aria-label="알림 버튼">
+          {notificationCount > 0 && (
+            <div className="absolute -top-0.5 left-[22px] grid h-fit min-h-[14px] w-fit min-w-[14px] place-items-center rounded-full bg-[#ff6464]">
+              <Text
+                variant="description"
+                color="inverse"
+                className="font-normal"
+              >
+                {notificationCount > MAX_COUNT ? "99+" : notificationCount}
+              </Text>
+            </div>
+          )}
+          <Icon icon="letter" size="xl" />
+        </button>
+        <button aria-label="설정 버튼">
+          <Icon icon="setting" size="xl" />
         </button>
       </div>
-    </div>
+    </header>
   )
 }

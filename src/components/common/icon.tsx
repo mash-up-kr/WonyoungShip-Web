@@ -10,7 +10,7 @@ type IconColor =
   | "inverse"
   | "brand"
 
-type IconSize = "sm" | "md" | "lg" | "xlg"
+type IconSize = "sm" | "md" | "lg" | "xl"
 
 interface IconProps {
   icon: IconName
@@ -46,7 +46,7 @@ const ICON_SIZES: Record<IconSize, string> = {
   sm: "w-4 h-4", // 16px
   md: "w-5 h-5", // 20px
   lg: "w-6 h-6", // 24px
-  xlg: "w-8 h-8", // 32px
+  xl: "w-8 h-8", // 32px
 }
 
 export const Icon = ({
