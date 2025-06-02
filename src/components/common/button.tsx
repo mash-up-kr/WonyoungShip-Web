@@ -11,7 +11,6 @@ interface ButtonProps
     ButtonHTMLAttributes<HTMLButtonElement> {
   variant: ButtonVariant
   text?: string
-  ariaLabel?: string
 }
 
 const BUTTON_VARIANTS: Record<ButtonProps["variant"], string> = {
@@ -26,7 +25,6 @@ export const Button = ({
   children,
   text = "",
   variant,
-  ariaLabel,
   ...props
 }: ButtonProps) => {
   const { disabled: isDisabled } = props
@@ -38,7 +36,6 @@ export const Button = ({
         isDisabled && BUTTON_DISABLED_STYLES,
       )}
       role="button"
-      aria-label={ariaLabel}
       {...props}
     >
       {children ? (
