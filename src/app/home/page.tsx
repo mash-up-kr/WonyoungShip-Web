@@ -39,7 +39,7 @@ export default function Home() {
           {/* TODO : IconButton merge하면 추가하기 */}
         </div>
       </section>
-      <LetterCountdown />
+      <LetterCountdown letterList={tempData.letterList}/>
     </div>
   )
 }
