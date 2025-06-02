@@ -23,7 +23,7 @@ export default function RootLayout({
       <body
         className={`${pretendard.className} bg-background-assistive antialiased`}
       >
-        <div>{children}</div>
+        <>{children}</>
       </body>
     </html>
   )
