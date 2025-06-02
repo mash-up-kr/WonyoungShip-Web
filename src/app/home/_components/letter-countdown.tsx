@@ -65,7 +65,8 @@ export const LetterCountdown = ({ letterList }: LetterCountdownProps) => {
   return (
     <section className="bg-letter flex h-[378px] w-full flex-col items-center justify-between rounded-3xl bg-blue-50 px-4 pt-7 pb-3">
       <section className="flex flex-col items-center">
-        <section className="flex flex-col items-center gap-2">
+        <section className="flex flex-col items-center gap-2" 
+            aria-label={`${subtitle} ${title}`}>
           <Text
             variant="heading"
             size="small"
@@ -85,8 +86,16 @@ export const LetterCountdown = ({ letterList }: LetterCountdownProps) => {
         </section>
         {/* 그래픽 */}
         <div className="my-6 h-[85px] w-20 bg-white"></div>
-        <button className="bg-background-primary px-2.5 py-2 rounded-lg justify-center items-center active:bg-neutral-40 transition-colors">
-          <Text variant="body" size="small" color="inverse" className="font-medium">
+        <button
+          className="bg-background-primary active:bg-neutral-40 items-center justify-center rounded-lg px-2.5 py-2 transition-colors"
+          aria-label="편지 열어보기"
+        >
+          <Text
+            variant="body"
+            size="small"
+            color="inverse"
+            className="font-medium"
+          >
             편지 열어보기
           </Text>
         </button>
