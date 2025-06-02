@@ -6,6 +6,20 @@ import { WriteLetterButton, LetterCountdown } from "./_components"
 
 const tempData = {
   letterCount: 5,
+  letterList: [
+    {
+      id: 1,
+      scheduleDate: "2025-06-02",
+    },
+    {
+      id: 2,
+      scheduleDate: "2025-06-03",
+    },
+    {
+      id: 3,
+      scheduleDate: "2025-06-03",
+    },
+  ],
 }
 
 export default function Home() {
