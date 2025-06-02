@@ -73,7 +73,7 @@ export const LetterCountdown = ({ letterList }: LetterCountdownProps) => {
             color={subtitleColor}
             className="leading-[1.375rem] font-normal"
           >
-            {typeof subtitle === "string" ? subtitle : subtitle(daysLeft!)}
+            {typeof subtitle === "string" ? subtitle : subtitle(daysLeft ?? 0)}
           </Text>
           <Text
             variant="heading"
