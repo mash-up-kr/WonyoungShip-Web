@@ -85,7 +85,11 @@ export const LetterCountdown = ({ letterList }: LetterCountdownProps) => {
         </section>
         {/* 그래픽 */}
         <div className="my-6 h-[85px] w-20 bg-white"></div>
-       
+        <button className="bg-background-primary px-2.5 py-2 rounded-lg justify-center items-center active:bg-neutral-40 transition-colors">
+          <Text variant="body" size="small" color="inverse" className="font-medium">
+            편지 열어보기
+          </Text>
+        </button>
       </section>
       {/* TODO : 하단 section 지우고 요일 Container 넣기 */}
       <section className="h-[93px] w-[327px] bg-white" />
