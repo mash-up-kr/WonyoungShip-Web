@@ -2,7 +2,7 @@
 
 import { Text } from "@/components/common"
 
-import { WriteLetterButton } from "./_components/WriteLetterButton"
+import { WriteLetterButton, LetterCountdown } from "./_components"
 
 const tempData = {
   letterCount: 5,
@@ -25,6 +25,7 @@ export default function Home() {
           {/* TODO : IconButton merge하면 추가하기 */}
         </div>
       </section>
+      <LetterCountdown />
     </div>
   )
 }
