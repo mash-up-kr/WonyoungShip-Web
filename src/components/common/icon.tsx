@@ -10,7 +10,7 @@ type IconColor =
   | "inverse"
   | "brand"
 
-type IconSize = "sm" | "md" | "lg"
+type IconSize = "sm" | "md" | "lg" | "xl"
 
 interface IconProps {
   icon: IconName
@@ -43,9 +43,10 @@ const STROKE_COLORS: Record<IconColor, string> = {
 
 //TODO: 임의로 지정한 사이즈임. 디자인 시스템에 따라 조정 필요
 const ICON_SIZES: Record<IconSize, string> = {
-  sm: "w-3 h-3", // 12px
-  md: "w-4 h-4", // 16px
-  lg: "w-5 h-5", // 20px
+  sm: "w-4 h-4", // 16px
+  md: "w-5 h-5", // 20px
+  lg: "w-6 h-6", // 24px
+  xl: "w-8 h-8", // 32px
 }
 
 export const Icon = ({

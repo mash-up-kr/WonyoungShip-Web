@@ -4,6 +4,7 @@ export default function Home() {
   return (
     <div className="flex gap-2">
       <div className="flex flex-col gap-1">
+        
         <Text variant="heading" size="large">
           안녕하세요
         </Text>
