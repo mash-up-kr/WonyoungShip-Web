@@ -1,4 +1,4 @@
-import { Text } from "@/components/common"
+import { Text, LetterCountBox } from "@/components/common"
 import { formatDate, weekDates } from "@/utils/date"
 
 // TODO : API 연결할 때 letter-countdown 확인해서 공통으로 옮기기
@@ -28,27 +28,20 @@ export const LetterWeekContainer = ({ letterList }: LetterCountdownProps) => {
   })
 
   return (
-    <section className="bg-alpha-60 flex h-[93px] w-full justify-between rounded-2xl p-3">
+    <section className="bg-alpha-60 flex h-[93px] w-full justify-between rounded-2xl gap-2 p-3">
       {weekDates.map((date, idx) => {
         const isToday = formatDate(date) === formatDate(today)
         return (
-          <div
-            key={idx}
-            className="flex flex-col items-center gap-1"
-          >
+          <div key={idx} className="flex flex-col items-center gap-1 w-full">
             <Text
               variant="body"
               font="Ownglyph ryurue"
               color={`${isToday ? "blue-100" : "primary"}`}
-              className="font-normal leading-[1.125rem]"
+              className="leading-[1.125rem] font-normal"
             >
               {dayLabels[idx]}
             </Text>
-            <div
-              className={`flex h-10 w-10 items-center justify-center rounded-full ${isToday ? "bg-blue-500 text-white" : "bg-gray-200"}`}
-            >
-              {countsByDay[idx]}
-            </div>
+            <LetterCountBox letterCount={countsByDay[idx]} isToday={isToday} />
           </div>
         )
       })}
