@@ -31,7 +31,7 @@ const ACTIVE_BACKGROUND_COLORS: Record<
 > = {
   primary: "active:bg-neutral-40",
   blue: "active:bg-blue-50",
-  disabled: "bg-neutral-40",
+  disabled: "bg-neutral-20",
 }
 
 const TEXT_COLORS: Record<ButtonState, TextColor> = {
