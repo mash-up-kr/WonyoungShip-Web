@@ -103,7 +103,6 @@ export const LetterCountdown = ({ letterList }: LetterCountdownProps) => {
           </Text>
         </button>
       </section>
-      {/* TODO : 하단 section 지우고 요일 Container 넣기 */}
       <LetterWeekContainer letterList={letterList}/>
     </section>
   )
