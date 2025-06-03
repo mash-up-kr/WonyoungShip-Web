@@ -1,6 +1,6 @@
 "use client"
 
-import { HTMLAttributes, PropsWithChildren } from "react"
+import { HTMLAttributes, ButtonHTMLAttributes, PropsWithChildren } from "react"
 
 import { IconName } from "@/assets/svg"
 import { Icon, Text } from "@/components/common"
@@ -10,8 +10,8 @@ type ButtonState = "blue" | "primary" | "disabled"
 
 type TextColor = "inverse" | "tertiary"
 
-interface ButtonProps extends PropsWithChildren, HTMLAttributes<HTMLElement> {
-  type?: ButtonState
+interface ButtonProps extends PropsWithChildren, ButtonHTMLAttributes<HTMLButtonElement> {
+  variant?: ButtonState
   icon: IconName
   ariaLabel?: string
 }
@@ -42,29 +42,28 @@ const TEXT_COLORS: Record<ButtonState, TextColor> = {
 
 export const IconButton = ({
   children,
-  type = "blue",
+  variant = "blue",
   icon,
-  ariaLabel = "",
   ...props
 }: ButtonProps) => {
 
+  const isDisabled = props.disabled ?? false
+  const variantColor: ButtonState = isDisabled ? "disabled" : variant
 
   return (
     <button
       className={cn(
         "flex h-8 w-fit items-center justify-center gap-1.5 rounded-lg px-2.5 py-2 transition-colors",
-        BACKGROUND_COLORS[type],
-        ACTIVE_BACKGROUND_COLORS[type],
+        BACKGROUND_COLORS[variantColor],
+        ACTIVE_BACKGROUND_COLORS[variantColor],
       )}
-      disabled={type == "disabled"}
-      aria-label={ariaLabel}
       {...props}
     >
-      <Icon icon={icon} size="md" stroke={TEXT_COLORS[type]} />
+      <Icon icon={icon} size="md" stroke={TEXT_COLORS[variantColor]} />
       <Text
         variant="body"
         size="small"
-        color={TEXT_COLORS[type]}
+        color={TEXT_COLORS[variantColor]}
         className="font-medium"
       >
         {children}

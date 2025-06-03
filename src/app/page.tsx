@@ -33,10 +33,10 @@ export default function Home() {
           안녕하세요
         </Text>
         <IconButton icon="link">버튼</IconButton>
-        <IconButton type="primary" icon="link">
+        <IconButton variant="primary" icon="link" >
           버튼
         </IconButton>
-        <IconButton type="disabled" icon="link">
+        <IconButton icon="link" disabled>
           버튼
         </IconButton>
       </div>
