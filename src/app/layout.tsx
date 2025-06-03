@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import localFont from "next/font/local"
+
 import "./globals.css"
 
 const pretendard = localFont({
@@ -22,7 +23,7 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={`${pretendard.className} bg-background-assistive antialiased`}
-      >
+      > 
         <div className="m-auto w-full max-w-[420px]">{children}</div>
       </body>
     </html>
