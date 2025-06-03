@@ -45,6 +45,7 @@ const getLetterStatus = (
 ): { status: LetterStatus; daysLeft?: number } => {
   const today = new Date()
   const target = new Date(scheduleDate)
+  
   const diff = Math.ceil(
     (target.getTime() - today.getTime()) / (1000 * 60 * 60 * 24),
   )
@@ -65,9 +66,9 @@ export const LetterCountdown = ({ letterList }: LetterCountdownProps) => {
   return (
     <section className="bg-letter flex h-[378px] w-full flex-col items-center justify-between rounded-3xl bg-blue-50 px-4 pt-7 pb-3">
       <section className="flex flex-col items-center">
-        <section className="flex flex-col items-center gap-2" 
-            aria-label={`${subtitle} ${title}`}>
+        <section className="flex flex-col items-center gap-2">
           <Text
+            as="h2"
             variant="heading"
             size="small"
             font="Ownglyph ryurue"
@@ -77,6 +78,7 @@ export const LetterCountdown = ({ letterList }: LetterCountdownProps) => {
             {typeof subtitle === "string" ? subtitle : subtitle(daysLeft ?? 0)}
           </Text>
           <Text
+            as="h3"
             variant="heading"
             font="Ownglyph ryurue"
             className="leading-7 font-normal"
@@ -88,7 +90,6 @@ export const LetterCountdown = ({ letterList }: LetterCountdownProps) => {
         <div className="my-6 h-[85px] w-20 bg-white"></div>
         <button
           className="bg-background-primary active:bg-neutral-40 items-center justify-center rounded-lg px-2.5 py-2 transition-colors"
-          aria-label="편지 열어보기"
         >
           <Text
             variant="body"
