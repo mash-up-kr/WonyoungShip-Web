@@ -8,7 +8,7 @@ import { cn } from "@/utils/cn"
 import { Icon } from "./icon"
 import { Text } from "./text"
 
-interface ToastProps {
+interface SnackbarProps {
   isOpen: boolean
   message: string
   showCloseButton?: boolean
@@ -16,13 +16,13 @@ interface ToastProps {
   onClose?: VoidFunction
 }
 
-export const Toast = ({
+export const Snackbar = ({
   isOpen,
   message,
   icon,
   showCloseButton = false,
   onClose,
-}: ToastProps) => {
+}: SnackbarProps) => {
   const [shouldRender, setShouldRender] = useState(isOpen)
 
   useEffect(() => {
