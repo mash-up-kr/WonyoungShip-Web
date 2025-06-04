@@ -47,7 +47,7 @@ export const Snackbar = ({
       aria-atomic="true"
       onAnimationEnd={handleAnimationEnd}
       className={cn(
-        "bg-neutral-80 absolute left-1/2 z-50 flex -translate-x-1/2 items-center gap-1.5 rounded-full px-4 py-3",
+        "bg-neutral-80 absolute left-1/2 z-50 flex max-w-[400px] -translate-x-1/2 items-center gap-1.5 rounded-full px-4 py-3",
         isOpen ? "animate-toast-show" : "animate-toast-hide",
       )}
     >
