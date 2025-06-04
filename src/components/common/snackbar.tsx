@@ -11,6 +11,7 @@ import { Text } from "./text"
 interface SnackbarProps {
   isOpen: boolean
   message: string
+  duration?: number
   showCloseButton?: boolean
   icon?: IconName
   onClose?: VoidFunction
@@ -21,6 +22,7 @@ export const Snackbar = ({
   isOpen,
   message,
   icon,
+  duration = 2000,
   showCloseButton = false,
   onAnimationEnd,
   onClose,
@@ -35,8 +37,14 @@ export const Snackbar = ({
   }
 
   useEffect(() => {
-    if (isOpen) setShouldRender(true)
-  }, [isOpen])
+    if (!isOpen) {
+      return
+    }
+
+    setShouldRender(true)
+    const id = setTimeout(() => onClose?.(), duration)
+    return () => clearTimeout(id)
+  }, [isOpen, duration, onClose])
 
   if (!shouldRender) return null
 

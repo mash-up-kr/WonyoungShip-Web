@@ -15,11 +15,12 @@ interface SnackbarItem {
   id: number
   message: string
   isOpen: boolean
+  duration?: number
   icon?: IconName
   showCloseButton?: boolean
 }
 
-type ShowSnackbarParams = Omit<SnackbarItem, "id" | "isOpen">
+type ShowSnackbarParams = Omit<SnackbarItem, "id" | "isOpen" | "duration">
 
 interface SnackbarContextType {
   showSnackbar: (params: ShowSnackbarParams) => void
@@ -43,20 +44,14 @@ export const SnackbarProvider = ({ children }: PropsWithChildren) => {
   const [snackbarList, setSnackbarList] = useState<SnackbarItem[]>([])
   const snackbarId = useRef(0)
 
-  const showSnackbar = (
-    params: ShowSnackbarParams,
-    duration: number = 2000,
-  ) => {
+  const showSnackbar = (params: ShowSnackbarParams, duration?: number) => {
     const newSnackbar: SnackbarItem = {
       id: snackbarId.current++,
       isOpen: true,
+      duration,
       ...params,
     }
     setSnackbarList((prev) => [...prev, newSnackbar])
-
-    setTimeout(() => {
-      handleCloseSnackbar(newSnackbar.id)
-    }, duration)
   }
 
   const handleCloseSnackbar = (id: number) =>
