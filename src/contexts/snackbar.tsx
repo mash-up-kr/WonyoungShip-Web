@@ -29,7 +29,7 @@ export const SnackbarContext = createContext<SnackbarContextType>({
   showSnackbar: () => null,
 })
 
-export const useSnackbarContext = () => {
+export const useSnackbar = () => {
   const context = useContext(SnackbarContext)
 
   if (typeof context === "undefined") {
