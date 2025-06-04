@@ -1,0 +1,66 @@
+"use client"
+
+import { useEffect, useState } from "react"
+
+import { IconName } from "@/assets/svg"
+import { cn } from "@/utils/cn"
+
+import { Icon } from "./icon"
+import { Text } from "./text"
+
+interface ToastProps {
+  isOpen: boolean
+  message: string
+  showCloseButton?: boolean
+  icon?: IconName
+  onClose?: VoidFunction
+}
+
+export const Toast = ({
+  isOpen,
+  message,
+  icon,
+  showCloseButton = false,
+  onClose,
+}: ToastProps) => {
+  const [shouldRender, setShouldRender] = useState(isOpen)
+
+  useEffect(() => {
+    if (isOpen) setShouldRender(true)
+  }, [isOpen])
+
+  const handleAnimationEnd = () => {
+    if (!isOpen) {
+      setShouldRender(false)
+      onClose?.()
+    }
+  }
+
+  if (!shouldRender) return null
+  if (!isOpen) {
+    return null
+  }
+
+  return (
+    <div
+      role="alert"
+      aria-live="assertive"
+      aria-atomic="true"
+      onAnimationEnd={handleAnimationEnd}
+      className={cn(
+        "bg-neutral-80 absolute left-1/2 flex -translate-x-1/2 items-center gap-1.5 rounded-full px-4 py-3",
+        isOpen ? "animate-toast-show" : "animate-toast-hide",
+      )}
+    >
+      {icon && <Icon icon={icon} size="md" fill="inverse" />}
+      <Text variant="body" size="small" color="inverse">
+        {message}
+      </Text>
+      {showCloseButton && (
+        <button className="cursor-pointer" onClick={() => onClose?.()}>
+          <Icon icon="clear" fill="inverse" size="xs" ariaLabel="닫기" />
+        </button>
+      )}
+    </div>
+  )
+}
