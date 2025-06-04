@@ -14,6 +14,7 @@ interface SnackbarProps {
   showCloseButton?: boolean
   icon?: IconName
   onClose?: VoidFunction
+  onAnimationEnd?: VoidFunction
 }
 
 export const Snackbar = ({
@@ -21,6 +22,7 @@ export const Snackbar = ({
   message,
   icon,
   showCloseButton = false,
+  onAnimationEnd,
   onClose,
 }: SnackbarProps) => {
   const [shouldRender, setShouldRender] = useState(isOpen)
@@ -32,7 +34,7 @@ export const Snackbar = ({
   const handleAnimationEnd = () => {
     if (!isOpen) {
       setShouldRender(false)
-      onClose?.()
+      onAnimationEnd?.()
     }
   }
 
