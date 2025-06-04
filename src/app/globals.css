@@ -107,6 +107,8 @@
 
   --animate-tooltip-show: tooltip-show 0.2s ease-out both;
   --animate-tooltip-hide: tooltip-hide 0.2s ease-out both;
+  --animate-toast-show: toast-show 0.3s ease-out both;
+  --animate-toast-hide: toast-hide 0.3s ease-out both;
 
   @keyframes tooltip-show {
     0% {
@@ -127,6 +129,29 @@
     100% {
       opacity: 0;
       transform: scale(0.1) translateY(-10px);
+    }
+  }
+
+  @keyframes toast-show {
+    0% {
+      opacity: 0;
+      top: -36px;
+    }
+
+    100% {
+      opacity: 1;
+      top: 36px;
+    }
+  }
+
+  @keyframes toast-hide {
+    0% {
+      opacity: 1;
+      top: 36px;
+    }
+    100% {
+      opacity: 0;
+      top: -36px;
     }
   }
 }
