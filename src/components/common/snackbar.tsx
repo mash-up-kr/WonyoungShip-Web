@@ -37,9 +37,6 @@ export const Snackbar = ({
   }
 
   if (!shouldRender) return null
-  if (!isOpen) {
-    return null
-  }
 
   return (
     <div
