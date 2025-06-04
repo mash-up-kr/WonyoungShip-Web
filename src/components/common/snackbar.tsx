@@ -27,16 +27,16 @@ export const Snackbar = ({
 }: SnackbarProps) => {
   const [shouldRender, setShouldRender] = useState(isOpen)
 
-  useEffect(() => {
-    if (isOpen) setShouldRender(true)
-  }, [isOpen])
-
   const handleAnimationEnd = () => {
     if (!isOpen) {
       setShouldRender(false)
       onAnimationEnd?.()
     }
   }
+
+  useEffect(() => {
+    if (isOpen) setShouldRender(true)
+  }, [isOpen])
 
   if (!shouldRender) return null
 
