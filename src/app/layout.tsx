@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import localFont from "next/font/local"
 
 import "./globals.css"
+import { SnackbarProvider } from "@/contexts/snackbar"
 
 const pretendard = localFont({
   src: "../assets/fonts/PretendardVariable.woff2",
@@ -24,7 +25,7 @@ export default function RootLayout({
       <body
         className={`${pretendard.className} bg-background-assistive antialiased`}
       >
-        {children}
+        <SnackbarProvider>{children}</SnackbarProvider>
       </body>
     </html>
   )
