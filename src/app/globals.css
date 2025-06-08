@@ -63,7 +63,7 @@
   --color-text-assistive: var(--color-neutral-40);
   --color-text-disabled: var(--color-neutral-30);
   --color-text-inverse: var(--color-white);
-  --color-text-brand: var(--color-orange-100);
+  --color-text-brand: var(--color-blue-100);
 
   /* — Icon 색상 토큰 — */
   --color-icon-primary: var(--color-neutral-90);
@@ -72,7 +72,7 @@
   --color-icon-assistive: var(--color-neutral-40);
   --color-icon-disabled: var(--color-neutral-30);
   --color-icon-inverse: var(--color-white);
-  --color-icon-brand: var(--color-orange-100);
+  --color-icon-brand: var(--color-blue-100);
 
   /* — Border 색상 토큰 — */
   --color-border-primary: var(--color-neutral-70);
