@@ -6,6 +6,7 @@ declare global {
   interface Window {
     Kakao: {
       init: (appKey: string) => void
+      isInitialized: () => boolean
       Auth: {
         authorize: (setting?: {
           redirectUri?: string
