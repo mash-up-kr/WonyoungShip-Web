@@ -9,7 +9,9 @@ const LoginPage = () => {
       return
     }
 
-    window.Kakao.Auth.authorize()
+    window.Kakao.Auth.authorize({
+      redirectUri: `${window.location.origin}/oauth/kakao`,
+    })
   }
 
   return (
