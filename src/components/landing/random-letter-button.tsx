@@ -2,6 +2,8 @@
 
 import { useState } from "react"
 
+import FortuneCookie from "@/assets/svg/fortune-cookie.svg"
+
 import { Button, Tooltip } from "../common"
 
 export const RandomLetterButton = () => {
@@ -15,7 +17,13 @@ export const RandomLetterButton = () => {
         wrapperClassName="flex-1 flex justify-center"
         onClose={() => setOpenTooltip(false)}
       >
-        <Button variant="primary">랜덤하게 마음 전하기</Button>
+        <Button
+          variant="primary"
+          className="flex items-center justify-center gap-2.5"
+        >
+          <FortuneCookie className="animate-cookie-shake" />
+          <span>랜덤하게 마음 전하기</span>
+        </Button>
       </Tooltip>
     </div>
   )
