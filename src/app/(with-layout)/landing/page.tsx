@@ -1,5 +1,5 @@
 import {
-  Header,
+  LandingHeader,
   KakaoLoginButton,
   LetterList,
   RandomLetterButton,
@@ -8,7 +8,7 @@ import {
 const LandingPage = () => {
   return (
     <>
-      <Header />
+      <LandingHeader />
       <LetterList />
       <KakaoLoginButton />
       <RandomLetterButton />
