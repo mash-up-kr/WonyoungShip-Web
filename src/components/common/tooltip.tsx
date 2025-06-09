@@ -13,6 +13,7 @@ interface TooltipProps extends PropsWithChildren {
   arrowPosition?: TooltipArrowPosition
   hideArrow?: boolean
   hideCloseButton?: boolean
+  wrapperClassName?: string
   className?: string
   onClose?: VoidFunction
 }
@@ -33,6 +34,7 @@ export const Tooltip = ({
   open,
   label,
   children,
+  wrapperClassName,
   className,
   arrowPosition = "center",
   hideArrow = false,
@@ -54,7 +56,7 @@ export const Tooltip = ({
   }
 
   return (
-    <div className="relative">
+    <div className={cn("relative", wrapperClassName)}>
       {shouldRender && (
         <div
           role="tooltip"
