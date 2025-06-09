@@ -7,12 +7,12 @@ import {
 
 const LandingPage = () => {
   return (
-    <>
+    <main className="relative min-h-screen w-full">
       <LandingHeader />
       <LetterList />
       <KakaoLoginButton />
       <RandomLetterButton />
-    </>
+    </main>
   )
 }
 
