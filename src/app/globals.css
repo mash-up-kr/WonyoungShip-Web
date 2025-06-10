@@ -109,7 +109,7 @@
   --animate-tooltip-hide: tooltip-hide 0.2s ease-out both;
   --animate-toast-show: toast-show 0.3s ease-out both;
   --animate-toast-hide: toast-hide 0.3s ease-out both;
-  --animate-cookie-shake: cookie-shake 2.5s infinite alternate;
+  --animate-cookie-shake: cookie-shake 2.5s infinite;
 
   @keyframes tooltip-show {
     0% {
