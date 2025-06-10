@@ -4,16 +4,16 @@ import KakaoLogo from "@/assets/svg/kakao-logo.svg"
 
 import { Text } from "../common"
 
-const KAKAO_REDIRECT_URI = "/oauth/kakao"
-
 export const KakaoLoginButton = () => {
   const handleKakaoLogin = () => {
     if (typeof window === "undefined" || !window.Kakao.isInitialized()) {
       return
     }
 
+    const redirectUri = `${window.location.origin}/oauth/kakao`
+
     window.Kakao.Auth.authorize({
-      redirectUri: KAKAO_REDIRECT_URI,
+      redirectUri,
     })
   }
 
