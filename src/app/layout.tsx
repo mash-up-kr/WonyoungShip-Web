@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import localFont from "next/font/local"
 
 import "./globals.css"
+import { KakaoScript } from "@/components/kakao-script"
 import { SnackbarProvider } from "@/contexts/snackbar"
 
 const pretendard = localFont({
@@ -23,6 +24,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <KakaoScript />
       <body
         className={`${pretendard.className} bg-background-assistive antialiased`}
       >
