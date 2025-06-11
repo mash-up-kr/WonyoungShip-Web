@@ -24,7 +24,7 @@ export const KakaoLoginButton = () => {
         onClick={handleKakaoLogin}
       >
         <KakaoLogo />
-        <Text variant="body" size="small">
+        <Text variant="body" size="small" className="font-medium">
           간편 로그인하기
         </Text>
       </button>
