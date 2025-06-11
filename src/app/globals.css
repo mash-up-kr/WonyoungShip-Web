@@ -109,7 +109,7 @@
   --animate-tooltip-hide: tooltip-hide 0.2s ease-out both;
   --animate-toast-show: toast-show 0.3s ease-out both;
   --animate-toast-hide: toast-hide 0.3s ease-out both;
-  --animate-infinite-slide-left: slide-left 2s linear infinite;
+  --animate-infinite-slide-left: slide-left 15s linear infinite;
   --animate-cookie-shake: cookie-shake 2.5s infinite;
 
   @keyframes tooltip-show {
@@ -161,7 +161,7 @@
       transform: translateX(0%);
     }
     100% {
-      transform: translateX(calc(0% - 100%));
+      transform: translateX(-33.333%);
     }
   }
 

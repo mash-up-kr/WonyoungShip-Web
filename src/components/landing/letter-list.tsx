@@ -4,7 +4,6 @@ import LetterBackground from "@/assets/images/letter-background.png"
 
 import { Text, WeatherIcon } from "../common"
 
-
 type Weather = "sunny" | "cloudy" | "rainy" | "snow" | "shiny"
 
 const LETTER_LIST: {
@@ -59,7 +58,7 @@ export const LetterList = () => {
       <div className="absolute top-0 bottom-0 left-0 z-10 w-[30px] bg-gradient-to-r from-[#f2f5f7] to-[#f2f5f700] md:w-[50px] xl:w-[100px]"></div>
       <div className="absolute top-0 right-0 bottom-0 z-10 w-[30px] bg-gradient-to-l from-[#f2f5f7] to-[#f2f5f700] md:w-[50px] xl:w-[100px]"></div>
       {/* 편지 목록 */}
-      <div className="animate-infinite-slide-left flex w-full">
+      <div className="animate-infinite-slide-left flex w-max will-change-transform">
         {letterList.map(({ id, date, letter, weather }, index) => (
           <section
             key={`${id}-${index}`}
