@@ -109,6 +109,7 @@
   --animate-tooltip-hide: tooltip-hide 0.2s ease-out both;
   --animate-toast-show: toast-show 0.3s ease-out both;
   --animate-toast-hide: toast-hide 0.3s ease-out both;
+  --animate-cookie-shake: cookie-shake 2.5s infinite;
 
   @keyframes tooltip-show {
     0% {
@@ -152,6 +153,33 @@
     100% {
       opacity: 0;
       top: -36px;
+    }
+  }
+
+  @keyframes cookie-shake {
+    0% {
+      transform: rotate(0deg);
+      animation-timing-function: ease-out;
+    }
+    6% {
+      transform: rotate(-30deg);
+    }
+    12% {
+      transform: rotate(0deg);
+      animation-timing-function: ease-out;
+    }
+    18% {
+      transform: rotate(-30deg);
+    }
+    24% {
+      transform: rotate(0deg);
+      animation-timing-function: ease-out;
+    }
+    30% {
+      transform: rotate(-30deg);
+    }
+    36% {
+      transform: rotate(0deg);
     }
   }
 }

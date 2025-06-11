@@ -25,6 +25,7 @@ export const Button = ({
   children,
   text = "",
   variant,
+  className,
   ...props
 }: ButtonProps) => {
   const { disabled: isDisabled } = props
@@ -34,6 +35,7 @@ export const Button = ({
         BUTTON_BASE_STYLES,
         BUTTON_VARIANTS[variant],
         isDisabled && BUTTON_DISABLED_STYLES,
+        className,
       )}
       role="button"
       {...props}
