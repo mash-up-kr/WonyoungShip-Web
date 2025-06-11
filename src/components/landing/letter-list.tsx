@@ -52,6 +52,15 @@ const LETTER_LIST: {
 export const LetterList = () => {
   const letterList = [...LETTER_LIST, ...LETTER_LIST, ...LETTER_LIST]
 
+  const formatDate = (date: string | Date) => {
+    const d = new Date(date)
+    const month = d.getMonth() + 1
+    const day = String(d.getDate())
+    const dayOfWeek = d.toLocaleDateString("ko-KR", { weekday: "long" })
+
+    return `${month}월 ${day}일 ${dayOfWeek}`
+  }
+
   return (
     <div className="relative overflow-hidden">
       {/* 측면 그라데이션 숨김을 위한 요소 */}
@@ -77,7 +86,7 @@ export const LetterList = () => {
                 color="neutral-50"
                 className="font-normal"
               >
-                {date}
+                {formatDate(date)}
               </Text>
               <WeatherIcon weather={weather} size="sm" color="disabled" />
             </div>
