@@ -1,4 +1,9 @@
+import Image from "next/image"
+
+import LetterBackground from "@/assets/images/letter-background.png"
+
 import { Text, WeatherIcon } from "../common"
+
 
 type Weather = "sunny" | "cloudy" | "rainy" | "snow" | "shiny"
 
@@ -58,8 +63,13 @@ export const LetterList = () => {
         {letterList.map(({ id, date, letter, weather }, index) => (
           <section
             key={`${id}-${index}`}
-            className="bg-blue-10 mr-3 flex h-[209px] w-[209px] flex-none flex-col gap-3 rounded-[13px] p-6"
+            className="bg-blue-10 relative mr-3 flex h-[209px] w-[209px] flex-none flex-col gap-3 rounded-[13px] p-6"
           >
+            <Image
+              src={LetterBackground}
+              alt=""
+              className="absolute top-0 right-0 bottom-0 left-0 mix-blend-multiply"
+            />
             <div className="flex items-center justify-between">
               <Text
                 variant="body"
