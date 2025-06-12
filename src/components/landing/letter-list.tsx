@@ -95,7 +95,7 @@ export const LetterList = () => {
               size="medium"
               font="Ownglyph ryurue"
               color="neutral-80"
-              className="line-clamp-8 overflow-hidden leading-[100%] font-normal text-ellipsis"
+              className="line-clamp-8 leading-[100%] font-normal"
             >
               {letter}
             </Text>
