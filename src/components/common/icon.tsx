@@ -1,7 +1,7 @@
 import { IconName, ICONS } from "@/assets/svg"
 import { cn } from "@/utils/cn"
 
-type IconColor =
+export type IconColor =
   | "primary"
   | "secondary"
   | "tertiary"
@@ -10,7 +10,7 @@ type IconColor =
   | "inverse"
   | "brand"
 
-type IconSize = "xs" | "sm" | "md" | "lg" | "xl"
+export type IconSize = "xs" | "sm" | "md" | "lg" | "xl"
 
 interface IconProps {
   icon: IconName
@@ -21,7 +21,7 @@ interface IconProps {
   ariaLabel?: string
 }
 
-const FILL_COLORS: Record<IconColor, string> = {
+export const FILL_COLORS: Record<IconColor, string> = {
   primary: "fill-icon-primary",
   secondary: "fill-icon-secondary",
   tertiary: "fill-icon-tertiary",
