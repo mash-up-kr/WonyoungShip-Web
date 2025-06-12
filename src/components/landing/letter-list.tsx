@@ -64,8 +64,8 @@ export const LetterList = () => {
   return (
     <div className="relative overflow-hidden">
       {/* 측면 그라데이션 숨김을 위한 요소 */}
-      <div className="absolute top-0 bottom-0 left-0 z-10 w-[30px] bg-gradient-to-r from-[#f2f5f7] to-[#f2f5f700] md:w-[50px] xl:w-[100px]"></div>
-      <div className="absolute top-0 right-0 bottom-0 z-10 w-[30px] bg-gradient-to-l from-[#f2f5f7] to-[#f2f5f700] md:w-[50px] xl:w-[100px]"></div>
+      <div className="absolute top-0 bottom-0 left-0 z-10 w-[100px] bg-gradient-to-r from-[#f2f5f7] to-[#f2f5f700] md:w-[50px] xl:w-[100px]"></div>
+      <div className="absolute top-0 right-0 bottom-0 z-10 w-[100px] bg-gradient-to-l from-[#f2f5f7] to-[#f2f5f700] md:w-[50px] xl:w-[100px]"></div>
       {/* 편지 목록 */}
       <div className="animate-infinite-slide-left flex w-max will-change-transform">
         {letterList.map(({ id, date, letter, weather }, index) => (
@@ -95,7 +95,7 @@ export const LetterList = () => {
               size="medium"
               font="Ownglyph ryurue"
               color="neutral-80"
-              className="line-clamp-8 overflow-hidden leading-[100%] font-normal text-ellipsis"
+              className="line-clamp-8 leading-[100%] font-normal"
             >
               {letter}
             </Text>
