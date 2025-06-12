@@ -68,9 +68,9 @@ export const LetterList = () => {
       <div className="absolute top-0 right-0 bottom-0 z-10 w-[100px] bg-gradient-to-l from-[#f2f5f7] to-[#f2f5f700] md:w-[50px] xl:w-[100px]"></div>
       {/* 편지 목록 */}
       <div className="animate-infinite-slide-left flex w-max will-change-transform">
-        {letterList.map(({ id, date, letter, weather }) => (
+        {letterList.map(({ id, date, letter, weather }, index) => (
           <section
-            key={id}
+            key={`${id}-${index}`}
             className="bg-blue-10 relative mr-3 flex h-[209px] w-[209px] flex-none flex-col gap-3 rounded-[13px] p-6"
           >
             <Image
