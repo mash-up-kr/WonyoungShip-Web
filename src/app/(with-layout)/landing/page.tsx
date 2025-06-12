@@ -7,10 +7,12 @@ import {
 
 const LandingPage = () => {
   return (
-    <main className="relative min-h-screen w-full">
-      <LandingHeader />
-      <LetterList />
-      <KakaoLoginButton />
+    <main className="relative h-dvh w-full">
+      <div className="flex flex-col gap-7 overflow-hidden">
+        <LandingHeader />
+        <LetterList />
+        <KakaoLoginButton />
+      </div>
       <RandomLetterButton />
     </main>
   )
