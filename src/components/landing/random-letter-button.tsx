@@ -19,7 +19,7 @@ export const RandomLetterButton = () => {
       >
         <Button
           variant="primary"
-          className="flex items-center justify-center gap-2.5"
+          className="flex h-12 items-center justify-center gap-2.5"
         >
           <FortuneCookie className="animate-cookie-shake" />
           <span>랜덤하게 마음 전하기</span>
