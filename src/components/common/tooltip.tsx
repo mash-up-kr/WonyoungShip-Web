@@ -62,7 +62,7 @@ export const Tooltip = ({
           role="tooltip"
           onAnimationEnd={handleAnimationEnd}
           className={cn(
-            "bg-background-primary absolute bottom-[calc(100%+12px)] flex max-w-[15rem] items-center justify-center gap-2 rounded-lg px-3 py-2",
+            "bg-background-primary absolute bottom-[calc(100%+20px)] flex max-w-[15rem] items-center justify-center gap-2 rounded-lg px-3 py-2",
             TOOLTIP_POSITIONS[arrowPosition],
             isHiding ? "animate-tooltip-hide" : "animate-tooltip-show",
             className,
