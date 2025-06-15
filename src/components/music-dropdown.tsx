@@ -12,6 +12,32 @@ import { cn } from "@/utils/cn"
 
 import { Icon, Text } from "./common"
 
+const ICON_MAP = {
+  play: <Icon icon="play" size="lg" />,
+  playing: <Icon icon="playing" size="lg" />,
+  checked: <Icon icon="checked" size="lg" />,
+  unchecked: <Icon icon="unchecked" size="lg" />,
+}
+
+export const IconButton = ({
+  icon,
+  ...props
+}: PropsWithChildren<
+  ButtonHTMLAttributes<HTMLButtonElement> & {
+    icon: "play" | "playing" | "checked" | "unchecked"
+  }
+>) => {
+  return (
+    <button
+      {...props}
+      type="button"
+      className={cn("cursor-pointer", props.className)}
+    >
+      {ICON_MAP[icon]}
+    </button>
+  )
+}
+
 /** TEMP */
 export type MusicType = {
   id: string
@@ -131,49 +157,42 @@ const MusicDropdown = ({ className, musicList = [] }: MusicDropdownProps) => {
                               {playingMusicId === music.id ? (
                                 <>
                                   <IconButton
+                                    icon="playing"
                                     onClick={() => {
                                       handlePlayMusic(music)
                                     }}
-                                  >
-                                    <Icon
-                                      className="cursor-pointer"
-                                      icon="playing"
-                                      size="lg"
-                                    />
-                                  </IconButton>
+                                  />
 
                                   <IconButton
+                                    icon={
+                                      selectedMusic?.id === music.id
+                                        ? "checked"
+                                        : "unchecked"
+                                    }
                                     onClick={() => {
                                       handleSelectMusic(music)
                                     }}
-                                  >
-                                    {selectedMusic?.id === music.id ? (
-                                      <Icon icon="checked" size="lg" />
-                                    ) : (
-                                      <Icon icon="unchecked" size="lg" />
-                                    )}
-                                  </IconButton>
+                                  />
                                 </>
                               ) : (
                                 <>
                                   <IconButton
+                                    icon="play"
                                     onClick={() => {
                                       handlePlayMusic(music)
                                     }}
-                                  >
-                                    <Icon icon="play" size="lg" />
-                                  </IconButton>
+                                  />
+
                                   <IconButton
+                                    icon={
+                                      selectedMusic?.id === music.id
+                                        ? "checked"
+                                        : "unchecked"
+                                    }
                                     onClick={() => {
                                       handleSelectMusic(music)
                                     }}
-                                  >
-                                    {selectedMusic?.id === music.id ? (
-                                      <Icon icon="checked" size="lg" />
-                                    ) : (
-                                      <Icon icon="unchecked" size="lg" />
-                                    )}
-                                  </IconButton>
+                                  />
                                 </>
                               )}
                             </div>
@@ -193,18 +212,3 @@ const MusicDropdown = ({ className, musicList = [] }: MusicDropdownProps) => {
 }
 
 export default MusicDropdown
-
-export const IconButton = ({
-  children,
-  ...props
-}: PropsWithChildren<ButtonHTMLAttributes<HTMLButtonElement>>) => {
-  return (
-    <button
-      {...props}
-      type="button"
-      className={cn("cursor-pointer", props.className)}
-    >
-      {children}
-    </button>
-  )
-}
