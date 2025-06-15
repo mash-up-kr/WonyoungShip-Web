@@ -9,6 +9,8 @@ import {
 } from "@headlessui/react"
 import React, { PropsWithChildren } from "react"
 
+import { cn } from "@/utils/cn"
+
 export interface BaseDialogProps {
   isOpen: boolean
   onClose: VoidFunction
@@ -36,7 +38,13 @@ const BaseDialog = ({
       {...dialogProps}
     >
       <DialogBackdrop
-        className="bg-background-dimmer fixed inset-0 backdrop-blur-[7.5px]"
+        className={cn(
+          "bg-background-dimmer fixed inset-0 backdrop-blur-[7.5px]",
+          isOpen
+            ? "animate-[var(--animate-dialog-backdrop-show)]"
+            : "animate-[var(--animate-dialog-backdrop-hide)]",
+          dialogBackdropProps?.className,
+        )}
         {...dialogBackdropProps}
       />
       <div className="fixed inset-0 z-10">

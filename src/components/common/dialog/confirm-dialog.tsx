@@ -32,9 +32,11 @@ const ConfirmDialog = ({
       {...props}
     >
       <div className="flex flex-col items-center gap-[8px] p-[20px]">
-        <Text variant="heading" size="small" color="primary">
+        {/* Title */}
+        <Text as="h2" variant="heading" size="small" color="primary">
           {title}
         </Text>
+        {/* Description */}
         <Text variant="body" size="medium" color="secondary">
           {desc}
         </Text>
