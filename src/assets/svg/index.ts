@@ -1,3 +1,4 @@
+import Cd from "./cd.svg"
 import Checked from "./checked.svg"
 import ChevronDown from "./chevron-down.svg"
 import ChevronLeft from "./chevron-left.svg"
@@ -26,6 +27,7 @@ export const ICONS = {
   playing: Playing,
   checked: Checked,
   unchecked: Unchecked,
+  cd: Cd,
 }
 
 export type IconName = keyof typeof ICONS

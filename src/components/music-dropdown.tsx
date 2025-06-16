@@ -87,7 +87,12 @@ const MusicDropdown = ({ className, musicList = [] }: MusicDropdownProps) => {
 
               <MenuButton className="bg-background-white relative z-50 inline-flex w-full items-center justify-between rounded-[16px] px-[12px] py-[11px] shadow-inner shadow-white/10 focus:not-data-focus:outline-none data-focus:outline data-focus:outline-white">
                 <div className="flex items-center gap-[8px]">
-                  <Icon icon="music" size="lg" />
+                  {selectedMusic?.id ? (
+                    <Icon icon="cd" size="lg" />
+                  ) : (
+                    <Icon icon="music" size="lg" />
+                  )}
+
                   <Text variant="body" size="small" color="secondary">
                     {selectedMusic?.title ?? "편지에 노래를 담아보세요"}
                   </Text>
@@ -121,7 +126,10 @@ const MusicDropdown = ({ className, musicList = [] }: MusicDropdownProps) => {
                         return (
                           <div
                             className="flex w-full items-center justify-between"
-                            onClick={(e) => e.preventDefault()}
+                            onClick={(e) => {
+                              e.preventDefault()
+                              handleSelectMusic(music)
+                            }}
                           >
                             <div className="flex flex-col">
                               <Text
