@@ -109,6 +109,8 @@
   --animate-tooltip-hide: tooltip-hide 0.2s ease-out both;
   --animate-toast-show: toast-show 0.3s ease-out both;
   --animate-toast-hide: toast-hide 0.3s ease-out both;
+  --animate-infinite-slide-left: slide-left 15s linear infinite;
+  --animate-cookie-shake: cookie-shake 5s infinite;
 
   @keyframes tooltip-show {
     0% {
@@ -137,7 +139,6 @@
       opacity: 0;
       top: -36px;
     }
-
     100% {
       opacity: 1;
       top: 36px;
@@ -174,6 +175,37 @@
     }
     100% {
       opacity: 0;
+     
+  @keyframes slide-left {
+    0% {
+      transform: translateX(0%);
+    }
+    100% {
+      transform: translateX(-33.333%);
+    }
+  }
+
+  @keyframes cookie-shake {
+    0% {
+      transform: rotate(0deg);
+    }
+    6% {
+      transform: rotate(-30deg);
+    }
+    12% {
+      transform: rotate(0deg);
+    }
+    18% {
+      transform: rotate(-30deg);
+    }
+    24% {
+      transform: rotate(0deg);
+    }
+    30% {
+      transform: rotate(-30deg);
+    }
+    36% {
+      transform: rotate(0deg);
     }
   }
 }
