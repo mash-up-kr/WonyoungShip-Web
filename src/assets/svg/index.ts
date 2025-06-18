@@ -12,6 +12,7 @@ import Playing from "./playing.svg"
 import Setting from "./setting.svg"
 import TooltipArrow from "./tooltip-arrow.svg"
 import Unchecked from "./unchecked.svg"
+import { WEATHER_ICONS } from "./weather"
 
 export const ICONS = {
   chevronDown: ChevronDown,
@@ -28,6 +29,7 @@ export const ICONS = {
   checked: Checked,
   unchecked: Unchecked,
   cd: Cd,
+  ...WEATHER_ICONS,
 }
 
 export type IconName = keyof typeof ICONS
