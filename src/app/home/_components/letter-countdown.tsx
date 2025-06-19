@@ -1,5 +1,10 @@
+'use client';
+
+import Lottie from "lottie-react"
+
 import { Text } from "@/components/common"
 
+import LetterOpen from "../../../../public/assets/lottie/letter-open.json"
 import { LetterWeekContainer } from "../_components"
 
 type LetterStatus = "EMPTY" | "IN_DELIVERY" | "ARRIVED"
@@ -47,7 +52,7 @@ const getLetterStatus = (
 ): { status: LetterStatus; daysLeft?: number } => {
   const today = new Date()
   const target = new Date(scheduleDate)
-  
+
   const diff = Math.ceil(
     (target.getTime() - today.getTime()) / (1000 * 60 * 60 * 24),
   )
@@ -89,10 +94,9 @@ export const LetterCountdown = ({ letterList }: LetterCountdownProps) => {
           </Text>
         </section>
         {/* 그래픽 */}
-        <div className="my-6 h-[85px] w-20 bg-white"></div>
-        <button
-          className="bg-background-primary active:bg-neutral-40 items-center justify-center rounded-lg px-2.5 py-2 transition-colors"
-        >
+        <div className="h-24 my-3">
+        <Lottie animationData = {LetterOpen} className="h-full w-full"/></div>
+        <button className="bg-background-primary active:bg-neutral-40 items-center justify-center rounded-lg px-2.5 py-2 transition-colors">
           <Text
             variant="body"
             size="small"
@@ -103,7 +107,7 @@ export const LetterCountdown = ({ letterList }: LetterCountdownProps) => {
           </Text>
         </button>
       </section>
-      <LetterWeekContainer letterList={letterList}/>
+      <LetterWeekContainer letterList={letterList} />
     </section>
   )
 }
