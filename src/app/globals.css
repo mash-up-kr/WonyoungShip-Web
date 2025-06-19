@@ -175,7 +175,9 @@
     }
     100% {
       opacity: 0;
-     
+    }
+  }
+
   @keyframes slide-left {
     0% {
       transform: translateX(0%);
