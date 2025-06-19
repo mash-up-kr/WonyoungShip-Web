@@ -1,5 +1,6 @@
-import { Text, LetterCountBox } from "@/components/common"
-import { formatDate, weekDates } from "@/utils/date"
+import { Text } from "@/components/common"
+import { LetterCountBox } from "@/components/common"
+import { formatDate, currentWeekDates } from "@/utils/date"
 
 // TODO : API 연결할 때 letter-countdown 확인해서 공통으로 옮기기
 interface Letter {
@@ -11,7 +12,7 @@ interface LetterCountdownProps {
   letterList: Letter[]
 }
 
-const dayLabels = ["월", "화", "수", "목", "금", "토", "일"]
+const DAY_KO_LABELS = ["월", "화", "수", "목", "금", "토", "일"]
 
 export const LetterWeekContainer = ({ letterList }: LetterCountdownProps) => {
   const today = new Date()
@@ -22,29 +23,35 @@ export const LetterWeekContainer = ({ letterList }: LetterCountdownProps) => {
     countMap[scheduleDate] = (countMap[scheduleDate] || 0) + 1
   })
 
-  const countsByDay = weekDates.map((date) => {
+  const currentWeekDate = currentWeekDates
+
+  const countsByDay = currentWeekDate.map((date) => {
     const key = formatDate(date)
     return countMap[key] || 0
   })
 
   return (
-    <section className="bg-alpha-60 flex h-[93px] w-full justify-between rounded-2xl gap-2 p-3">
-      {weekDates.map((date, idx) => {
+    <ul className="bg-alpha-60 flex h-[93px] w-full justify-between gap-2 rounded-2xl p-3">
+      {currentWeekDate.map((date, idx) => {
         const isToday = formatDate(date) === formatDate(today)
+
         return (
-          <div key={idx} className="flex flex-col items-center gap-1 w-full">
+          <li
+            key={formatDate(date)}
+            className="flex w-full flex-col items-center gap-1"
+          >
             <Text
               variant="body"
               font="Ownglyph ryurue"
-              color={`${isToday ? "blue-100" : "primary"}`}
+              color={isToday ? "blue-100" : "primary"}
               className="leading-[1.125rem] font-normal"
             >
-              {dayLabels[idx]}
+              {DAY_KO_LABELS[idx]}
             </Text>
             <LetterCountBox letterCount={countsByDay[idx]} isToday={isToday} />
-          </div>
+          </li>
         )
       })}
-    </section>
+    </ul>
   )
 }

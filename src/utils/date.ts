@@ -11,7 +11,7 @@ export const getMondayOfWeek = (date: Date) => {
 }
 
 /** 이번 주 날짜 구하는 함수 (월요일부터) */
-export const weekDates = Array.from({ length: 7 }).map((_, i) => {
+export const currentWeekDates = Array.from({ length: 7 }).map((_, i) => {
   const tempWeek = new Date(getMondayOfWeek(new Date()))
   tempWeek.setDate(tempWeek.getDate() + i)
   return tempWeek
