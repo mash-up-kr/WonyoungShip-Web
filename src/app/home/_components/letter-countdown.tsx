@@ -1,5 +1,7 @@
 import { Text } from "@/components/common"
 
+import { LetterWeekContainer } from "../_components"
+
 type LetterStatus = "EMPTY" | "IN_DELIVERY" | "ARRIVED"
 type TextColor = "secondary" | "tertiary"
 
@@ -101,8 +103,7 @@ export const LetterCountdown = ({ letterList }: LetterCountdownProps) => {
           </Text>
         </button>
       </section>
-      {/* TODO : 하단 section 지우고 요일 Container 넣기 */}
-      <section className="h-[93px] w-[327px] bg-white" />
+      <LetterWeekContainer letterList={letterList}/>
     </section>
   )
 }
