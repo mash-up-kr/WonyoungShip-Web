@@ -1,10 +1,10 @@
-'use client';
+"use client"
 
 import Lottie from "lottie-react"
 
 import { Text } from "@/components/common"
 
-import LetterOpen from "../../../../public/assets/lottie/letter-open.json"
+import { HOME_LOTTIES } from "../../../../public/assets/lottie"
 import { LetterWeekContainer } from "../_components"
 
 type LetterStatus = "EMPTY" | "IN_DELIVERY" | "ARRIVED"
@@ -19,28 +19,37 @@ interface LetterCountdownProps {
   letterList: Letter[]
 }
 
-export const WAITING_TEXT: Record<
+const LETTER_CONFIG: Record<
   LetterStatus,
   {
     subtitle: string | ((daysLeft: number) => string)
     subtitleColor: TextColor
     title: string
+    lottieData: typeof HOME_LOTTIES[keyof typeof HOME_LOTTIES]
+    lottieSize: string
   }
 > = {
   EMPTY: {
     subtitle: "오고 있는 편지가 없어요",
     subtitleColor: "tertiary",
     title: "주소를 공유해 편지를 받아보세요!",
+    lottieData: HOME_LOTTIES.EMPTY,
+    lottieSize: "w-[12rem]"
+
   },
   IN_DELIVERY: {
     subtitle: (daysLeft: number) => `D-${daysLeft}`,
     subtitleColor: "secondary",
     title: "열심히 배달 중...",
+    lottieData: HOME_LOTTIES.IN_DELIVERY,
+    lottieSize: "w-[12rem]"
   },
   ARRIVED: {
     subtitle: "D-Day",
     subtitleColor: "secondary",
     title: "편지가 도착했어요!",
+    lottieData: HOME_LOTTIES.ARRIVED,
+    lottieSize:"w-24"
   },
 }
 
@@ -68,7 +77,7 @@ export const LetterCountdown = ({ letterList }: LetterCountdownProps) => {
     ? getLetterStatus(letterList[0].scheduleDate)
     : { status: "EMPTY" as const }
 
-  const { title, subtitle, subtitleColor } = WAITING_TEXT[status]
+  const { title, subtitle, subtitleColor, lottieData } = LETTER_CONFIG[status]
 
   return (
     <section className="bg-letter flex h-[378px] w-full flex-col items-center justify-between rounded-3xl bg-blue-50 px-4 pt-7 pb-3">
@@ -93,19 +102,27 @@ export const LetterCountdown = ({ letterList }: LetterCountdownProps) => {
             {title}
           </Text>
         </section>
-        {/* 그래픽 */}
-        <div className="h-24 my-3">
-        <Lottie animationData = {LetterOpen} className="h-full w-full"/></div>
-        <button className="bg-background-primary active:bg-neutral-40 items-center justify-center rounded-lg px-2.5 py-2 transition-colors">
-          <Text
-            variant="body"
-            size="small"
-            color="inverse"
-            className="font-medium"
-          >
-            편지 열어보기
-          </Text>
-        </button>
+
+        <div className="flex flex-col h-[140px] items-center justify-center mt-3 my-9">
+          <Lottie
+            animationData={lottieData}
+             className={`${LETTER_CONFIG[status].lottieSize} object-contain `}
+          />
+
+          {status == "ARRIVED" && (
+          <button className="bg-background-primary active:bg-neutral-40 items-center justify-center rounded-lg px-2.5 py-2 transition-colors">
+            <Text
+              variant="body"
+              size="small"
+              color="inverse"
+              className="font-medium"
+            >
+              편지 열어보기
+            </Text>
+          </button>
+        )}
+        </div>
+        
       </section>
       <LetterWeekContainer letterList={letterList} />
     </section>
