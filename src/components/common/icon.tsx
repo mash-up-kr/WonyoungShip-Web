@@ -1,7 +1,7 @@
 import { IconName, ICONS } from "@/assets/svg"
 import { cn } from "@/utils/cn"
 
-type IconColor =
+export type IconColor =
   | "primary"
   | "secondary"
   | "tertiary"
@@ -10,7 +10,7 @@ type IconColor =
   | "inverse"
   | "brand"
 
-type IconSize = "sm" | "md" | "lg" | "xl"
+export type IconSize = "xs" | "sm" | "md" | "lg" | "xl"
 
 interface IconProps {
   icon: IconName
@@ -21,7 +21,7 @@ interface IconProps {
   ariaLabel?: string
 }
 
-const FILL_COLORS: Record<IconColor, string> = {
+export const FILL_COLORS: Record<IconColor, string> = {
   primary: "fill-icon-primary",
   secondary: "fill-icon-secondary",
   tertiary: "fill-icon-tertiary",
@@ -43,6 +43,7 @@ const STROKE_COLORS: Record<IconColor, string> = {
 
 //TODO: 임의로 지정한 사이즈임. 디자인 시스템에 따라 조정 필요
 const ICON_SIZES: Record<IconSize, string> = {
+  xs: "w-3 h-3", // 12px
   sm: "w-4 h-4", // 16px
   md: "w-5 h-5", // 20px
   lg: "w-6 h-6", // 24px
