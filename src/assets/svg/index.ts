@@ -7,6 +7,7 @@ import Letter from "./letter.svg"
 import Link from "./link.svg"
 import Logo from "./logo.svg"
 import Music from "./music.svg"
+import Pencil from "./pencil.svg"
 import Play from "./play.svg"
 import Playing from "./playing.svg"
 import Setting from "./setting.svg"
@@ -29,6 +30,7 @@ export const ICONS = {
   checked: Checked,
   unchecked: Unchecked,
   cd: Cd,
+  pencil: Pencil,
   ...WEATHER_ICONS,
 }
 

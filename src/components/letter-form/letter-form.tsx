@@ -1,10 +1,12 @@
 "use client"
 
+import { Textarea } from "@headlessui/react"
+import clsx from "clsx"
 import React, { useState } from "react"
 
 import { WeatherIconName } from "@/assets/svg/weather"
 
-import { Text, WeatherIcon } from "../common"
+import { Icon, Text, WeatherIcon } from "../common"
 import BasicHeader from "../common/header/basic-header"
 import MusicDropdown from "../music-dropdown"
 
@@ -53,18 +55,37 @@ const LetterForm = () => {
   const [step, setStep] = useState<number>(1)
 
   return (
-    <main className="relative h-dvh w-full">
+    <section className="relative h-dvh w-full">
+      {/* 헤더 */}
       <BasicHeader
         hasBackButton={step !== 1}
         onClickBackButton={() => setStep(step - 1)}
         centerText="To. 예인"
       />
-      <BasicHeader hasBackButton />
+      {/* 날씨영역 */}
       <WeatherList />
+
+      {/* 음악 드롭다운 */}
       <div className="mt-[24px] flex place-content-center">
         <MusicDropdown />
       </div>
-    </main>
+
+      <div className="bg-background-assistive mx-[16px] mt-[24px] flex h-[346px] flex-col rounded-[20px] px-[24px] pt-[24px]">
+        <Textarea
+          className={clsx(
+            "text-text-primary font-ryurue size-[18px] min-h-[260px] w-full resize-none pb-[8px]",
+            "focus:not-data-focus:outline-none data-focus:outline-2 data-focus:-outline-offset-2 data-focus:outline-white/25",
+          )}
+          placeholder="미래의 나에게 편지를 자유롭게 작성해주세요!"
+        />
+        <div className="flex items-center justify-end gap-[4px]">
+          <Text variant="body" size="medium" color="secondary">
+            From.익명의 너구리F
+          </Text>
+          <Icon icon="pencil" size="md" />
+        </div>
+      </div>
+    </section>
   )
 }
 
