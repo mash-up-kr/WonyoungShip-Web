@@ -12,7 +12,7 @@ export interface ConfirmDialogProps {
   onConfirm: VoidFunction
 }
 
-const ConfirmDialog = ({
+export const ConfirmDialog = ({
   isOpen,
   title = "Title",
   desc = "Description",
@@ -74,5 +74,3 @@ const ConfirmDialog = ({
     </BaseDialog>
   )
 }
-
-export default ConfirmDialog
