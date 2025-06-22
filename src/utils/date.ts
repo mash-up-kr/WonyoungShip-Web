@@ -7,13 +7,16 @@ export const formatDate = (date: Date) => {
 export const getMondayOfWeek = (date: Date) => {
   const day = date.getDay()
   const diff = date.getDate() - day + (day === 0 ? -6 : 1)
-  return new Date(date.setDate(diff))
+  const result = new Date(date.getFullYear(), date.getMonth(), diff)
+  result.setHours(12)
+  return result
 }
 
 /** 이번 주 날짜 구하는 함수 (월요일부터) */
 export const currentWeekDates = Array.from({ length: 7 }).map((_, i) => {
   const tempWeek = new Date(getMondayOfWeek(new Date()))
   tempWeek.setDate(tempWeek.getDate() + i)
+  console.log(tempWeek)
   return tempWeek
 })
 
