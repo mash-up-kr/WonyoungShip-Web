@@ -52,9 +52,9 @@
   --color-red-100: #dd2626;
 
   /* Alpha (rgba) */
-  --color-alpha-20: rgba(0, 0, 0, 0.2);
-  --color-alpha-40: rgba(0, 0, 0, 0.4);
-  --color-alpha-60: rgba(0, 0, 0, 0.6);
+  --color-alpha-20: rgba(255, 255, 255, 0.2);
+  --color-alpha-40: rgba(255, 255, 255, 0.4);
+  --color-alpha-60: rgba(255, 255, 255, 0.6);
 
   /* — Text 색상 토큰 — */
   --color-text-primary: var(--color-neutral-90);
@@ -128,5 +128,13 @@
       opacity: 0;
       transform: scale(0.1) translateY(-10px);
     }
+  }
+}
+
+@layer utilities {
+  .bg-letter {
+    background-image: url('/images/letter-background.png');
+    background-size: cover;
+    background-position: center;
   }
 }

@@ -4,8 +4,23 @@ import { Text } from "@/components/common"
 
 import { WriteLetterButton, LetterCountdown } from "./_components"
 
+// TODO : API 연결 시 제거
 const tempData = {
   letterCount: 5,
+  letterList: [
+    {
+      id: 1,
+      scheduleDate: "2025-06-21",
+    },
+    {
+      id: 2,
+      scheduleDate: "2025-06-23",
+    },
+    {
+      id: 3,
+      scheduleDate: "2025-06-24",
+    },
+  ],
 }
 
 export default function Home() {
@@ -14,18 +29,18 @@ export default function Home() {
       <WriteLetterButton />
       <section className="mt-10 mb-4 flex flex-col">
         <div className="flex px-4">
-          <div className="flex gap-2">
+          <h2 className="flex gap-2">
             <Text variant="heading" size="small" className="font-bold">
               나에게 오고 있는 편지
             </Text>
             <Text variant="heading" size="small" color="tertiary">
               {tempData.letterCount}
             </Text>
-          </div>
+          </h2>
           {/* TODO : IconButton merge하면 추가하기 */}
         </div>
       </section>
-      <LetterCountdown />
+      <LetterCountdown letterList={tempData.letterList}/>
     </div>
   )
 }
