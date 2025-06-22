@@ -1,8 +1,8 @@
 // TODO : 현봉 오빠 layout merge 하면 파일 레이아웃에 맞춰 옮기기
 
+import { WriteLetterButton, LetterCountdown } from "@/app/home/_components"
 import { Text } from "@/components/common"
 
-import { WriteLetterButton, LetterCountdown } from "./_components"
 
 // TODO : API 연결 시 제거
 const tempData = {

@@ -16,3 +16,10 @@ export const currentWeekDates = Array.from({ length: 7 }).map((_, i) => {
   tempWeek.setDate(tempWeek.getDate() + i)
   return tempWeek
 })
+
+/** 남은 일수 구하는 함수 (지난 날짜면 음수, 이후 날짜는 양수)*/
+export const getDaysDelivery = (scheduleDate: string): number => {
+  const today = new Date()
+  const target = new Date(scheduleDate)
+  return Math.ceil((target.getTime() - today.getTime()) / (1000 * 60 * 60 * 24))
+}
