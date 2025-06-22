@@ -16,7 +16,6 @@
     "next": "15.3.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-lottie": "^1.2.10",
     "tailwind-merge": "^3.3.0"
   },
   "devDependencies": {
