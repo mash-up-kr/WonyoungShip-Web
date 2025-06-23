@@ -6,7 +6,7 @@ export const WriteLetterButton = () => {
   return (
     <Link
       href="/"
-      className="flex bg-background-white mx-2 w-full justify-between items-center rounded-2xl p-4"
+      className="flex bg-background-white mx-2 justify-between items-center rounded-2xl p-4"
     >
       <div className="flex flex-col justify-between">
         <Text
