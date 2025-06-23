@@ -1,4 +1,4 @@
-import { Text} from "@/components/common"
+import { Text } from "@/components/common"
 import {
   WriteLetterButton,
   LetterCountdown,

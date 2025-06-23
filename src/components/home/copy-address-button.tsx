@@ -1,9 +1,13 @@
 "use client"
 
-import { IconButton } from "@/components/common"
+import { useState } from "react"
+
+import { IconButton, Tooltip } from "@/components/common"
 import { useSnackbar } from "@/contexts/snackbar"
 
 export const CopyAddressButton = () => {
+  const [isTooltipOpen, setIsTooltipOpen] = useState(true)
+
   const { showSnackbar } = useSnackbar()
 
   const handleClickCopy = async () => {
@@ -18,7 +22,7 @@ export const CopyAddressButton = () => {
         icon: "link",
       })
 
-    // TODO : 복사 실패 시... 굳이인가 싶기도 해서 얘기 나눠보고 수정하기
+      // TODO : 복사 실패 시... 굳이인가 싶기도 해서 얘기 나눠보고 수정하기
     } catch (error) {
       console.error("복사 실패:", error)
       showSnackbar({
@@ -28,9 +32,21 @@ export const CopyAddressButton = () => {
     }
   }
 
+  const handleTooltipClose = () => {
+    setIsTooltipOpen(false)
+  }
+
   return (
-    <IconButton icon="link" onClick={handleClickCopy}>
-      주소 복사
-    </IconButton>
+    <div>
+      <Tooltip
+        open={isTooltipOpen}
+        label="주소를 공유해 편지를 받아보세요!"
+        onClose={handleTooltipClose}
+        arrowPosition="right"
+      />
+      <IconButton icon="link" onClick={handleClickCopy}>
+        주소 복사
+      </IconButton>
+    </div>
   )
 }
