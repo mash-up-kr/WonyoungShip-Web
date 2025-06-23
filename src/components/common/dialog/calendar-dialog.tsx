@@ -2,23 +2,33 @@
 
 import { useState } from "react"
 
+import { cn } from "@/utils/cn"
+
 import { Icon } from "../icon"
 import { Text } from "../text"
 
 import BaseDialog from "./base-dialog"
 interface CalendarDialogProps {
   isOpen: boolean
-  onCancel: VoidFunction
+  onClose: VoidFunction
+  onConfirm: VoidFunction
+  selectedDate?: Date
+  onSelectDate?: (date: Date) => void
 }
 
-export const CalendarDialog = ({ isOpen, onCancel }: CalendarDialogProps) => {
-  // 오늘 날짜 정보
-  const today = new Date()
-  today.setHours(0, 0, 0, 0)
+export const CalendarDialog = ({
+  isOpen,
+  selectedDate = new Date(),
+  onSelectDate,
+  onClose,
+  onConfirm,
+}: CalendarDialogProps) => {
+  const baseDate = selectedDate
+  baseDate.setHours(0, 0, 0, 0)
 
-  // 렌더링 기준이 되는 달
-  const [baseYear, setBaseYear] = useState(today.getFullYear())
-  const [baseMonth, setBaseMonth] = useState(today.getMonth()) // 0=1월
+  const [baseYear, setBaseYear] = useState(baseDate.getFullYear())
+  const [baseMonth, setBaseMonth] = useState(baseDate.getMonth())
+  const [currentSelectedDate, setCurrentSelectedDate] = useState(baseDate)
 
   const firstOfMonth = new Date(baseYear, baseMonth, 1)
   const lastOfMonth = new Date(baseYear, baseMonth + 1, 0)
@@ -62,10 +72,9 @@ export const CalendarDialog = ({ isOpen, onCancel }: CalendarDialogProps) => {
       date.getFullYear() === baseYear && date.getMonth() === baseMonth
 
     if (isCurrentMonth) {
-      return
-    }
-
-    if (date.getTime() < today.getTime()) {
+      setCurrentSelectedDate(date)
+      onSelectDate?.(date)
+    } else if (date.getTime() < baseDate.getTime()) {
       handlePrevMonthClick()
     } else {
       handleNextMonthClick()
@@ -75,7 +84,7 @@ export const CalendarDialog = ({ isOpen, onCancel }: CalendarDialogProps) => {
   return (
     <BaseDialog
       isOpen={isOpen}
-      onClose={onCancel}
+      onClose={onClose}
       dialogPanelProps={{
         className: "w-[306px] flex flex-col items-center gap-4",
       }}
@@ -122,20 +131,26 @@ export const CalendarDialog = ({ isOpen, onCancel }: CalendarDialogProps) => {
             {days.map((date) => {
               const isCurrentMonth =
                 date.getFullYear() === baseYear && date.getMonth() === baseMonth
-              const isPast = !isCurrentMonth || date.getTime() < today.getTime()
+              const isSelectedDate =
+                `${currentSelectedDate.getFullYear()}-${currentSelectedDate.getMonth()}-${currentSelectedDate.getDate()}` ===
+                `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`
               const dateLabel = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`
 
               return (
                 <button
                   key={dateLabel}
                   onClick={() => handleDateClick(date)}
-                  className="flex h-6 w-6 items-center justify-center"
+                  className="flex items-center justify-center"
                 >
                   <Text
                     variant="body"
                     size="small"
-                    color={isPast || !isCurrentMonth ? "disabled" : "primary"}
-                    className="text-center font-normal"
+                    color={isCurrentMonth ? "primary" : "disabled"}
+                    className={cn(
+                      "h-6 w-6 rounded-md p-[1] text-center font-normal",
+                      isSelectedDate &&
+                        "bg-background-brandassistive text-text-brand font-medium",
+                    )}
                     aria-label={dateLabel}
                   >
                     {date.getDate()}
@@ -146,7 +161,10 @@ export const CalendarDialog = ({ isOpen, onCancel }: CalendarDialogProps) => {
           </div>
         </div>
       </div>
-      <button className="bg-neutral-20 rounded-lg px-2.5 py-2">
+      <button
+        className="bg-neutral-20 rounded-lg px-2.5 py-2"
+        onClick={onConfirm}
+      >
         <Text variant="body" size="small" color="tertiary">
           완료
         </Text>
