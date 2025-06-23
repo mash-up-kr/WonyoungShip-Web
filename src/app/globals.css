@@ -85,7 +85,7 @@
   --color-background-assistive: var(--color-neutral-10);
   --color-background-dimmer: var(--color-alpha-40);
   --color-background-brand: var(--color-orange-100);
-  --color-background-brandassistive: var(--color-orange-10);
+  --color-background-brandassistive: var(--color-blue-10);
   --color-background-white: var(--color-white);
 
   /* — Skeleton 색상 토큰 — */
@@ -209,6 +209,12 @@
     36% {
       transform: rotate(0deg);
     }
+  }
+}
+
+@layer base {
+  button {
+    @apply cursor-pointer;
   }
 }
 
