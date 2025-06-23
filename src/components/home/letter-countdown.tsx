@@ -5,8 +5,9 @@ import Lottie from "lottie-react"
 import { Text } from "@/components/common"
 import { getDaysDelivery } from "@/utils/date"
 
-import { HOME_LOTTIES } from "../../../../public/assets/lottie"
-import { LetterWeekContainer } from "../_components"
+import { HOME_LOTTIES } from "../../../public/assets/lottie"
+
+import { LetterWeekContainer } from "./letter-week-container"
 
 type LetterStatus = "EMPTY" | "IN_DELIVERY" | "ARRIVED"
 type TextColor = "secondary" | "tertiary"

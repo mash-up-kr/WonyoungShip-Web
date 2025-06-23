@@ -1,7 +1,7 @@
 // TODO : 현봉 오빠 layout merge 하면 파일 레이아웃에 맞춰 옮기기
 
-import { WriteLetterButton, LetterCountdown } from "@/app/home/_components"
-import { Text } from "@/components/common"
+import { Text, IconButton } from "@/components/common"
+import { WriteLetterButton, LetterCountdown } from "@/components/home"
 
 
 // TODO : API 연결 시 제거
@@ -37,7 +37,7 @@ export default function Home() {
               {tempData.letterCount}
             </Text>
           </h2>
-          {/* TODO : IconButton merge하면 추가하기 */}
+          <IconButton icon="link">주소 복사</IconButton>
         </div>
       </section>
       <LetterCountdown letterList={tempData.letterList}/>

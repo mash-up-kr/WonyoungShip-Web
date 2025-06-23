@@ -16,7 +16,6 @@ export const getMondayOfWeek = (date: Date) => {
 export const currentWeekDates = Array.from({ length: 7 }).map((_, i) => {
   const tempWeek = new Date(getMondayOfWeek(new Date()))
   tempWeek.setDate(tempWeek.getDate() + i)
-  console.log(tempWeek)
   return tempWeek
 })
 

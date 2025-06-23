@@ -1,6 +1,7 @@
 import { Text } from "@/components/common"
-import { LetterCountBox } from "@/components/common"
 import { formatDate, currentWeekDates } from "@/utils/date"
+
+import { LetterCountBox } from "./letter-count-box"
 
 // TODO : API 연결할 때 letter-countdown 확인해서 공통으로 옮기기
 interface Letter {
