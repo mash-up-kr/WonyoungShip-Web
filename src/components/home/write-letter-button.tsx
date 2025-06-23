@@ -21,7 +21,6 @@ export const WriteLetterButton = () => {
           미래의 나에게 편지 전하기
         </span>
       </div>
-      {/* TODO : icon size 회의 후 18px로 맞추기 */}
       <Icon icon="chevronRight" stroke="secondary" />
     </Link>
   )

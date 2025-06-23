@@ -128,12 +128,12 @@ export const LetterCountdown = ({ letterList }: LetterCountdownProps) => {
           />
 
           {status == "ARRIVED" && (
-            <button className="bg-background-primary active:bg-neutral-40 items-center justify-center rounded-lg px-2.5 py-2 transition-colors">
+            <button className="bg-background-primary flex active:bg-neutral-40 items-center justify-center rounded-lg px-2.5 py-2 transition-colors">
               <Text
                 variant="body"
                 size="small"
                 color="inverse"
-                className="font-medium"
+                className="font-medium leading-4"
               >
                 편지 열어보기
               </Text>
