@@ -1,6 +1,7 @@
 import Cd from "./cd.svg"
 import Checked from "./checked.svg"
 import ChevronDown from "./chevron-down.svg"
+import ChevronLeftThin from "./chevron-left-thin.svg"
 import ChevronLeft from "./chevron-left.svg"
 import ChevronRight from "./chevron-right.svg"
 import Clear from "./clear.svg"
@@ -17,6 +18,7 @@ import { WEATHER_ICONS } from "./weather"
 
 export const ICONS = {
   chevronDown: ChevronDown,
+  chevronLeftThin: ChevronLeftThin,
   chevronLeft: ChevronLeft,
   chevronRight: ChevronRight,
   clear: Clear,
