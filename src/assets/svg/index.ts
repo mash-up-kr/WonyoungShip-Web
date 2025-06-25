@@ -19,7 +19,6 @@ export const ICONS = {
   chevronDown: ChevronDown,
   chevronRight: ChevronRight,
   chevronLeft: ChevronLeft,
-  chevronRight: ChevronRight,
   clear: Clear,
   link: Link,
   letter: Letter,

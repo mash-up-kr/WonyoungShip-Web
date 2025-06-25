@@ -43,7 +43,7 @@ export const LetterCountBox = ({
   isToday?: boolean
 }) => {
   const { box, circle, fontColor } =
-    BOX_STYLES[BOX_STYLES.getVariant(letterCount, isToday || false)]
+    BOX_STYLES[BOX_STYLES.getVariant(letterCount, isToday ?? false)]
 
   return (
     <div

@@ -217,11 +217,3 @@
     @apply cursor-pointer;
   }
 }
-
-@layer utilities {
-  .bg-letter {
-    background-image: url('/images/letter-background.png');
-    background-size: cover;
-    background-position: center;
-  }
-}

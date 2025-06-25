@@ -1,7 +1,6 @@
 export * from "./button"
 export * from "./dialog"
 export * from "./header/header"
-export * from "./header/header-back"
 export * from "./icon"
 export * from "./icon-button"
 export * from "./snackbar"

@@ -1,11 +1,14 @@
 "use client"
 
 import Lottie from "lottie-react"
+import Image from "next/image"
 
+import LetterBackground from "@/assets/images/letter-background.png"
 import { Text } from "@/components/common"
 import { getDaysDelivery } from "@/utils/date"
 
 import { HOME_LOTTIES } from "../../../public/assets/lottie"
+
 
 import { LetterWeekContainer } from "./letter-week-container"
 
@@ -98,9 +101,14 @@ export const LetterCountdown = ({ letterList }: LetterCountdownProps) => {
   const { title, subtitle, subtitleColor, lottieData } = LETTER_CONFIG[status]
 
   return (
-    <section className="bg-letter flex h-[378px] w-full flex-col items-center justify-between rounded-3xl bg-blue-50 px-4 pt-7 pb-3">
-      <section className="flex flex-col items-center">
-        <section className="flex flex-col items-center gap-2">
+    <section className="relative flex h-[378px] w-full flex-col items-center overflow-hidden justify-between rounded-3xl bg-blue-10 px-4 pt-7 pb-3">
+      <Image
+              src={LetterBackground}
+              alt=""
+              className="absolute top-0 right-0 bottom-0 left-0 mix-blend-multiply"
+            />
+      <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center gap-2">
           <Text
             as="h2"
             variant="heading"
@@ -119,7 +127,7 @@ export const LetterCountdown = ({ letterList }: LetterCountdownProps) => {
           >
             {title}
           </Text>
-        </section>
+        </div>
 
         <div className="my-9 mt-3 flex h-[140px] flex-col items-center justify-center">
           <Lottie
@@ -140,7 +148,7 @@ export const LetterCountdown = ({ letterList }: LetterCountdownProps) => {
             </button>
           )}
         </div>
-      </section>
+      </div>
       <LetterWeekContainer letterList={letterList} />
     </section>
   )
