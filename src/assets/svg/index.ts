@@ -3,6 +3,7 @@ import Checked from "./checked.svg"
 import ChevronDown from "./chevron-down.svg"
 import ChevronLeft from "./chevron-left.svg"
 import Clear from "./clear.svg"
+import FortuneCookie from "./fortune-cookie.svg"
 import Letter from "./letter.svg"
 import Link from "./link.svg"
 import Logo from "./logo.svg"
@@ -31,6 +32,7 @@ export const ICONS = {
   unchecked: Unchecked,
   cd: Cd,
   pencil: Pencil,
+  fortuneCookie: FortuneCookie,
   ...WEATHER_ICONS,
 }
 

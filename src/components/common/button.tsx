@@ -4,7 +4,7 @@ import { cn } from "@/utils/cn"
 
 import { Text } from "./text"
 
-type ButtonVariant = "blue" |  "primary"
+type ButtonVariant = "blue" | "primary" | "gray"
 
 interface ButtonProps
   extends PropsWithChildren,
@@ -14,11 +14,12 @@ interface ButtonProps
 }
 
 const BUTTON_VARIANTS: Record<ButtonProps["variant"], string> = {
-  blue: "bg-blue-100 w-full max-w-[343px]",
-  primary: "bg-background-primary w-full",
+  blue: "bg-blue-100 max-w-[420px] w-full h-[48px]",
+  primary: "bg-background-primary max-w-[420px] w-full",
+  gray: "bg-neutral-20 max-w-[420px] w-full",
 }
 const BUTTON_BASE_STYLES: HTMLAttributes<HTMLButtonElement>["className"] =
-  "cursor-pointer rounded-[12px] py-[16px] text-white disabled:cursor-auto"
+  "cursor-pointer rounded-[12px] text-white disabled:cursor-auto"
 const BUTTON_DISABLED_STYLES: HTMLAttributes<HTMLButtonElement>["className"] =
   "bg-neutral-20 text-text-tertiary"
 
