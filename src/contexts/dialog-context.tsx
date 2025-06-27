@@ -2,9 +2,7 @@
 
 import { createContext, PropsWithChildren, useContext, useState } from "react"
 
-import ConfirmDialog, {
-  ConfirmDialogProps,
-} from "@/components/common/dialog/confirm-dialog"
+import { ConfirmDialog, ConfirmDialogProps } from "@/components/common"
 
 type ConfirmDialogType = ConfirmDialogProps
 
