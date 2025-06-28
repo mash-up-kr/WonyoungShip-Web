@@ -52,9 +52,9 @@
   --color-red-100: #dd2626;
 
   /* Alpha (rgba) */
-  --color-alpha-20: rgba(0, 0, 0, 0.2);
-  --color-alpha-40: rgba(0, 0, 0, 0.4);
-  --color-alpha-60: rgba(0, 0, 0, 0.6);
+  --color-alpha-20: rgba(255, 255, 255, 0.2);
+  --color-alpha-40: rgba(255, 255, 255, 0.4);
+  --color-alpha-60: rgba(255, 255, 255, 0.6);
 
   /* — Text 색상 토큰 — */
   --color-text-primary: var(--color-neutral-90);
@@ -212,8 +212,26 @@
   }
 }
 
-@layer base {
-  button {
-    @apply cursor-pointer;
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--color-neutral-40);
+  border-radius: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: var(--color-neutral-50);
+
+  @layer base {
+    button {
+      @apply cursor-pointer;
+    }
   }
 }

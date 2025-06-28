@@ -7,21 +7,21 @@ import Checkbox from "@/components/common/checkbox"
 const ButtonPage = () => {
   return (
     <div className="flex flex-col">
-      <Button variant="primary" text="버튼" />
+      <Button variant="blue" text="버튼" />
 
       <br />
 
-      <Button variant="primary" disabled text="버튼" />
+      <Button variant="blue" disabled text="버튼" />
 
       <br />
 
-      <Button variant="primary">
+      <Button variant="blue">
         <Text variant="body" size="medium" color="orange-100">
           버튼
         </Text>
       </Button>
       <br />
-      <Button variant="primary" disabled>
+      <Button variant="blue" disabled>
         <Text variant="body" size="medium" color="red-100">
           버튼
         </Text>
