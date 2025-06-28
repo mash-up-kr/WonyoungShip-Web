@@ -3,6 +3,7 @@
 import React, { useState } from "react"
 
 import { Button, CalendarDialog, Icon, Text } from "@/components/common"
+import Checkbox from "@/components/common/checkbox"
 import { useLetterForm } from "@/contexts/letter-form-context"
 
 const Step2 = () => {
@@ -73,7 +74,7 @@ const Step2 = () => {
         <footer className="fixed right-0 bottom-0 left-0 px-[16px] py-[24px]">
           <div className="mx-auto max-w-[420px]">
             <div className="flex items-center justify-center gap-[8px]">
-              <Icon icon="checked" size="lg" />
+              <Checkbox />
 
               <div className="flex items-center gap-[4px]">
                 <Icon

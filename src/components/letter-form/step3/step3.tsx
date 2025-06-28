@@ -1,6 +1,9 @@
+import Lottie from "lottie-react"
 import React from "react"
 
 import { Button, Text } from "@/components/common"
+
+import { HOME_LOTTIES } from "../../../../public/assets/lottie"
 
 const Step3 = () => {
   const onConfirm = () => {}
@@ -16,11 +19,11 @@ const Step3 = () => {
         편지가 보내졌어요!
       </Text>
 
-
-      <article>
-
-
-
+      <article className="mt-[78px] flex justify-center">
+        <Lottie
+          animationData={HOME_LOTTIES.SHIP_FLUTTING}
+          className="h-[240px] w-[240px]"
+        />
       </article>
 
       <footer className="fixed right-0 bottom-0 left-0 px-[16px] py-[24px]">
