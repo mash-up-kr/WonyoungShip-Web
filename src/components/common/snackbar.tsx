@@ -60,7 +60,12 @@ export const Snackbar = ({
       )}
     >
       {icon && <Icon icon={icon} size="md" stroke="inverse" />}
-      <Text variant="body" size="small" color="inverse">
+      <Text
+        variant="body"
+        size="small"
+        color="inverse"
+        className="whitespace-nowrap"
+      >
         {message}
       </Text>
       {showCloseButton && (

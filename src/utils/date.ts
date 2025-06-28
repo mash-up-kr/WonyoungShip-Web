@@ -32,7 +32,6 @@ export const getDaysDelivery = (scheduleDate: string): number => {
  * @param end 종료일자 
  * @returns number 
  */
-
 export const getDateDiffInDays = (start: string, end: string): number  => {
   const startDate = new Date(start)
   const endDate = new Date(end)
@@ -50,6 +49,10 @@ export const formatToYYMMDD = (dateStr: string): string  => {
   return `${shortYear}.${month}.${day}`
 }
 
-
-
-
+/** 같은 날인지 확인하는 함수(일까지 비교) */
+export const checkSameDay = (date1: Date, date2: Date) => {
+  return (
+    `${date1.getFullYear()}-${date1.getMonth()}-${date1.getDate()}` ===
+    `${date2.getFullYear()}-${date2.getMonth()}-${date2.getDate()}`
+  )
+}
