@@ -1,11 +1,11 @@
 export * from "./button"
 export * from "./dialog"
+export * from "./header/header"
 export * from "./icon"
 export * from "./icon-button"
 export * from "./snackbar"
 export * from "./switch"
 export * from "./text"
 export * from "./tooltip"
-export * from "./header/header"
-export * from "./header/header-back"
 export * from "./weather-icon"
+
