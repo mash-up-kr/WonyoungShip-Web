@@ -1,3 +1,4 @@
+import Calendar from "./calendar.svg"
 import Cd from "./cd.svg"
 import Checked from "./checked.svg"
 import ChevronDown from "./chevron-down.svg"
@@ -8,6 +9,7 @@ import Clear from "./clear.svg"
 import FortuneCookie from "./fortune-cookie.svg"
 import Letter from "./letter.svg"
 import Link from "./link.svg"
+import List from "./list.svg"
 import Logo from "./logo.svg"
 import Music from "./music.svg"
 import Pencil from "./pencil.svg"
@@ -19,12 +21,14 @@ import Unchecked from "./unchecked.svg"
 import { WEATHER_ICONS } from "./weather"
 
 export const ICONS = {
+  calendar: Calendar,
   chevronDown: ChevronDown,
   chevronLeftThin: ChevronLeftThin,
   chevronLeft: ChevronLeft,
   chevronRight: ChevronRight,
   clear: Clear,
   link: Link,
+  list: List,
   letter: Letter,
   logo: Logo,
   setting: Setting,
