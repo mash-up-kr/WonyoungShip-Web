@@ -2,6 +2,7 @@ import React from "react"
 
 import { Text } from "@/components/common"
 import { Button } from "@/components/common/button"
+import Checkbox from "@/components/common/checkbox"
 
 const ButtonPage = () => {
   return (
@@ -25,6 +26,9 @@ const ButtonPage = () => {
           버튼
         </Text>
       </Button>
+
+      <Checkbox isChecked />
+      <Checkbox isChecked={false} />
     </div>
   )
 }
