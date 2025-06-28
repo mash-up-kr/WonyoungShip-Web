@@ -17,6 +17,7 @@ import Pencil from "./pencil.svg"
 import Play from "./play.svg"
 import Playing from "./playing.svg"
 import Setting from "./setting.svg"
+import Star from "./star.svg"
 import TooltipArrow from "./tooltip-arrow.svg"
 import Unchecked from "./unchecked.svg"
 import { WEATHER_ICONS } from "./weather"
@@ -33,6 +34,7 @@ export const ICONS = {
   letter: Letter,
   logo: Logo,
   setting: Setting,
+  star: Star,
   tooltipArrow: TooltipArrow,
   music: Music,
   openLetter: OpenLetter,
