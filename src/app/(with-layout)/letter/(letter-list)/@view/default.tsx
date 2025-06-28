@@ -1,5 +1,7 @@
+import { CalendarView } from "@/components/letter/@view/calendar"
+
 const LetterListViewDefault = () => {
-  return <></>
+  return <CalendarView />
 }
 
 export default LetterListViewDefault

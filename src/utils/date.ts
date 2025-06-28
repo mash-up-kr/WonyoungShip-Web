@@ -25,3 +25,11 @@ export const getDaysDelivery = (scheduleDate: string): number => {
   const target = new Date(scheduleDate)
   return Math.ceil((target.getTime() - today.getTime()) / (1000 * 60 * 60 * 24))
 }
+
+/** 같은 날인지 확인하는 함수(일까지 비교) */
+export const checkSameDay = (date1: Date, date2: Date) => {
+  return (
+    `${date1.getFullYear()}-${date1.getMonth()}-${date1.getDate()}` ===
+    `${date2.getFullYear()}-${date2.getMonth()}-${date2.getDate()}`
+  )
+}
