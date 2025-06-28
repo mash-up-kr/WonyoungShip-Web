@@ -1,10 +1,19 @@
 import { Text } from "@/components/common"
 import { cn } from "@/utils/cn"
+import { checkSameDay } from "@/utils/date"
 
 import { useCurrentMonth } from "../../hooks/use-current-month"
 
-export const LetterCalendar = () => {
-  const { month, year } = useCurrentMonth()
+interface LetterCalendarProps {
+  selectedDate: Date | null
+  onDateSelect: (date: Date) => void
+}
+
+export const LetterCalendar = ({
+  selectedDate,
+  onDateSelect,
+}: LetterCalendarProps) => {
+  const { month, year, handlePrevMonth, handleNextMonth } = useCurrentMonth()
 
   const baseDate = new Date(`${year}-${month}`)
 
@@ -19,17 +28,34 @@ export const LetterCalendar = () => {
 
   const days: Date[] = []
 
+  // 이전 달 이전
   for (let i = startWeekday; i > 0; i--) {
-    days.push(new Date(year, month, 1 - i))
+    days.push(new Date(year, month - 1, 1 - i))
   }
 
+  // 현재 달
   for (let d = 1; d <= daysInMonth; d++) {
+    days.push(new Date(year, month - 1, d))
+  }
+
+  // 다음 달 채우기
+  while (days.length % 7 !== 0) {
+    const d = days.length - startWeekday - daysInMonth + 1
     days.push(new Date(year, month, d))
   }
 
-  while (days.length % 7 !== 0) {
-    const d = days.length - startWeekday - daysInMonth + 1
-    days.push(new Date(year, month + 1, d))
+  const handleDateSelect = (date: Date) => {
+    if (date < baseDate) {
+      handlePrevMonth()
+      return
+    }
+
+    if (date <= new Date() && date > lastOfMonth) {
+      handleNextMonth()
+      return
+    }
+
+    onDateSelect(date)
   }
 
   return (
@@ -49,17 +75,19 @@ export const LetterCalendar = () => {
       <div className="grid grid-cols-7 place-items-center items-center justify-center justify-items-center gap-2">
         {days.map((date) => {
           const isCurrentMonth =
-            date.getFullYear() === year && date.getMonth() === month
+            date.getFullYear() === year && date.getMonth() === month - 1
           const isSelectedDate =
-            `${baseDate.getFullYear()}-${baseDate.getMonth()}-${baseDate.getDate()}` ===
-            `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`
-          const dateLabel = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`
-          const isAfterDay = new Date(dateLabel) > new Date()
+            selectedDate !== null && checkSameDay(date, selectedDate)
+
+          const dateLabel = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
+          const isAfterDay = date > new Date()
 
           return (
             <button
               key={dateLabel}
-              //   onClick={() => handleDateClick(date)}
+              onClick={() => {
+                handleDateSelect(date)
+              }}
               className="flex flex-col items-center justify-center gap-1"
             >
               <Text
@@ -67,7 +95,7 @@ export const LetterCalendar = () => {
                 size="small"
                 color={isCurrentMonth ? "primary" : "disabled"}
                 className={cn(
-                  "h-6 rounded-md p-[1] font-normal",
+                  "h-6 w-6 rounded-md p-[1] font-normal",
                   isSelectedDate &&
                     "bg-background-brandassistive text-text-brand font-medium",
                 )}
