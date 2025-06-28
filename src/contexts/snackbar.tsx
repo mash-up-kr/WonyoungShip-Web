@@ -20,7 +20,7 @@ interface SnackbarItem {
   showCloseButton?: boolean
 }
 
-type ShowSnackbarParams = Omit<SnackbarItem, "id" | "isOpen" | "duration">
+export type ShowSnackbarParams = Omit<SnackbarItem, "id" | "isOpen" | "duration">
 
 interface SnackbarContextType {
   showSnackbar: (params: ShowSnackbarParams) => void
