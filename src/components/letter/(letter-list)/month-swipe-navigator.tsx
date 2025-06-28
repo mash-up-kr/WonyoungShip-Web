@@ -46,7 +46,6 @@ export const MonthSwipeNavigator = ({ children }: PropsWithChildren) => {
       // 터치 이벤트
       onTouchStart={(e) => onDragStart(e.touches[0].clientX)}
       onTouchEnd={(e) => {
-        // changedTouches가 없는 브라우저 대비
         const touch = e.changedTouches[0] ?? e.targetTouches[0]
         onDragEnd(touch.clientX)
       }}
