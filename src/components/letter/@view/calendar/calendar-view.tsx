@@ -10,10 +10,15 @@ import { LetterCalendar } from "./letter-calendar"
 
 export interface LetterResponse {
   days: string[]
-  letters: { letterId: string; scheduleDate: string; content: string | null }[]
+  letters: {
+    letterId: string
+    scheduleDate: string
+    content: string | null
+    marked: boolean
+  }[]
 }
 
-const LETTERS_RESPONSE: LetterResponse = {
+export const LETTERS_RESPONSE: LetterResponse = {
   days: [
     "2025-05-27",
     "2025-06-11",
@@ -27,22 +32,60 @@ const LETTERS_RESPONSE: LetterResponse = {
       content: "dsgfhjkhgfdghjklhgfdghjklhgfd",
       letterId: "1",
       scheduleDate: "2025-06-12",
+      marked: false,
     },
     {
       content: null,
       letterId: "2",
       scheduleDate: "2025-06-12",
+      marked: false,
     },
     {
       content:
-        "dsgfhjkhgfdghjklhgfdghjklhgfasdkjahsjdhkajsfsdnfdksjfkjsdhfsdsdgjahsdad",
+        "dsg fhjk hgfdghjklhgfdghjklhghvgfdtfyghjvbcfxdrtrfyguhjvcfdåfasdkjahsjdhkajsfsdnfdksjfkjsdhfsdsdgjahsdad",
       letterId: "3",
       scheduleDate: "2025-06-12",
+      marked: true,
     },
     {
-      content: "dsgfhjkhgfdghjklhgfdghjklhgfasfdjhjkljjhjgkld",
+      content:
+        "dsgfhjkhgfdgmngcftyguhjbmn vcfxdrtyuhjhjklhgfdghjklhgfasfdjhjkljjhjgkld",
       letterId: "4",
       scheduleDate: "2025-06-12",
+      marked: true,
+    },
+    {
+      content:
+        "dsgfhjkhgfdghjklhfdghjbhvgcfdtyguhjbvgcfdhgfdghjklhgfasfdjhjkljjhjgkld",
+      letterId: "5",
+      scheduleDate: "2025-06-12",
+      marked: false,
+    },
+    {
+      content:
+        "dsgfasdfghjbknbhvgcfchjhjkhㅁㄴㅇ머노윰너옴너ㅏ윰ㄴ어ㅗㅁㄴㅇㅁ너ㅗㅇㅎㅁ노아ㅓㅎㅁㄹ너암ㄴㅎgfdghjklhgfdghjklhgfasfdjhjkljjhjgkld",
+      letterId: "6",
+      scheduleDate: "2025-06-12",
+      marked: true,
+    },
+    {
+      content:
+        "dsgfhjkhgasdasdasdasdasdasdafdghjklhgfdghjklhgfasfdjhjkljjhjgkld",
+      letterId: "7",
+      scheduleDate: "2025-06-12",
+      marked: true,
+    },
+    {
+      content: "dsgfhjkhgfdghjklhgfdghjasdasdasdasdasdklhgfasfdjhjkljjhjgkld",
+      letterId: "8",
+      scheduleDate: "2025-06-12",
+      marked: true,
+    },
+    {
+      content: "dsgfhjkhgfdghjklhgfdghjklhgfasfdasdasdasdasdajhjkljjhjgkld",
+      letterId: "9",
+      scheduleDate: "2025-06-12",
+      marked: false,
     },
   ],
 }
