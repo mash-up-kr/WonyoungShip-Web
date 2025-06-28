@@ -5,7 +5,7 @@ interface AccountProp {
   email: string
 }
 
-export const Account = ({ email }: AccountProp) => {
+export const AccountSetting = ({ email }: AccountProp) => {
   return (
     <section className="bg-background-white flex w-full flex-col gap-4 rounded-2xl p-4">
       <div className="flex justify-between">

@@ -1,11 +1,10 @@
 "use client"
 
 import Link from "next/link"
-import { useState } from "react"
 
-import { Text, Switch, Icon } from "@/components/common"
+import { Text, Icon } from "@/components/common"
 import BasicHeader from "@/components/common/header/basic-header"
-import { Account } from "@/components/setting"
+import { AccountSetting,AlarmSetting } from "@/components/setting"
 
 const tempDate = {
   email: "sinji1012@kookmin.ac.kr",
@@ -16,13 +15,8 @@ const tempDate = {
 
 const SettingPage = () => {
   // TODO : API 연결하면 기본 state API에서 받아올 수 있도록 수정
-  const [isEmail, setIsEmail] = useState<boolean>(tempDate.emailAlarm)
 
-  const handleClickToggle = () => {
-    setIsEmail((prev) => !prev)
-
-    // TODO : 이메일 알림 수신 API 연결
-  }
+ 
 
   const handleClickLogout = () => {
     // TODO : 로그아웃 로직 연결
@@ -36,25 +30,12 @@ const SettingPage = () => {
     <>
       <BasicHeader centerText="설정" hasBackButton />
       <div className="flex flex-col gap-3 px-4">
-        {/* 연결된 계정 */}
 
-        <Account email={tempDate.email} />
+        {/* 연결된 계정 */}
+        <AccountSetting email={tempDate.email} />
 
         {/* 알림 설정 */}
-        <section className="bg-background-white flex w-full flex-col gap-4 rounded-2xl p-4">
-          <Text variant="body">알림 설정</Text>
-          <div className="flex items-center justify-between">
-            <Text
-              variant="body"
-              size="small"
-              color="secondary"
-              className="font-medium"
-            >
-              이메일 알람 수신
-            </Text>
-            <Switch checked={isEmail} onChange={handleClickToggle} />
-          </div>
-        </section>
+       <AlarmSetting emailAlarm={tempDate.emailAlarm}/>
 
         {/* 서비스 정보 */}
         <section className="bg-background-white flex w-full flex-col gap-4 rounded-2xl p-4">
