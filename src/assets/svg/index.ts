@@ -17,8 +17,8 @@ import { WEATHER_ICONS } from "./weather"
 
 export const ICONS = {
   chevronDown: ChevronDown,
-  chevronLeft: ChevronLeft,
   chevronRight: ChevronRight,
+  chevronLeft: ChevronLeft,
   clear: Clear,
   link: Link,
   letter: Letter,

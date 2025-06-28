@@ -2,8 +2,8 @@ import type { Metadata } from "next"
 import localFont from "next/font/local"
 
 import "./globals.css"
-import { DialogProvider } from "@/contexts/dialog-context"
 import { KakaoScript } from "@/components/kakao-script"
+import { DialogProvider } from "@/contexts/dialog-context"
 import { SnackbarProvider } from "@/contexts/snackbar"
 
 const pretendard = localFont({
