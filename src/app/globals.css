@@ -212,8 +212,26 @@
   }
 }
 
-@layer base {
-  button {
-    @apply cursor-pointer;
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--color-neutral-40);
+  border-radius: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: var(--color-neutral-50);
+
+  @layer base {
+    button {
+      @apply cursor-pointer;
+    }
   }
 }

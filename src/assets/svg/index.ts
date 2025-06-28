@@ -5,10 +5,12 @@ import ChevronLeftThin from "./chevron-left-thin.svg"
 import ChevronLeft from "./chevron-left.svg"
 import ChevronRight from "./chevron-right.svg"
 import Clear from "./clear.svg"
+import FortuneCookie from "./fortune-cookie.svg"
 import Letter from "./letter.svg"
 import Link from "./link.svg"
 import Logo from "./logo.svg"
 import Music from "./music.svg"
+import Pencil from "./pencil.svg"
 import Play from "./play.svg"
 import Playing from "./playing.svg"
 import Setting from "./setting.svg"
@@ -33,6 +35,8 @@ export const ICONS = {
   checked: Checked,
   unchecked: Unchecked,
   cd: Cd,
+  pencil: Pencil,
+  fortuneCookie: FortuneCookie,
   ...WEATHER_ICONS,
 }
 
