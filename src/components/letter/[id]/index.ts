@@ -1,2 +1,2 @@
 export * from "./DateText";
-export * from "./MusicPlayer";
+export * from "./music-player";
