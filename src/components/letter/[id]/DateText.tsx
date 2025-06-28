@@ -2,6 +2,8 @@ import { Text } from "@/components/common"
 import { WeatherIcon } from "@/components/common"
 import { getDateDiffInDays, formatToYYMMDD } from "@/utils/date"
 
+import LetterUnderline from "../../../assets/svg/letter-underline.svg"
+
 type Weather = "sunny" | "cloudy" | "rainy" | "snow" | "shiny"
 
 interface DateText {
@@ -37,6 +39,7 @@ const DateText = ({ weather, createdAt, scheduledAt }: DateText) => {
          에 바다로 띄운 편지가
         </Text>
       </div>
+      <LetterUnderline />
       <div>
         <Text
           variant="body"
@@ -57,6 +60,7 @@ const DateText = ({ weather, createdAt, scheduledAt }: DateText) => {
           동안 파도 위를 둥둥 떠다니다 도착했어요!
         </Text>
       </div>
+      <LetterUnderline />
     </div>
   )
 }

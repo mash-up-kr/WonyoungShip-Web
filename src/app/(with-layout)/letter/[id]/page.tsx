@@ -14,10 +14,10 @@ const tempData = {
 
 const LetterDetailPage = () => {
   return (
-    <>
+    <div className="from-background-white bg-gradient-to-b to-background-brandassistive h-dvh">
       <HeaderStar isLiked={tempData.isLiked} title={`${tempData.senderNickname}로부터`} />
       <DateText weather={tempData.weather as Weather} createdAt={tempData.createdAt} scheduledAt={tempData.scheduledAt}/>
-    </>
+    </div>
   )
 }
 
