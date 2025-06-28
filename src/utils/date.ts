@@ -26,6 +26,29 @@ export const getDaysDelivery = (scheduleDate: string): number => {
   return Math.ceil((target.getTime() - today.getTime()) / (1000 * 60 * 60 * 24))
 }
 
+/**
+ * 두 날짜 문자열(YYYY-MM-DD)의 차이를 일(day) 단위로 반환
+ * @param start 시작일자
+ * @param end 종료일자 
+ * @returns number 
+ */
+export const getDateDiffInDays = (start: string, end: string): number  => {
+  const startDate = new Date(start)
+  const endDate = new Date(end)
+
+  const diffInMs = endDate.getTime() - startDate.getTime()
+  const diffInDays = Math.floor(diffInMs / (1000 * 60 * 60 * 24))
+
+  return diffInDays
+}
+
+/** YYYY-MM-DD에서 YY.MM.DD로 변환 */
+export const formatToYYMMDD = (dateStr: string): string  => {
+  const [year, month, day] = dateStr.split("-")
+  const shortYear = year.slice(2) 
+  return `${shortYear}.${month}.${day}`
+}
+
 /** 같은 날인지 확인하는 함수(일까지 비교) */
 export const checkSameDay = (date1: Date, date2: Date) => {
   return (
