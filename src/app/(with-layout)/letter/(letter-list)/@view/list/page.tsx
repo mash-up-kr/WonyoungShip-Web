@@ -1,4 +1,4 @@
-import { ListView } from "@/components/letter/@view/list"
+import { ListView } from "@/components/letter/(letter-list)/@view/list"
 
 const LetterListView = () => {
   return <ListView />

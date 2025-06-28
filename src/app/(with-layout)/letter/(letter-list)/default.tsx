@@ -1,5 +1,5 @@
 import BasicHeader from "@/components/common/header/basic-header"
-import { DateViewSwitchHeader } from "@/components/letter"
+import { DateViewSwitchHeader } from "@/components/letter/(letter-list)"
 
 const LetterListDefault = () => {
   return (
