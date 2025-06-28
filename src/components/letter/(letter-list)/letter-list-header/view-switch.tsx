@@ -15,7 +15,7 @@ export const ViewSwitch = () => {
   const pathname = usePathname()
 
   const checkCurrentPath = (path: string, isDefault = false) => {
-    return path === pathname || isDefault
+    return path === pathname || (isDefault && pathname === "/letter")
   }
 
   return (
