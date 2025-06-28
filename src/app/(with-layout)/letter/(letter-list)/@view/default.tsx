@@ -1,5 +1,5 @@
 const LetterListViewDefault = () => {
-  return <>defaultLetterList</>
+  return <></>
 }
 
 export default LetterListViewDefault
