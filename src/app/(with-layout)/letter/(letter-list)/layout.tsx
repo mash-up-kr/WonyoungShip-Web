@@ -6,10 +6,10 @@ interface LetterListLayoutProps extends PropsWithChildren {
 
 const LetterListLayout = ({ view, children }: LetterListLayoutProps) => {
   return (
-    <>
+    <div className="flex flex-col gap-4">
       {children}
       {view}
-    </>
+    </div>
   )
 }
 

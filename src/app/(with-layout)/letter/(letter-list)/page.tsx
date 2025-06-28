@@ -3,10 +3,10 @@ import { DateViewSwitchHeader } from "@/components/letter"
 
 const LetterListPage = () => {
   return (
-    <>
+    <div>
       <BasicHeader centerText="편지 목록" />
       <DateViewSwitchHeader />
-    </>
+    </div>
   )
 }
 
