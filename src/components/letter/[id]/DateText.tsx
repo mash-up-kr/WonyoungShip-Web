@@ -1,6 +1,6 @@
 import { Text } from "@/components/common"
 import { WeatherIcon } from "@/components/common"
-import { getDateDiffInDays } from "@/utils/date"
+import { getDateDiffInDays, formatToYYMMDD } from "@/utils/date"
 
 type Weather = "sunny" | "cloudy" | "rainy" | "snow" | "shiny"
 
@@ -25,7 +25,7 @@ const DateText = ({ weather, createdAt, scheduledAt }: DateText) => {
           color="secondary"
           className="font-normal"
         >
-          24.05.05
+        {formatToYYMMDD(createdAt)}
         </Text>
         <Text
           variant="body"

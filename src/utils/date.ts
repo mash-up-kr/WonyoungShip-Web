@@ -43,5 +43,13 @@ export const getDateDiffInDays = (start: string, end: string): number  => {
   return diffInDays
 }
 
+/** YYYY-MM-DD에서 YY.MM.DD로 변환 */
+export const formatToYYMMDD = (dateStr: string): string  => {
+  const [year, month, day] = dateStr.split("-")
+  const shortYear = year.slice(2) 
+  return `${shortYear}.${month}.${day}`
+}
+
+
 
 
