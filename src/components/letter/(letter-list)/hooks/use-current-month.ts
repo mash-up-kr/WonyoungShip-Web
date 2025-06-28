@@ -25,10 +25,6 @@ export const useCurrentMonth = () => {
     const current = new Date(`${currentYear}-${currentMonth}-01`)
     current.setMonth(current.getMonth() - 1)
 
-    console.log(
-      `${current.getFullYear()}-${String(current.getMonth() + 1).padStart(2, "0")}`,
-    )
-
     params.set(
       MONTH_PARAM_KEY,
       `${current.getFullYear()}-${String(current.getMonth() + 1).padStart(2, "0")}`,

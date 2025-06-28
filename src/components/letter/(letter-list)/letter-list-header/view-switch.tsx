@@ -14,8 +14,8 @@ const VIEW_PATH = {
 export const ViewSwitch = () => {
   const pathname = usePathname()
 
-  const checkCurrentPath = (path: string) => {
-    return path === pathname
+  const checkCurrentPath = (path: string, isDefault = false) => {
+    return path === pathname || (isDefault && pathname === "/letter")
   }
 
   return (
@@ -24,14 +24,14 @@ export const ViewSwitch = () => {
         href={VIEW_PATH.CALENDAR}
         className={cn(
           "items-center justify-center rounded-full p-1.5 transition-[background] duration-300 ease-out",
-          checkCurrentPath(VIEW_PATH.CALENDAR) && "bg-white",
+          checkCurrentPath(VIEW_PATH.CALENDAR, true) ? "bg-white" : "",
         )}
       >
         <Icon
           icon="calendar"
           ariaLabel="캘린더 화면"
           className={
-            checkCurrentPath(VIEW_PATH.CALENDAR)
+            checkCurrentPath(VIEW_PATH.CALENDAR, true)
               ? "fill-neutral-70"
               : "fill-neutral-40"
           }

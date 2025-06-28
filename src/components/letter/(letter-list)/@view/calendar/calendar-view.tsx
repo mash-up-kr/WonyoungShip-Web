@@ -5,6 +5,8 @@ import { useState } from "react"
 import { useSnackbar } from "@/contexts/snackbar"
 import { checkSameDay } from "@/utils/date"
 
+import { MonthSwipeNavigator } from "../../month-swipe-navigator"
+
 import { DailyLetterList } from "./daily-letter-list"
 import { LetterCalendar } from "./letter-calendar"
 
@@ -106,21 +108,23 @@ export const CalendarView = () => {
   }
 
   return (
-    <div className="flex flex-col gap-3 px-4">
-      <LetterCalendar
-        receivedDates={LETTERS_RESPONSE.days}
-        selectedDate={selectedDate}
-        onDateSelect={handleSelctedDate}
-      />
-      <DailyLetterList
-        letters={LETTERS_RESPONSE.letters.filter((letter) => {
-          if (selectedDate === null) {
-            return false
-          }
-          return checkSameDay(new Date(letter.scheduleDate), selectedDate)
-        })}
-        selectedDate={selectedDate}
-      />
-    </div>
+    <MonthSwipeNavigator>
+      <div className="flex flex-col gap-3 px-4">
+        <LetterCalendar
+          receivedDates={LETTERS_RESPONSE.days}
+          selectedDate={selectedDate}
+          onDateSelect={handleSelctedDate}
+        />
+        <DailyLetterList
+          letters={LETTERS_RESPONSE.letters.filter((letter) => {
+            if (selectedDate === null) {
+              return false
+            }
+            return checkSameDay(new Date(letter.scheduleDate), selectedDate)
+          })}
+          selectedDate={selectedDate}
+        />
+      </div>
+    </MonthSwipeNavigator>
   )
 }

@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 
+import { MonthSwipeNavigator } from "../../month-swipe-navigator"
 import { LETTERS_RESPONSE } from "../calendar"
 
 import { FavoriteLetterFilterButton } from "./favorite-letter-filter-button"
@@ -19,18 +20,20 @@ export const ListView = () => {
     : LETTERS_RESPONSE.letters
 
   return (
-    <div className="flex flex-col gap-3 px-3">
-      <div className="pl-4">
-        <FavoriteLetterFilterButton
-          isFavoriteFiltered={isFavoriteFiltered}
-          onFavoritFilterChange={handleFavoritFilterChanged}
-        />
+    <MonthSwipeNavigator>
+      <div className="flex flex-col gap-3 px-3">
+        <div className="pl-4">
+          <FavoriteLetterFilterButton
+            isFavoriteFiltered={isFavoriteFiltered}
+            onFavoritFilterChange={handleFavoritFilterChanged}
+          />
+        </div>
+        <ul className="grid grid-cols-2 gap-2">
+          {letters.map((letter) => (
+            <ListLetterItem key={letter.letterId} letter={letter} />
+          ))}
+        </ul>
       </div>
-      <ul className="grid grid-cols-2 gap-2">
-        {letters.map((letter) => (
-          <ListLetterItem key={letter.letterId} letter={letter} />
-        ))}
-      </ul>
-    </div>
+    </MonthSwipeNavigator>
   )
 }

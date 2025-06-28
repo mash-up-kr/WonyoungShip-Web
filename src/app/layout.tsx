@@ -27,7 +27,7 @@ export default function RootLayout({
     <html lang="en">
       <KakaoScript />
       <body
-        className={`${pretendard.className} from-background-white to-background-brandassistive bg-gradient-to-b antialiased`}
+        className={`${pretendard.className} from-background-white to-background-brandassistive min-h-dvh bg-gradient-to-b antialiased`}
       >
         <DialogProvider>
           <SnackbarProvider>{children}</SnackbarProvider>
