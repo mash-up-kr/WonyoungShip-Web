@@ -1,14 +1,28 @@
-
+"use client"
 
 import Link from "next/link"
+import { useState } from "react"
 
 import KakaoLogo from "@/assets/svg/kakao-logo.svg"
 import { Text, Switch, Icon } from "@/components/common"
 import BasicHeader from "@/components/common/header/basic-header"
 
+const tempDate = {
+   email: "sinji1012@kookmin.ac.kr",
+    emailAlarm: true,
+    tosUrl: "string",
+    privacyUrl: "string"
+}
 
 const SettingPage = () => {
+  // TODO : API 연결하면 기본 state API에서 받아올 수 있도록 수정
+  const [isEmail, setIsEmail] = useState<boolean>(tempDate.emailAlarm)
 
+  const handleClickToggle = () => {
+    setIsEmail((prev) => !prev)
+
+    // TODO : 이메일 알림 수신 API 연결
+  }
 
   const handleClickLogout = () => {
     // TODO : 로그아웃 로직 연결
@@ -22,13 +36,13 @@ const SettingPage = () => {
     <>
       <BasicHeader centerText="설정" hasBackButton />
       <div className="flex flex-col gap-3 px-4">
-
         {/* 연결된 계정 */}
         <section className="bg-background-white flex w-full flex-col gap-4 rounded-2xl p-4">
           <div className="flex justify-between">
             <Text variant="body">연결된 계정</Text>
             <div className="scale-75">
-            <KakaoLogo /></div>
+              <KakaoLogo />
+            </div>
           </div>
           <Text
             variant="body"
@@ -36,7 +50,7 @@ const SettingPage = () => {
             color="secondary"
             className="font-medium"
           >
-            sallybang01@gmail.com
+            {tempDate.email}
           </Text>
         </section>
 
@@ -52,7 +66,7 @@ const SettingPage = () => {
             >
               이메일 알람 수신
             </Text>
-            <Switch/>
+            <Switch checked={isEmail} onChange={handleClickToggle}/>
           </div>
         </section>
 
