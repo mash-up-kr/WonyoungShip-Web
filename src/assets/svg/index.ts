@@ -9,6 +9,7 @@ import Letter from "./letter.svg"
 import Link from "./link.svg"
 import Logo from "./logo.svg"
 import Music from "./music.svg"
+import OpenLetter from "./open-letter.svg"
 import Pencil from "./pencil.svg"
 import Play from "./play.svg"
 import Playing from "./playing.svg"
@@ -28,6 +29,7 @@ export const ICONS = {
   setting: Setting,
   tooltipArrow: TooltipArrow,
   music: Music,
+  openLetter: OpenLetter,
   play: Play,
   playing: Playing,
   checked: Checked,
