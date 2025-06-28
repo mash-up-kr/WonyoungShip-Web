@@ -24,13 +24,13 @@ export const MusicPlayer = ({ music }: MusicProp) => {
   }
 
   return (
-    <div className="bg-background-white mt-8 flex w-full items-center justify-between rounded-2xl px-3 py-2 shadow-[0px_8px_40px_0px_rgba(101,142,185,0.10)]">
-      <div className="flex h-[30px] items-center gap-2">
+    <div className="bg-background-white mt-8 flex w-full items-center justify-between rounded-2xl px-3 py-2 shadow-[0px_8px_40px_0px_rgba(101,142,185,0.10)] max-w-[343px]  ">
+      <div className="flex h-[30px] items-center gap-2 ">
         <Icon icon="cd" size="lg" />
         <Text
           variant="body"
           size="small"
-          className="font-medium"
+          className="font-medium text-ellipsis whitespace-nowrap overflow-hidden max-w-[257px]"
           color="secondary"
         >
           {music.title} - {music.singer}

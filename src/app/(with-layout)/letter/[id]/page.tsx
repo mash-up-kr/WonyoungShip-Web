@@ -1,5 +1,5 @@
 import HeaderStar from "@/components/common/header/header-star"
-import { DateText, MusicPlayer } from "@/components/letter/[id]"
+import { DateText, MusicPlayer, LetterContent } from "@/components/letter/[id]"
 
 type Weather = "sunny" | "cloudy" | "rainy" | "snow" | "shiny"
 
@@ -27,6 +27,7 @@ const LetterDetailPage = () => {
         scheduledAt={tempData.scheduledAt}
       />
       <MusicPlayer music={tempData.music} />
+      <LetterContent content={tempData.content}/>
     </div>
   )
 }
