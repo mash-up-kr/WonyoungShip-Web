@@ -25,3 +25,23 @@ export const getDaysDelivery = (scheduleDate: string): number => {
   const target = new Date(scheduleDate)
   return Math.ceil((target.getTime() - today.getTime()) / (1000 * 60 * 60 * 24))
 }
+
+/**
+ * 두 날짜 문자열(YYYY-MM-DD)의 차이를 일(day) 단위로 반환
+ * @param start 시작일자
+ * @param end 종료일자 
+ * @returns number 
+ */
+
+export const getDateDiffInDays = (start: string, end: string): number  => {
+  const startDate = new Date(start)
+  const endDate = new Date(end)
+
+  const diffInMs = endDate.getTime() - startDate.getTime()
+  const diffInDays = Math.floor(diffInMs / (1000 * 60 * 60 * 24))
+
+  return diffInDays
+}
+
+
+

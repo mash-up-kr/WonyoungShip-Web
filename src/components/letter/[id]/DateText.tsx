@@ -1,5 +1,6 @@
 import { Text } from "@/components/common"
 import { WeatherIcon } from "@/components/common"
+import { getDateDiffInDays } from "@/utils/date"
 
 type Weather = "sunny" | "cloudy" | "rainy" | "snow" | "shiny"
 
@@ -9,7 +10,10 @@ interface DateText {
   scheduledAt: string
 }
 
-const DateText = ({ weather }: DateText) => {
+const DateText = ({ weather, createdAt, scheduledAt }: DateText) => {
+
+    const dayPassed = getDateDiffInDays(createdAt, scheduledAt)
+
   return (
     <div className="mt-6 flex flex-col items-center">
       <div className="flex items-center gap-1">
@@ -41,7 +45,7 @@ const DateText = ({ weather }: DateText) => {
           color="secondary"
           className="font-normal"
         >
-          234일
+          {dayPassed}일
         </Text>
         <Text
           variant="body"
