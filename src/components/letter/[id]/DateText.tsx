@@ -12,7 +12,7 @@ interface DateText {
   scheduledAt: string
 }
 
-const DateText = ({ weather, createdAt, scheduledAt }: DateText) => {
+export const DateText = ({ weather, createdAt, scheduledAt }: DateText) => {
 
     const dayPassed = getDateDiffInDays(createdAt, scheduledAt)
 
@@ -65,4 +65,3 @@ const DateText = ({ weather, createdAt, scheduledAt }: DateText) => {
   )
 }
 
-export default DateText
