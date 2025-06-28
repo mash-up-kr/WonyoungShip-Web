@@ -5,11 +5,13 @@ import { checkSameDay } from "@/utils/date"
 import { useCurrentMonth } from "../../hooks/use-current-month"
 
 interface LetterCalendarProps {
+  receivedDates: string[] // YYYY-MM-dd 형태로 전달됨
   selectedDate: Date | null
   onDateSelect: (date: Date) => void
 }
 
 export const LetterCalendar = ({
+  receivedDates,
   selectedDate,
   onDateSelect,
 }: LetterCalendarProps) => {
@@ -78,6 +80,9 @@ export const LetterCalendar = ({
             date.getFullYear() === year && date.getMonth() === month - 1
           const isSelectedDate =
             selectedDate !== null && checkSameDay(date, selectedDate)
+          const hasLetters = receivedDates.some((receivedDate) =>
+            checkSameDay(new Date(receivedDate), date),
+          )
 
           const dateLabel = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
           const isAfterDay = date > new Date()
@@ -88,7 +93,7 @@ export const LetterCalendar = ({
               onClick={() => {
                 handleDateSelect(date)
               }}
-              className="flex flex-col items-center justify-center gap-1"
+              className="flex h-9 w-9 flex-col items-center gap-1"
             >
               <Text
                 variant="body"
@@ -103,12 +108,14 @@ export const LetterCalendar = ({
               >
                 {date.getDate()}
               </Text>
-              <div
-                className={cn(
-                  "h-1.5 w-1.5 rounded-full",
-                  isAfterDay ? "bg-neutral-20" : "bg-blue-100",
-                )}
-              />
+              {hasLetters && (
+                <div
+                  className={cn(
+                    "h-1.5 w-1.5 rounded-full",
+                    isAfterDay ? "bg-neutral-20" : "bg-blue-100",
+                  )}
+                />
+              )}
             </button>
           )
         })}
