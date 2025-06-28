@@ -8,6 +8,7 @@ import { WeatherIconName } from "@/assets/svg/weather"
 import { Button, Icon, Text, WeatherIcon } from "@/components/common"
 import BaseDialog from "@/components/common/dialog/base-dialog"
 import MusicDropdown from "@/components/music-dropdown"
+import { useDialog } from "@/contexts/dialog-context"
 import { useLetterForm } from "@/contexts/letter-form-context"
 
 const WEATHER_MAP: Record<string, WeatherIconName> = {
@@ -74,6 +75,7 @@ const WeatherList = () => {
 }
 
 const Step1 = () => {
+  const { open, close } = useDialog()
   const { formData, updateFormData, setStep } = useLetterForm()
   const [isEditNameDialogOpen, setIsEditNameDialogOpen] = useState(false)
   const [tempAuthorName, setTempAuthorName] = useState(formData.authorName)
@@ -96,9 +98,24 @@ const Step1 = () => {
     setIsEditNameDialogOpen(false)
   }
 
+  const onOpenConfirmDialog = () => {
+    open({
+      type: "confirm",
+      props: {
+        title: "편지 작성을 중단하시나요?",
+        desc: "작성하던 편지는 저장되지 않아요",
+        cancelText: "취소",
+        confirmText: "나가기",
+        onCancel: close,
+        onConfirm: close,
+      },
+    })
+  }
+
   const handleCancel = () => {
     // TODO: 작성 취소 확인 다이얼로그
     // resetForm() 호출
+    onOpenConfirmDialog()
   }
 
   return (
