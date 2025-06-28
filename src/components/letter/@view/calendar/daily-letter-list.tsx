@@ -28,12 +28,13 @@ export const DailyLetterList = ({
   return (
     <ul className="flex flex-col gap-3">
       {letters.map((letter) => (
-        <LetterCard
-          key={letter.letterId}
-          to={letter.letterId}
-          receivedAt={new Date(letter.scheduleDate)}
-          content={letter.content}
-        />
+        <li key={letter.letterId}>
+          <LetterCard
+            to={letter.letterId}
+            receivedAt={new Date(letter.scheduleDate)}
+            content={letter.content}
+          />
+        </li>
       ))}
     </ul>
   )
