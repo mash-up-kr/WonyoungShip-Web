@@ -1,8 +1,5 @@
-"use client"
-
-import { Text } from "@/components/common"
 import BasicHeader from "@/components/common/header/basic-header"
-import { AccountSetting, AlarmSetting, ServiceInfo } from "@/components/setting"
+import { AccountSetting, AlarmSetting, ServiceInfo, UserInfo } from "@/components/setting"
 
 const tempDate = {
   email: "sinji1012@kookmin.ac.kr",
@@ -12,15 +9,6 @@ const tempDate = {
 }
 
 const SettingPage = () => {
-
-  const handleClickLogout = () => {
-    // TODO : 로그아웃 로직 연결
-  }
-
-  const handleClickWithdraw = () => {
-    // TODO : 회원 탈퇴 API  연결
-  }
-
   return (
     <>
       <BasicHeader centerText="설정" hasBackButton />
@@ -35,18 +23,8 @@ const SettingPage = () => {
         <ServiceInfo />
 
         {/* 회원 탈퇴 / 로그아웃 */}
-        <div className="mt-3 flex justify-end gap-4">
-          <button onClick={handleClickWithdraw}>
-            <Text variant="body" size="small" color="tertiary">
-              회원 탈퇴하기
-            </Text>
-          </button>
-          <button onClick={handleClickLogout}>
-            <Text variant="body" size="small" color="secondary">
-              로그아웃
-            </Text>
-          </button>
-        </div>
+        <UserInfo />
+       
       </div>
     </>
   )
