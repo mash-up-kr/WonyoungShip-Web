@@ -13,13 +13,21 @@ export interface CheckboxProps extends HeadlessCheckboxProps {
   isChecked?: boolean
 }
 
-const Checkbox = ({ className, isChecked, ...props }: CheckboxProps) => {
+const Checkbox = ({
+  className,
+  isChecked = false,
+  ...props
+}: CheckboxProps) => {
   const [enabled, setEnabled] = useState(isChecked)
+
+  const onChange = (checked: boolean) => {
+    setEnabled(checked)
+  }
 
   return (
     <HeadlessCheckbox
       checked={enabled}
-      onChange={setEnabled}
+      onChange={onChange}
       className={clsx("group size-6", className)}
       {...props}
     >
