@@ -3,15 +3,15 @@
 import Link from "next/link"
 import { useState } from "react"
 
-import KakaoLogo from "@/assets/svg/kakao-logo.svg"
 import { Text, Switch, Icon } from "@/components/common"
 import BasicHeader from "@/components/common/header/basic-header"
+import { Account } from "@/components/setting"
 
 const tempDate = {
-   email: "sinji1012@kookmin.ac.kr",
-    emailAlarm: true,
-    tosUrl: "string",
-    privacyUrl: "string"
+  email: "sinji1012@kookmin.ac.kr",
+  emailAlarm: true,
+  tosUrl: "string",
+  privacyUrl: "string",
 }
 
 const SettingPage = () => {
@@ -37,22 +37,8 @@ const SettingPage = () => {
       <BasicHeader centerText="설정" hasBackButton />
       <div className="flex flex-col gap-3 px-4">
         {/* 연결된 계정 */}
-        <section className="bg-background-white flex w-full flex-col gap-4 rounded-2xl p-4">
-          <div className="flex justify-between">
-            <Text variant="body">연결된 계정</Text>
-            <div className="scale-75">
-              <KakaoLogo />
-            </div>
-          </div>
-          <Text
-            variant="body"
-            size="small"
-            color="secondary"
-            className="font-medium"
-          >
-            {tempDate.email}
-          </Text>
-        </section>
+
+        <Account email={tempDate.email} />
 
         {/* 알림 설정 */}
         <section className="bg-background-white flex w-full flex-col gap-4 rounded-2xl p-4">
@@ -66,7 +52,7 @@ const SettingPage = () => {
             >
               이메일 알람 수신
             </Text>
-            <Switch checked={isEmail} onChange={handleClickToggle}/>
+            <Switch checked={isEmail} onChange={handleClickToggle} />
           </div>
         </section>
 
