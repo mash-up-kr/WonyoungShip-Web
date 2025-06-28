@@ -1,5 +1,5 @@
 import HeaderStar from "@/components/common/header/header-star"
-import { DateText, MusicPlayer } from "@/components/letter/[id]"
+import { DateText, MusicPlayer, LetterContent } from "@/components/letter/[id]"
 
 type Weather = "sunny" | "cloudy" | "rainy" | "snow" | "shiny"
 
@@ -10,8 +10,10 @@ const tempData = {
   createdAt: "2025-06-22",
   scheduledAt: "2025-06-28",
   content:
-    "안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!다! 안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!",
+    "안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!다!안녕 오랜  .  이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜",
   music: { title: "Polaroid Love", singer: "SISO Wave", link: "" },
+  fortuneCooke: "당신의 하루에도 햇살이 가득할 거예요.",
+  // fortuneCooke: null
 }
 
 const LetterDetailPage = () => {
@@ -27,6 +29,10 @@ const LetterDetailPage = () => {
         scheduledAt={tempData.scheduledAt}
       />
       <MusicPlayer music={tempData.music} />
+      <LetterContent
+        content={tempData.content}
+        fortuneCookie={tempData.fortuneCooke}
+      />
     </div>
   )
 }
