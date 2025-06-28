@@ -14,6 +14,7 @@ export const ListLetterItem = ({ letter }: ListLetterItemProps) => {
   const receivedDate = new Date(letter.scheduleDate)
 
   const formattedReceiveDate = `${receivedDate.getMonth() + 1}월 ${receivedDate.getDate()}일`
+  const isRead = letter.content !== null
 
   return (
     <Link
@@ -29,10 +30,10 @@ export const ListLetterItem = ({ letter }: ListLetterItemProps) => {
         variant="body"
         size="medium"
         font="Ownglyph ryurue"
-        color="neutral-80"
+        color={isRead ? "neutral-80" : "brand"}
         className="line-clamp-6 leading-[100%] break-all whitespace-normal"
       >
-        {letter.content}
+        {isRead ? letter.content : "편지를 열면 내용을 확인할 수 있어요"}
       </Text>
       <Text variant="description" size="small" color="tertiary">
         {formattedReceiveDate}에 받은 편지
