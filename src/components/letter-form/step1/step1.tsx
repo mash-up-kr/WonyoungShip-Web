@@ -2,8 +2,9 @@
 
 import { Textarea } from "@headlessui/react"
 import clsx from "clsx"
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 
+import { apiApi } from "@/__generated__/Api/Api.api"
 import { WeatherIconName } from "@/assets/svg/weather"
 import { Button, Icon, Text, WeatherIcon } from "@/components/common"
 import BaseDialog from "@/components/common/dialog/base-dialog"
@@ -42,6 +43,14 @@ const WeatherList = () => {
       weather: formData.weather === weather ? null : weather,
     })
   }
+
+  useEffect(() => {
+    const getLandingContent = async () => {
+      const res = await apiApi.getLandingContent()
+      console.log(res)
+    }
+    getLandingContent()
+  }, [])
 
   return (
     <div className="flex w-full justify-center gap-[12px] px-[16px]">
