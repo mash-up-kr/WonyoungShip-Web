@@ -21,6 +21,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@mash-up-web-toolkit/command": "^0.0.14",
     "@next/eslint-plugin-next": "^15.3.2",
     "@svgr/webpack": "^8.1.0",
     "@tailwindcss/postcss": "^4",
