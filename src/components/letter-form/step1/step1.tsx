@@ -4,6 +4,7 @@ import { Textarea } from "@headlessui/react"
 import clsx from "clsx"
 import React, { useEffect, useState } from "react"
 
+import { LetterWriteRequestType } from "@/__generated__/@types"
 import { apiApi } from "@/__generated__/Api/Api.api"
 import { WeatherIconName } from "@/assets/svg/weather"
 import { Button, Icon, Text, WeatherIcon } from "@/components/common"
@@ -12,60 +13,53 @@ import MusicDropdown from "@/components/music-dropdown"
 import { useDialog } from "@/contexts/dialog-context"
 import { useLetterForm } from "@/contexts/letter-form-context"
 
-const WEATHER_MAP: Record<string, WeatherIconName> = {
-  sunny: "sunny",
-  cloudy: "cloudy",
-  rainy: "rainy",
-  snow: "snow",
-  shiny: "shiny",
+const WEATHER_MAP: Record<string, LetterWriteRequestType["weather"]> = {
+  sunny: "SUNNY",
+  cloudy: "CLOUDY",
+  rainy: "RAINY",
+  snow: "SNOWY",
+  shiny: "NIGHT_SHINING",
 }
 
 const WeatherList = () => {
   const { formData, updateFormData } = useLetterForm()
 
-  const getWeatherLabel = (weather: WeatherIconName) => {
+  const getWeatherLabel = (weather: LetterWriteRequestType["weather"]) => {
     switch (weather) {
-      case "sunny":
+      case "SUNNY":
         return "맑은 날"
-      case "cloudy":
+      case "CLOUDY":
         return "흐린 날"
-      case "rainy":
+      case "RAINY":
         return "비오는 날"
-      case "snow":
+      case "SNOWY":
         return "눈오는 날"
-      case "shiny":
+      case "NIGHT_SHINING":
         return "빛나는 날"
     }
   }
 
-  const handleWeatherClick = (weather: WeatherIconName) => {
+  const handleWeatherClick = (weather: LetterWriteRequestType["weather"]) => {
     updateFormData({
-      weather: formData.weather === weather ? null : weather,
+      weather:
+        formData.weather.toLocaleLowerCase() === weather ? undefined : weather,
     })
   }
 
-  useEffect(() => {
-    const getLandingContent = async () => {
-      const res = await apiApi.getLandingContent()
-      console.log(res)
-    }
-    getLandingContent()
-  }, [])
-
   return (
     <div className="flex w-full justify-center gap-[12px] px-[16px]">
-      {Object.entries(WEATHER_MAP).map(([, value]) => {
+      {Object.entries(WEATHER_MAP).map(([key, value]) => {
         const isSelected = formData.weather === value
 
         return (
           <button
-            key={`weather-item-${value}`}
+            key={`weather-item-${key}`}
             onClick={() => handleWeatherClick(value)}
             className="flex min-w-[50px] cursor-pointer flex-col items-center gap-[6px]"
             type="button"
           >
             <WeatherIcon
-              weather={value}
+              weather={key as WeatherIconName}
               size="lg"
               color={isSelected ? undefined : "disabled"}
             />
@@ -87,7 +81,7 @@ const Step1 = () => {
   const { open, close } = useDialog()
   const { formData, updateFormData, setStep } = useLetterForm()
   const [isEditNameDialogOpen, setIsEditNameDialogOpen] = useState(false)
-  const [tempAuthorName, setTempAuthorName] = useState(formData.authorName)
+  const [tempAuthorName, setTempAuthorName] = useState(formData.senderNickname)
 
   const handleNext = () => {
     // 필수 필드 검증
@@ -103,7 +97,7 @@ const Step1 = () => {
   }
 
   const handleAuthorNameSave = () => {
-    updateFormData({ authorName: tempAuthorName })
+    updateFormData({ senderNickname: tempAuthorName })
     setIsEditNameDialogOpen(false)
   }
 
@@ -126,6 +120,57 @@ const Step1 = () => {
     // resetForm() 호출
     onOpenConfirmDialog()
   }
+
+  useEffect(() => {
+    const t = () => {
+      fetch(`https://api.doongdoong.org/api/v1/letters/meta?receiverId=1`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log("#raw fetch data", data)
+        })
+      // fetch(`https://api.doongdoong.org/api/v1/landing`)
+      //   .then((res) => res.json())
+      //   .then((data) => {
+      //     console.log("#data", data)
+      //   })
+    }
+
+    t()
+    const getLetterMeta = async () => {
+      try {
+        const letterMeta = await apiApi.readLetterMeta({
+          query: {
+            receiverId: 1,
+          },
+        })
+
+        // 더 상세한 로깅
+        console.log("#letterMeta 전체 응답:", letterMeta)
+        console.log("#letterMeta.data:", letterMeta?.data)
+        console.log(
+          "#letterMeta.data.senderNickname:",
+          letterMeta?.data?.data?.senderNickname,
+        )
+        console.log(
+          "#letterMeta.data.receiverNickname:",
+          letterMeta?.data?.data?.receiverNickname,
+        )
+        console.log("#letterMeta.data.musics:", letterMeta?.data?.data?.musics)
+
+        const landingContent = await apiApi.getLandingContent()
+        console.log("#landingContent 전체 응답:", landingContent)
+        console.log("#landingContent.data:", landingContent?.data)
+      } catch (error) {
+        console.error("API 호출 중 에러:", error)
+      }
+    }
+    getLetterMeta()
+  }, [])
 
   return (
     <section>
@@ -155,7 +200,7 @@ const Step1 = () => {
             color="secondary"
             font="Ownglyph ryurue"
           >
-            From.{formData.authorName}
+            From.{formData.senderNickname}
           </Text>
           <button
             type="button"

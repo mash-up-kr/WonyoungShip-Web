@@ -15,6 +15,7 @@ import { ContentType, HttpClient, RequestParams } from "../@http-client"
 import type {
   ApiResponseLetterDetailResponseType,
   ApiResponseLetterMarkedResponseType,
+  ApiResponseLetterMetaReadResponseType,
   ApiResponseLettersDailyResponseType,
   ApiResponseLettersMonthlyResponseType,
   ApiResponseLettersWeeklyCountResponseType,
@@ -161,6 +162,30 @@ export class ApiApi<SecurityDataType = unknown> extends HttpClient {
       method: "GET",
       secure: true,
       ...variables?.params,
+    }) /**
+   * @description 편지 작성 시 필요한 수신자 정보, 음악 목록 등을 조회합니다.
+   *
+   * @tags letter-meta-read-api
+   * @name ReadLetterMeta
+   * @summary 편지 작성 메타 정보 조회
+   * @request GET:/api/v1/letters/meta
+   * @secure
+   */
+  readLetterMeta = (
+    variables: {
+      query: {
+        /** @format int64 */
+        receiverId: number
+      }
+      params?: RequestParams
+    },
+  ) =>
+    this.request<ApiResponseLetterMetaReadResponseType, any>({
+      path: `/api/v1/letters/meta`,
+      method: "GET",
+      query: variables.query,
+      secure: true,
+      ...variables.params,
     }) /**
    * @description 읽을 수 있는 편지의 상세 정보를 조회합니다.
    *
