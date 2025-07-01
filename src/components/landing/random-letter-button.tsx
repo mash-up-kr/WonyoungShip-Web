@@ -21,7 +21,7 @@ export const RandomLetterButton = () => {
           variant="blue"
           className="flex h-12 items-center justify-center gap-2.5 py-4"
         >
-          <FortuneCookie className="animate-cookie-shake" />
+          <FortuneCookie className="animate-cookie-shake h-8 w-8" />
           <span>랜덤하게 마음 전하기</span>
         </Button>
       </Tooltip>
