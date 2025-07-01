@@ -11,7 +11,7 @@ import BaseDialog from "./base-dialog"
 interface CalendarDialogProps {
   isOpen: boolean
   onClose: VoidFunction
-  onConfirm: VoidFunction
+  onConfirm: (data: Date) => void
   selectedDate?: Date
   onSelectDate?: (date: Date) => void
 }
@@ -163,7 +163,7 @@ export const CalendarDialog = ({
       </div>
       <button
         className="bg-neutral-20 rounded-lg px-2.5 py-2"
-        onClick={onConfirm}
+        onClick={() => onConfirm(currentSelectedDate)}
       >
         <Text variant="body" size="small" color="tertiary">
           완료

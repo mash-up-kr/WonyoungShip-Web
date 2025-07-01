@@ -9,7 +9,6 @@
  * ---------------------------------------------------------------
  */
 
-
 import customFetch from "@/configs/fetch/instance"
 import { ContentType, HttpClient, RequestParams } from "../@http-client"
 import type {
@@ -64,7 +63,10 @@ export class ApiApi<SecurityDataType = unknown> extends HttpClient {
    * @request POST:/api/v1/setting/alarm/email
    * @secure
    */
-  changeEmailAlarm = (variables: { data: ChangeEmailSettingRequestType; params?: RequestParams }) =>
+  changeEmailAlarm = (variables: {
+    data: ChangeEmailSettingRequestType
+    params?: RequestParams
+  }) =>
     this.request<ApiResponseUnitType, any>({
       path: `/api/v1/setting/alarm/email`,
       method: "POST",
@@ -81,17 +83,15 @@ export class ApiApi<SecurityDataType = unknown> extends HttpClient {
    * @request GET:/api/v1/letters
    * @secure
    */
-  readLetters = (
-    variables: {
-      query: {
-        /** @format int32 */
-        year: number
-        /** @format int32 */
-        month: number
-      }
-      params?: RequestParams
-    },
-  ) =>
+  readLetters = (variables: {
+    query: {
+      /** @format int32 */
+      year: number
+      /** @format int32 */
+      month: number
+    }
+    params?: RequestParams
+  }) =>
     this.request<ApiResponseLettersMonthlyResponseType, any>({
       path: `/api/v1/letters`,
       method: "GET",
@@ -107,7 +107,10 @@ export class ApiApi<SecurityDataType = unknown> extends HttpClient {
    * @request POST:/api/v1/letters
    * @secure
    */
-  writeLetter = (variables: { data: LetterWriteRequestType; params?: RequestParams }) =>
+  writeLetter = (variables: {
+    data: LetterWriteRequestType
+    params?: RequestParams
+  }) =>
     this.request<ApiResponseType, any>({
       path: `/api/v1/letters`,
       method: "POST",
@@ -125,7 +128,10 @@ export class ApiApi<SecurityDataType = unknown> extends HttpClient {
    * @request POST:/api/v1/auth/kakao
    * @secure
    */
-  kakaoLogin = (variables: { data: KakaoLoginRequestType; params?: RequestParams }) =>
+  kakaoLogin = (variables: {
+    data: KakaoLoginRequestType
+    params?: RequestParams
+  }) =>
     this.request<ApiResponseType, any>({
       path: `/api/v1/auth/kakao`,
       method: "POST",
@@ -171,15 +177,13 @@ export class ApiApi<SecurityDataType = unknown> extends HttpClient {
    * @request GET:/api/v1/letters/meta
    * @secure
    */
-  readLetterMeta = (
-    variables: {
-      query: {
-        /** @format int64 */
-        receiverId: number
-      }
-      params?: RequestParams
-    },
-  ) =>
+  readLetterMeta = (variables: {
+    query: {
+      /** @format int64 */
+      receiverId: number
+    }
+    params?: RequestParams
+  }) =>
     this.request<ApiResponseLetterMetaReadResponseType, any>({
       path: `/api/v1/letters/meta`,
       method: "GET",
@@ -195,7 +199,10 @@ export class ApiApi<SecurityDataType = unknown> extends HttpClient {
    * @request GET:/api/v1/letters/detail/{letterId}
    * @secure
    */
-  readDetailLetter = (variables: { letterId: number; params?: RequestParams }) =>
+  readDetailLetter = (variables: {
+    letterId: number
+    params?: RequestParams
+  }) =>
     this.request<ApiResponseLetterDetailResponseType, any>({
       path: `/api/v1/letters/detail/${variables.letterId}`,
       method: "GET",
@@ -210,15 +217,13 @@ export class ApiApi<SecurityDataType = unknown> extends HttpClient {
    * @request GET:/api/v1/letters/daily
    * @secure
    */
-  readDailyLetters = (
-    variables: {
-      query: {
-        /** @format date */
-        date: string
-      }
-      params?: RequestParams
-    },
-  ) =>
+  readDailyLetters = (variables: {
+    query: {
+      /** @format date */
+      date: string
+    }
+    params?: RequestParams
+  }) =>
     this.request<ApiResponseLettersDailyResponseType, any>({
       path: `/api/v1/letters/daily`,
       method: "GET",

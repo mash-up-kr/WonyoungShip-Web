@@ -1,5 +1,6 @@
 "use client"
 
+import dayjs from "dayjs"
 import React, { useState } from "react"
 
 import { Button, CalendarDialog, Icon, Text } from "@/components/common"
@@ -8,7 +9,8 @@ import { useLetterForm } from "@/contexts/letter-form-context"
 
 const Step2 = () => {
   const [isOpen, setIsOpen] = useState(false)
-  const { formData, setStep } = useLetterForm()
+  const { formData, setStep, updateFormData } = useLetterForm()
+  const [selectedDate, setSelectedDate] = useState(new Date())
 
   const handleSubmit = () => {
     // TODO: 편지 제출 로직
@@ -42,7 +44,7 @@ const Step2 = () => {
                 color="tertiary"
                 className="line-clamp-1"
               >
-                내용들어가요내용들어가0요내용내용들어가요내용들어가0요내용내용들어가요내용들어가0요내용
+                {formData.content}
               </Text>
             </div>
           </div>
@@ -65,7 +67,7 @@ const Step2 = () => {
                 받는 날
               </Text>
               <Text variant="body" size="small" color="brand">
-                날짜 선택
+                {formData.scheduleDate ? formData.scheduleDate : "날짜 선택"}
               </Text>
             </div>
           </div>
@@ -74,7 +76,13 @@ const Step2 = () => {
         <footer className="fixed right-0 bottom-0 left-0 px-[16px] py-[24px]">
           <div className="mx-auto max-w-[420px]">
             <div className="flex items-center justify-center gap-[8px]">
-              <Checkbox />
+              <Checkbox
+                onClick={() => {
+                  updateFormData({
+                    needFortuneCookie: !formData.needFortuneCookie,
+                  })
+                }}
+              />
 
               <div className="flex items-center gap-[4px]">
                 <Icon
@@ -100,7 +108,16 @@ const Step2 = () => {
       <CalendarDialog
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
-        onConfirm={() => setIsOpen(false)}
+        onConfirm={(date) => {
+          updateFormData({
+            scheduleDate: dayjs(date).format("YYYY-MM-DD"),
+          })
+          setIsOpen(false)
+        }}
+        selectedDate={selectedDate}
+        onSelectDate={(date) => {
+          setSelectedDate(date)
+        }}
       />
     </>
   )

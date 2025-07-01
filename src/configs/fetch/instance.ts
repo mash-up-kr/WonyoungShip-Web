@@ -1,8 +1,8 @@
 /**
  * 인터셉터 처리를 위한 핸들러 함수
  */
-let requestInterceptor: ((config: RequestInit) => RequestInit) | null = null;
-let responseInterceptor: ((response: Response) => Response) | null = null;
+let requestInterceptor: ((config: RequestInit) => RequestInit) | null = null
+let responseInterceptor: ((response: Response) => Response) | null = null
 
 /**
  * fetch API를 확장한 커스텀 함수
@@ -10,28 +10,28 @@ let responseInterceptor: ((response: Response) => Response) | null = null;
  */
 const customFetch = async (
   input: RequestInfo | URL,
-  init?: RequestInit
+  init?: RequestInit,
 ): Promise<Response> => {
   try {
     // 요청 전 인터셉터 적용
-    let config = init || {};
+    let config = init || {}
     if (requestInterceptor) {
-      config = requestInterceptor(config);
+      config = requestInterceptor(config)
     }
 
     // 실제 fetch 요청 실행
-    const response = await fetch(input, config);
+    const response = await fetch(input, config)
 
     // 응답 후 인터셉터 적용
     if (responseInterceptor) {
-      return responseInterceptor(response);
+      return responseInterceptor(response)
     }
 
-    return response;
+    return response
   } catch (error) {
-    return Promise.reject(error);
+    return Promise.reject(error)
   }
-};
+}
 
 /**
  * 인터셉터 설정 인터페이스
@@ -39,15 +39,15 @@ const customFetch = async (
 const interceptors = {
   request: {
     use: (handler: (config: RequestInit) => RequestInit) => {
-      requestInterceptor = handler;
+      requestInterceptor = handler
     },
   },
   response: {
     use: (handler: (response: Response) => Response) => {
-      responseInterceptor = handler;
+      responseInterceptor = handler
     },
   },
-};
+}
 
 // 요청 인터셉터 설정
 interceptors.request.use((config) => {
@@ -55,17 +55,21 @@ interceptors.request.use((config) => {
     ...config,
     headers: {
       ...config.headers,
-      // 필요한 헤더 추가
-      // 예: "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
     },
-  };
-});
+    // headers: {
+    //   ...config.headers,
+    //   // 필요한 헤더 추가
+    //   // 예: "Content-Type": "application/json",
+    // },
+  }
+})
 
 // 응답 인터셉터 설정
 interceptors.response.use((response) => {
-  return response;
-});
+  return response
+})
 
-Object.assign(customFetch, { interceptors });
+Object.assign(customFetch, { interceptors })
 
-export default customFetch;
+export default customFetch
