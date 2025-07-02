@@ -5,6 +5,7 @@ import {
   ButtonHTMLAttributes,
   HTMLAttributes,
   PropsWithChildren,
+  useCallback,
   useEffect,
   useRef,
   useState,
@@ -56,22 +57,6 @@ const MusicDropdown = ({ className, musicList = [] }: MusicDropdownProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const prevOpenRef = useRef<boolean>(false)
 
-  // 메뉴 상태 변화 감지
-  useEffect(() => {
-    if (prevOpenRef.current && !isMenuOpen) {
-      // 메뉴가 닫힐 때: AudioManager 완전 초기화
-      audioManager.reset()
-      setPlayingMusicId(null)
-    } else if (!prevOpenRef.current && isMenuOpen && musicList.length > 0) {
-      // 메뉴가 열릴 때: AudioManager 다시 초기화
-      const urls = musicList.map((music) => music.url)
-      audioManager.init(urls)
-    }
-
-    // 현재 open 상태를 ref에 저장
-    prevOpenRef.current = isMenuOpen
-  }, [isMenuOpen, musicList])
-
   const handlePlayMusic = ({
     index,
     music,
@@ -96,12 +81,44 @@ const MusicDropdown = ({ className, musicList = [] }: MusicDropdownProps) => {
     }
   }
 
-  useEffect(() => {
-    if (musicList.length > 0) {
-      const urls = musicList.map((music) => music.url)
-      audioManager.init(urls)
-    }
+  const initMusicList = useCallback(() => {
+    const urls = musicList.map((music) => music.url)
+    audioManager.init(urls)
   }, [musicList])
+
+  useEffect(
+    function initAudioManager() {
+      if (musicList.length > 0) {
+        initMusicList()
+      }
+    },
+    [initMusicList, musicList],
+  )
+
+  useEffect(
+    function detectMenuOpen() {
+      const isClose = prevOpenRef.current && !isMenuOpen
+      const isOpen = !prevOpenRef.current && isMenuOpen && musicList.length > 0
+
+      if (isClose) {
+        const clear = () => {
+          audioManager.reset()
+          setPlayingMusicId(null)
+        }
+        clear()
+      } else if (isOpen) {
+        initMusicList()
+      }
+
+      const updatePrevOpenRef = () => {
+        prevOpenRef.current = isMenuOpen
+      }
+
+      // 현재 open 상태를 ref에 저장
+      updatePrevOpenRef()
+    },
+    [initMusicList, isMenuOpen, musicList],
+  )
 
   return (
     <div className={cn("h-[46px] w-full max-w-[343px]", className)}>
@@ -109,7 +126,6 @@ const MusicDropdown = ({ className, musicList = [] }: MusicDropdownProps) => {
         {({ open }) => {
           // open 상태를 별도 state에 동기화 (렌더링 중에는 setState 호출 안 함)
           if (open !== isMenuOpen) {
-            // 다음 렌더링 사이클에서 상태 업데이트
             setTimeout(() => setIsMenuOpen(open), 0)
           }
           return (
