@@ -39,7 +39,15 @@ export interface LetterWriteRequestType {
   needFortuneCookie: boolean
 }
 
-export type ApiResponseType = object
+export interface ApiResponseType {
+  code: string
+  message: string
+  data?: object
+  /** @format int32 */
+  pageIndex?: number
+  /** @format int32 */
+  pageSize?: number
+}
 
 export interface KakaoLoginRequestType {
   token: string
@@ -123,10 +131,13 @@ export interface LetterMetaReadResponseType {
 }
 
 export interface LetterMusicResponseType {
+  /** @format int64 */
+  id: number
   title: string
   artist: string
   url: string
   mood: string
+  isRecommended: boolean
 }
 
 export interface ApiResponseLetterDetailResponseType {

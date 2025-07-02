@@ -4,7 +4,10 @@ import { Textarea } from "@headlessui/react"
 import clsx from "clsx"
 import React, { useEffect, useState } from "react"
 
-import { LetterWriteRequestType } from "@/__generated__/@types"
+import {
+  LetterMusicResponseType,
+  LetterWriteRequestType,
+} from "@/__generated__/@types"
 import { apiApi } from "@/__generated__/Api/Api.api"
 import { WeatherIconName } from "@/assets/svg/weather"
 import { Button, Icon, Text, WeatherIcon } from "@/components/common"
@@ -12,6 +15,9 @@ import BaseDialog from "@/components/common/dialog/base-dialog"
 import MusicDropdown from "@/components/music-dropdown"
 import { useDialog } from "@/contexts/dialog-context"
 import { useLetterForm } from "@/contexts/letter-form-context"
+import { useSnackbar } from "@/contexts/snackbar"
+
+import { validateStep1 } from "../utils/step-validate"
 
 const WEATHER_MAP: Record<string, LetterWriteRequestType["weather"]> = {
   sunny: "SUNNY",
@@ -79,14 +85,17 @@ const WeatherList = () => {
 
 const Step1 = () => {
   const { open, close } = useDialog()
+  const { showSnackbar } = useSnackbar()
   const { formData, updateFormData, setStep } = useLetterForm()
   const [isEditNameDialogOpen, setIsEditNameDialogOpen] = useState(false)
   const [tempAuthorName, setTempAuthorName] = useState(formData.senderNickname)
+  const [musicList, setMusicList] = useState<LetterMusicResponseType[]>([])
 
   const handleNext = () => {
-    // 필수 필드 검증
-    if (!formData.weather || !formData.content.trim()) {
-      // TODO: 에러 처리 (스낵바나 토스트 메시지)
+    const validateResult = validateStep1({ formData })
+    const { message } = validateResult
+    if (message !== "통과") {
+      showSnackbar({ message, icon: "clear" })
       return
     }
     setStep(2)
@@ -122,25 +131,6 @@ const Step1 = () => {
   }
 
   useEffect(() => {
-    const t = () => {
-      fetch(`https://api.doongdoong.org/api/v1/letters/meta?receiverId=1`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          console.log("#raw fetch data", data)
-        })
-      // fetch(`https://api.doongdoong.org/api/v1/landing`)
-      //   .then((res) => res.json())
-      //   .then((data) => {
-      //     console.log("#data", data)
-      //   })
-    }
-
-    t()
     const getLetterMeta = async () => {
       try {
         const letterMeta = await apiApi.readLetterMeta({
@@ -149,21 +139,60 @@ const Step1 = () => {
           },
         })
 
-        // 더 상세한 로깅
-        console.log("#letterMeta 전체 응답:", letterMeta)
-        console.log("#letterMeta.data:", letterMeta?.data)
-        console.log(
-          "#letterMeta.data.senderNickname:",
-          letterMeta?.data?.data?.senderNickname,
-        )
-        console.log(
-          "#letterMeta.data.receiverNickname:",
-          letterMeta?.data?.data?.receiverNickname,
-        )
-        console.log("#letterMeta.data.musics:", letterMeta?.data?.data?.musics)
+        console.log("#letterMeta.data:", letterMeta?.data.data?.musics)
+
+        const { musics } = letterMeta?.data.data || {}
+
+        if (musics && musics.length > 0) {
+          setMusicList(musics)
+        } else {
+          const mockMusics: LetterMusicResponseType[] = [
+            {
+              id: 1,
+              title: "봄날",
+              artist: "BTS",
+              url: "https://example.com/music/spring-day.mp3",
+              mood: "따뜻한",
+              isRecommended: true,
+            },
+            {
+              id: 2,
+              title: "밤편지",
+              artist: "아이유",
+              url: "https://example.com/music/night-letter.mp3",
+              mood: "감성적인",
+              isRecommended: false,
+            },
+            {
+              id: 3,
+              title: "가을아침",
+              artist: "아이유",
+              url: "https://example.com/music/autumn-morning.mp3",
+              mood: "차분한",
+              isRecommended: false,
+            },
+            {
+              id: 4,
+              title: "호랑이",
+              artist: "QWER",
+              url: "https://example.com/music/tiger.mp3",
+              mood: "신나는",
+              isRecommended: false,
+            },
+            {
+              id: 5,
+              title: "Drama",
+              artist: "aespa",
+              url: "https://example.com/music/drama.mp3",
+              mood: "강렬한",
+              isRecommended: false,
+            },
+          ]
+          setMusicList(mockMusics)
+        }
 
         const landingContent = await apiApi.getLandingContent()
-        console.log("#landingContent 전체 응답:", landingContent)
+
         console.log("#landingContent.data:", landingContent?.data)
       } catch (error) {
         console.error("API 호출 중 에러:", error)
@@ -179,7 +208,7 @@ const Step1 = () => {
 
       {/* 음악 드롭다운 */}
       <div className="mt-[24px] flex place-content-center">
-        <MusicDropdown />
+        <MusicDropdown musicList={musicList} />
       </div>
 
       <div className="bg-background-assistive mx-[16px] mt-[24px] flex h-[346px] flex-col rounded-[20px] px-[24px] pt-[24px]">

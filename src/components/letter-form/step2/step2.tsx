@@ -3,19 +3,51 @@
 import dayjs from "dayjs"
 import React, { useState } from "react"
 
+import { apiApi } from "@/__generated__/Api/Api.api"
 import { Button, CalendarDialog, Icon, Text } from "@/components/common"
 import Checkbox from "@/components/common/checkbox"
 import { useLetterForm } from "@/contexts/letter-form-context"
+import { useSnackbar } from "@/contexts/snackbar"
+
+import { validateStep2 } from "../utils/step-validate"
 
 const Step2 = () => {
+  const { showSnackbar } = useSnackbar()
   const [isOpen, setIsOpen] = useState(false)
   const { formData, setStep, updateFormData } = useLetterForm()
   const [selectedDate, setSelectedDate] = useState(new Date())
 
-  const handleSubmit = () => {
-    // TODO: 편지 제출 로직
-    console.log("편지 데이터:", formData)
-    setStep(3)
+  const onSubmit = async () => {
+    try {
+      const response = await apiApi.writeLetter({
+        data: formData,
+      })
+      return {
+        success: true,
+        data: response.data,
+      }
+    } catch (error) {
+      console.error(error)
+      return {
+        success: false,
+        data: null,
+      }
+    }
+  }
+
+  const handleSubmit = async () => {
+    const validateResult = validateStep2({ formData })
+    const { message } = validateResult
+    if (message !== "통과") {
+      showSnackbar({ message, icon: "clear" })
+      return
+    }
+
+    const { success } = await onSubmit()
+    if (success) setStep(3)
+    else {
+      showSnackbar({ message: "편지 전송에 실패했습니다.", icon: "clear" })
+    }
   }
 
   return (
@@ -55,7 +87,7 @@ const Step2 = () => {
                 보내는날
               </Text>
               <Text variant="body" size="small" color="secondary">
-                24.05.0.5(토)
+                {dayjs(new Date()).format("YYYY.MM.DD(ddd)")}
               </Text>
             </div>
 

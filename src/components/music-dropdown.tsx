@@ -8,6 +8,7 @@ import {
   useState,
 } from "react"
 
+import { LetterMusicResponseType } from "@/__generated__/@types"
 import { cn } from "@/utils/cn"
 
 import { Icon, Text } from "./common"
@@ -38,25 +39,17 @@ export const IconButton = ({
   )
 }
 
-/** TEMP */
-export type MusicType = {
-  id: string
-  title: string
-  link: string
-  isRecommended: boolean
-  type: string
-}
-
 export interface MusicDropdownProps {
   className?: HTMLAttributes<HTMLDivElement>["className"]
-  musicList?: MusicType[]
+  musicList?: LetterMusicResponseType[]
 }
 
 const MusicDropdown = ({ className, musicList = [] }: MusicDropdownProps) => {
-  const [playingMusicId, setPlayingMusicId] = useState<string | null>(null)
-  const [selectedMusic, setSelectedMusic] = useState<MusicType | null>(null)
+  const [playingMusicId, setPlayingMusicId] = useState<number | null>(null)
+  const [selectedMusic, setSelectedMusic] =
+    useState<LetterMusicResponseType | null>(null)
 
-  const handlePlayMusic = (music: MusicType) => {
+  const handlePlayMusic = (music: LetterMusicResponseType) => {
     if (playingMusicId === music.id) {
       setPlayingMusicId(null)
     } else {
@@ -64,7 +57,7 @@ const MusicDropdown = ({ className, musicList = [] }: MusicDropdownProps) => {
     }
   }
 
-  const handleSelectMusic = (music: MusicType) => {
+  const handleSelectMusic = (music: LetterMusicResponseType) => {
     if (selectedMusic?.id === music.id) {
       setSelectedMusic(null)
     } else {
@@ -156,7 +149,7 @@ const MusicDropdown = ({ className, musicList = [] }: MusicDropdownProps) => {
                                   size="small"
                                   color="tertiary"
                                 >
-                                  {music.type}
+                                  {music.mood}
                                 </Text>
                               </div>
                             </div>
