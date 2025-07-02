@@ -5,11 +5,13 @@ import {
   ButtonHTMLAttributes,
   HTMLAttributes,
   PropsWithChildren,
+  useEffect,
   useState,
 } from "react"
 
 import { LetterMusicResponseType } from "@/__generated__/@types"
 import { cn } from "@/utils/cn"
+import { AudioManager } from "@/utils/music/audio-manager"
 
 import { Icon, Text } from "./common"
 
@@ -45,11 +47,20 @@ export interface MusicDropdownProps {
 }
 
 const MusicDropdown = ({ className, musicList = [] }: MusicDropdownProps) => {
+  const audioManager = new AudioManager()
+
   const [playingMusicId, setPlayingMusicId] = useState<number | null>(null)
   const [selectedMusic, setSelectedMusic] =
     useState<LetterMusicResponseType | null>(null)
 
-  const handlePlayMusic = (music: LetterMusicResponseType) => {
+  const handlePlayMusic = ({
+    index,
+    music,
+  }: {
+    index: number
+    music: LetterMusicResponseType
+  }) => {
+    audioManager.toggle(index)
     if (playingMusicId === music.id) {
       setPlayingMusicId(null)
     } else {
@@ -64,6 +75,13 @@ const MusicDropdown = ({ className, musicList = [] }: MusicDropdownProps) => {
       setSelectedMusic(music)
     }
   }
+
+  useEffect(() => {
+    if (musicList.length > 0) {
+      const urls = musicList.map((music) => music.url)
+      audioManager.init(urls)
+    }
+  }, [musicList])
 
   return (
     <div className={cn("h-[46px] w-full max-w-[343px]", className)}>
@@ -112,7 +130,7 @@ const MusicDropdown = ({ className, musicList = [] }: MusicDropdownProps) => {
                 transition
                 className="bg-background-white relative z-50 mt-[8px] flex w-full max-w-[319px] flex-col gap-[20px] rounded-[12px] p-[16px] focus:outline-none"
               >
-                {musicList.map((music) => {
+                {musicList.map((music, index) => {
                   return (
                     <MenuItem key={`music-item-${music.id}`}>
                       {({}) => {
@@ -160,7 +178,10 @@ const MusicDropdown = ({ className, musicList = [] }: MusicDropdownProps) => {
                                   <IconButton
                                     icon="playing"
                                     onClick={() => {
-                                      handlePlayMusic(music)
+                                      handlePlayMusic({
+                                        index,
+                                        music,
+                                      })
                                     }}
                                   />
 
@@ -180,7 +201,10 @@ const MusicDropdown = ({ className, musicList = [] }: MusicDropdownProps) => {
                                   <IconButton
                                     icon="play"
                                     onClick={() => {
-                                      handlePlayMusic(music)
+                                      handlePlayMusic({
+                                        index,
+                                        music,
+                                      })
                                     }}
                                   />
 
