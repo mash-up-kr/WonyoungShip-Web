@@ -6,12 +6,13 @@ import {
   HTMLAttributes,
   PropsWithChildren,
   useEffect,
+  useRef,
   useState,
 } from "react"
 
 import { LetterMusicResponseType } from "@/__generated__/@types"
 import { cn } from "@/utils/cn"
-import { AudioManager } from "@/utils/music/audio-manager"
+import { audioManager } from "@/utils/music/audio-manager"
 
 import { Icon, Text } from "./common"
 
@@ -47,11 +48,29 @@ export interface MusicDropdownProps {
 }
 
 const MusicDropdown = ({ className, musicList = [] }: MusicDropdownProps) => {
-  const audioManager = new AudioManager()
-
   const [playingMusicId, setPlayingMusicId] = useState<number | null>(null)
   const [selectedMusic, setSelectedMusic] =
     useState<LetterMusicResponseType | null>(null)
+
+  // Menu의 open 상태를 추적하기 위한 상태
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const prevOpenRef = useRef<boolean>(false)
+
+  // 메뉴 상태 변화 감지
+  useEffect(() => {
+    if (prevOpenRef.current && !isMenuOpen) {
+      // 메뉴가 닫힐 때: AudioManager 완전 초기화
+      audioManager.reset()
+      setPlayingMusicId(null)
+    } else if (!prevOpenRef.current && isMenuOpen && musicList.length > 0) {
+      // 메뉴가 열릴 때: AudioManager 다시 초기화
+      const urls = musicList.map((music) => music.url)
+      audioManager.init(urls)
+    }
+
+    // 현재 open 상태를 ref에 저장
+    prevOpenRef.current = isMenuOpen
+  }, [isMenuOpen, musicList])
 
   const handlePlayMusic = ({
     index,
@@ -60,11 +79,12 @@ const MusicDropdown = ({ className, musicList = [] }: MusicDropdownProps) => {
     index: number
     music: LetterMusicResponseType
   }) => {
-    audioManager.toggle(index)
     if (playingMusicId === music.id) {
       setPlayingMusicId(null)
+      audioManager.pause(index)
     } else {
       setPlayingMusicId(music.id)
+      audioManager.play(index)
     }
   }
 
@@ -87,6 +107,11 @@ const MusicDropdown = ({ className, musicList = [] }: MusicDropdownProps) => {
     <div className={cn("h-[46px] w-full max-w-[343px]", className)}>
       <Menu>
         {({ open }) => {
+          // open 상태를 별도 state에 동기화 (렌더링 중에는 setState 호출 안 함)
+          if (open !== isMenuOpen) {
+            // 다음 렌더링 사이클에서 상태 업데이트
+            setTimeout(() => setIsMenuOpen(open), 0)
+          }
           return (
             <div className="flex flex-col items-center">
               {open && (

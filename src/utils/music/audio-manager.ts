@@ -8,6 +8,7 @@ export class AudioManager {
       audio.load()
       return audio
     })
+    this.currentPlayingIndex = null
   }
 
   play(index: number) {
@@ -19,10 +20,15 @@ export class AudioManager {
     }
 
     this.audioList[index].play()
+    this.currentPlayingIndex = index
   }
 
   pause(index: number) {
+    if (!this.audioList[index]) return
     this.audioList[index].pause()
+    if (this.currentPlayingIndex === index) {
+      this.currentPlayingIndex = null
+    }
   }
 
   isPlaying(index: number): boolean {
@@ -36,4 +42,22 @@ export class AudioManager {
       this.play(index)
     }
   }
+
+  reset() {
+    this.audioList.forEach((audio) => {
+      if (!audio.paused) {
+        audio.pause()
+      }
+      audio.currentTime = 0
+    })
+
+    this.currentPlayingIndex = null
+  }
+
+
+  getAudioList() {
+    return this.audioList
+  }
 }
+
+export const audioManager = new AudioManager()
