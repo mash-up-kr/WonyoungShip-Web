@@ -15,6 +15,7 @@ import { ContentType, HttpClient, RequestParams } from "../@http-client"
 import type {
   ApiResponseLetterDetailResponseType,
   ApiResponseLetterMarkedResponseType,
+  ApiResponseLetterMetaReadResponseType,
   ApiResponseLettersDailyResponseType,
   ApiResponseLettersMonthlyResponseType,
   ApiResponseLettersWeeklyCountResponseType,
@@ -40,6 +41,7 @@ export class ApiApi<SecurityDataType = unknown> extends HttpClient {
       path: `/api/v1/setting/member/withdraw`,
       method: "POST",
       secure: true,
+      format: "json",
       ...variables?.params,
     }) /**
    * No description
@@ -54,6 +56,7 @@ export class ApiApi<SecurityDataType = unknown> extends HttpClient {
       path: `/api/v1/setting/member/logout`,
       method: "POST",
       secure: true,
+      format: "json",
       ...variables?.params,
     }) /**
    * No description
@@ -70,6 +73,7 @@ export class ApiApi<SecurityDataType = unknown> extends HttpClient {
       body: variables.data,
       secure: true,
       type: ContentType.Json,
+      format: "json",
       ...variables.params,
     }) /**
    * @description 특정 년도, 월에 해당하는 편지 목록을 조회합니다.
@@ -96,6 +100,7 @@ export class ApiApi<SecurityDataType = unknown> extends HttpClient {
       method: "GET",
       query: variables.query,
       secure: true,
+      format: "json",
       ...variables.params,
     }) /**
    * @description 보내는 사람, 받는 사람, 메시지, 예약 날짜, 날씨, 음악, 닉네임, 포춘쿠키 정보를 포함해 편지를 작성합니다.
@@ -146,6 +151,7 @@ export class ApiApi<SecurityDataType = unknown> extends HttpClient {
       path: `/api/v1/letters/marked/${variables.letterId}`,
       method: "PATCH",
       secure: true,
+      format: "json",
       ...variables.params,
     }) /**
    * No description
@@ -160,7 +166,33 @@ export class ApiApi<SecurityDataType = unknown> extends HttpClient {
       path: `/api/v1/setting`,
       method: "GET",
       secure: true,
+      format: "json",
       ...variables?.params,
+    }) /**
+   * @description 편지 작성 시 필요한 수신자 정보, 음악 목록 등을 조회합니다.
+   *
+   * @tags letter-meta-read-api
+   * @name ReadLetterMeta
+   * @summary 편지 작성 메타 정보 조회
+   * @request GET:/api/v1/letters/meta
+   * @secure
+   */
+  readLetterMeta = (
+    variables: {
+      query: {
+        /** @format int64 */
+        receiverId: number
+      }
+      params?: RequestParams
+    },
+  ) =>
+    this.request<ApiResponseLetterMetaReadResponseType, any>({
+      path: `/api/v1/letters/meta`,
+      method: "GET",
+      query: variables.query,
+      secure: true,
+      format: "json",
+      ...variables.params,
     }) /**
    * @description 읽을 수 있는 편지의 상세 정보를 조회합니다.
    *
@@ -175,6 +207,7 @@ export class ApiApi<SecurityDataType = unknown> extends HttpClient {
       path: `/api/v1/letters/detail/${variables.letterId}`,
       method: "GET",
       secure: true,
+      format: "json",
       ...variables.params,
     }) /**
    * @description 특정한 날에 받은 편지 목록을 조회합니다.
@@ -199,6 +232,7 @@ export class ApiApi<SecurityDataType = unknown> extends HttpClient {
       method: "GET",
       query: variables.query,
       secure: true,
+      format: "json",
       ...variables.params,
     }) /**
    * @description 이번 주에 받은 편지 개수를 조회합니다.
@@ -214,6 +248,7 @@ export class ApiApi<SecurityDataType = unknown> extends HttpClient {
       path: `/api/v1/letters/count/weekly`,
       method: "GET",
       secure: true,
+      format: "json",
       ...variables?.params,
     }) /**
    * No description
