@@ -120,6 +120,7 @@ const Step1 = ({ musicList }: { musicList: LetterMusicResponseType[] }) => {
         onCancel: close,
         onConfirm: () => {
           router.replace("/")
+          close()
         },
       },
     })
@@ -129,6 +130,14 @@ const Step1 = ({ musicList }: { musicList: LetterMusicResponseType[] }) => {
     onOpenConfirmDialog()
   }
 
+  const handleMusicSelect = (music: LetterMusicResponseType) => {
+    if (formData.musicId === music.id) {
+      updateFormData({ musicId: undefined })
+    } else {
+      updateFormData({ musicId: music.id })
+    }
+  }
+
   return (
     <section>
       {/* 날씨영역 */}
@@ -136,7 +145,11 @@ const Step1 = ({ musicList }: { musicList: LetterMusicResponseType[] }) => {
 
       {/* 음악 드롭다운 */}
       <div className="mt-[24px] flex place-content-center">
-        <MusicDropdown musicList={musicList} />
+        <MusicDropdown
+          musicList={musicList}
+          selectedMusicId={formData.musicId}
+          onSelectMusic={handleMusicSelect}
+        />
       </div>
 
       <div className="bg-background-assistive mx-[16px] mt-[24px] flex h-[346px] flex-col rounded-[20px] px-[24px] pt-[24px]">

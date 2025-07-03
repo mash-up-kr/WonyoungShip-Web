@@ -46,12 +46,21 @@ export const IconButton = ({
 export interface MusicDropdownProps {
   className?: HTMLAttributes<HTMLDivElement>["className"]
   musicList?: LetterMusicResponseType[]
+  selectedMusicId?: number | null
+  onSelectMusic?: (music: LetterMusicResponseType) => void
 }
 
-const MusicDropdown = ({ className, musicList = [] }: MusicDropdownProps) => {
+const MusicDropdown = ({
+  className,
+  musicList = [],
+  selectedMusicId,
+  onSelectMusic,
+}: MusicDropdownProps) => {
   const [playingMusicId, setPlayingMusicId] = useState<number | null>(null)
   const [selectedMusic, setSelectedMusic] =
-    useState<LetterMusicResponseType | null>(null)
+    useState<LetterMusicResponseType | null>(
+      musicList.find((music) => music.id === selectedMusicId) ?? null,
+    )
 
   // Menu의 open 상태를 추적하기 위한 상태
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -79,6 +88,8 @@ const MusicDropdown = ({ className, musicList = [] }: MusicDropdownProps) => {
     } else {
       setSelectedMusic(music)
     }
+
+    onSelectMusic?.(music)
   }
 
   const initMusicList = useCallback(() => {

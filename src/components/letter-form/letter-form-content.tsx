@@ -16,7 +16,6 @@ import Step2 from "./step2/step2"
 import Step3 from "./step3/step3"
 
 const LetterFormContent = () => {
-  //   const { musics, receiverNickname, senderNickname } = letterMeta
   const searchParams = useSearchParams()
   const receiverId = searchParams.get("receiverId")
   const { step, setStep, updateFormData } = useLetterForm()
@@ -57,7 +56,7 @@ const LetterFormContent = () => {
       <BasicHeader
         hasBackButton={step === 2}
         onClickBackButton={() => setStep(step - 1)}
-        centerText={`To. ${receiverName}`}
+        centerText={step === 1 ? `To. ${receiverName}` : ""}
       />
       {step === 1 && <Step1 musicList={musicList} />}
       {step === 2 && <Step2 />}

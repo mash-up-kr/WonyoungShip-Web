@@ -1,6 +1,7 @@
 "use client"
 
 import dayjs from "dayjs"
+import { useSearchParams } from "next/navigation"
 import React, { useState } from "react"
 
 import { apiApi } from "@/__generated__/Api/Api.api"
@@ -13,14 +14,20 @@ import { validateStep2 } from "../utils/step-validate"
 
 const Step2 = () => {
   const { showSnackbar } = useSnackbar()
-  const [isOpen, setIsOpen] = useState(false)
   const { formData, setStep, updateFormData } = useLetterForm()
+  const searchParams = useSearchParams()
+  const receiverId = searchParams.get("receiverId")
+
+  const [isOpen, setIsOpen] = useState(false)
   const [selectedDate, setSelectedDate] = useState(new Date())
 
   const onSubmit = async () => {
     try {
       const response = await apiApi.writeLetter({
-        data: formData,
+        data: {
+          ...formData,
+          receiverId: Number(receiverId),
+        },
       })
       return {
         success: true,
@@ -99,7 +106,9 @@ const Step2 = () => {
                 받는 날
               </Text>
               <Text variant="body" size="small" color="brand">
-                {formData.scheduleDate ? formData.scheduleDate : "날짜 선택"}
+                {formData.scheduleDate
+                  ? dayjs(formData.scheduleDate).format("YYYY.MM.DD(ddd)")
+                  : "날짜 선택"}
               </Text>
             </div>
           </div>
