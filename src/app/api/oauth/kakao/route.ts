@@ -13,8 +13,12 @@ export async function GET(req: NextRequest) {
 
   const {
     data: { data },
-  } = await apiApi.kakaoLogin({ data: { token: code } })
+  } = await apiApi.kakaoLogin({
+    data: { token: code, url: req.url.split("?")[0] ?? "" },
+  })
+
   const token = (data as { token?: string } | null)?.token
+
   if (!token) {
     return NextResponse.redirect(new URL("/landing?error=login", req.url))
   }

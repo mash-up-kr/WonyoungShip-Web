@@ -1,4 +1,3 @@
- 
 /* tslint:disable */
 /*
  * ---------------------------------------------------------------
@@ -8,7 +7,6 @@
  * ## SOURCE: https://github.com/acacode/swagger-typescript-api ##
  * ---------------------------------------------------------------
  */
-
 
 export interface ApiResponseUnitType {
   code: string
@@ -51,6 +49,7 @@ export interface ApiResponseType {
 
 export interface KakaoLoginRequestType {
   token: string
+  url: string
 }
 
 export interface ApiResponseLetterMarkedResponseType {
