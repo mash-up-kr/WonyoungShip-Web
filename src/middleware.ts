@@ -1,4 +1,3 @@
-// middleware.ts (프로젝트 루트에 위치)
 import { NextResponse } from "next/server"
 import type { NextRequest } from "next/server"
 
