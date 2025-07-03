@@ -13,14 +13,16 @@
 import customFetch from "@/configs/fetch/instance"
 import { ContentType, HttpClient, RequestParams } from "../@http-client"
 import type {
+  ApiResponseKakaoLoginResponseType,
   ApiResponseLetterDetailResponseType,
   ApiResponseLetterMarkedResponseType,
   ApiResponseLetterMetaReadResponseType,
+  ApiResponseLetterWriteResponseType,
   ApiResponseLettersDailyResponseType,
   ApiResponseLettersMonthlyResponseType,
   ApiResponseLettersWeeklyCountResponseType,
+  ApiResponseListLandingResponseType,
   ApiResponseMemberSettingResponseType,
-  ApiResponseType,
   ApiResponseUnitType,
   ChangeEmailSettingRequestType,
   KakaoLoginRequestType,
@@ -29,10 +31,11 @@ import type {
 
 export class ApiApi<SecurityDataType = unknown> extends HttpClient {
   /**
-   * No description
+   * @description 현재 계정 탈퇴합니다
    *
-   * @tags setting-api
+   * @tags 설정 API
    * @name Withdraw
+   * @summary 계정 탈퇴
    * @request POST:/api/v1/setting/member/withdraw
    * @secure
    */
@@ -44,10 +47,11 @@ export class ApiApi<SecurityDataType = unknown> extends HttpClient {
       format: "json",
       ...variables?.params,
     }) /**
-   * No description
+   * @description 현재 계정을 로그아웃합니다
    *
-   * @tags logout-api
+   * @tags 로그아웃 API
    * @name Logout
+   * @summary 로그아웃
    * @request POST:/api/v1/setting/member/logout
    * @secure
    */
@@ -59,10 +63,11 @@ export class ApiApi<SecurityDataType = unknown> extends HttpClient {
       format: "json",
       ...variables?.params,
     }) /**
-   * No description
+   * @description 이메일 관련 설정을 합니다
    *
-   * @tags setting-api
+   * @tags 설정 API
    * @name ChangeEmailAlarm
+   * @summary 이메일 설정
    * @request POST:/api/v1/setting/alarm/email
    * @secure
    */
@@ -112,7 +117,7 @@ export class ApiApi<SecurityDataType = unknown> extends HttpClient {
    * @secure
    */
   writeLetter = (variables: { data: LetterWriteRequestType; params?: RequestParams }) =>
-    this.request<ApiResponseType, any>({
+    this.request<ApiResponseLetterWriteResponseType, any>({
       path: `/api/v1/letters`,
       method: "POST",
       body: variables.data,
@@ -121,16 +126,16 @@ export class ApiApi<SecurityDataType = unknown> extends HttpClient {
       format: "json",
       ...variables.params,
     }) /**
-   * No description
+   * @description 카카오 토큰으로 로그인합니다
    *
    * @tags 카카오 로그인 API
    * @name KakaoLogin
-   * @summary 카카오 로그인 API
+   * @summary 카카오 로그인
    * @request POST:/api/v1/auth/kakao
    * @secure
    */
   kakaoLogin = (variables: { data: KakaoLoginRequestType; params?: RequestParams }) =>
-    this.request<ApiResponseType, any>({
+    this.request<ApiResponseKakaoLoginResponseType, any>({
       path: `/api/v1/auth/kakao`,
       method: "POST",
       body: variables.data,
@@ -139,10 +144,11 @@ export class ApiApi<SecurityDataType = unknown> extends HttpClient {
       format: "json",
       ...variables.params,
     }) /**
-   * No description
+   * @description 특정 편지를 즐겨찾기 합니다
    *
    * @tags 편지 쓰기 API
    * @name MarkedLetter
+   * @summary 편지 즐겨찾기 API
    * @request PATCH:/api/v1/letters/marked/{letterId}
    * @secure
    */
@@ -154,10 +160,11 @@ export class ApiApi<SecurityDataType = unknown> extends HttpClient {
       format: "json",
       ...variables.params,
     }) /**
-   * No description
+   * @description 설정 상태를 조회합니다
    *
-   * @tags setting-api
+   * @tags 설정 API
    * @name GetSetting
+   * @summary 설정 조회
    * @request GET:/api/v1/setting
    * @secure
    */
@@ -171,7 +178,7 @@ export class ApiApi<SecurityDataType = unknown> extends HttpClient {
     }) /**
    * @description 편지 작성 시 필요한 수신자 정보, 음악 목록 등을 조회합니다.
    *
-   * @tags letter-meta-read-api
+   * @tags 편지 쓰기 API
    * @name ReadLetterMeta
    * @summary 편지 작성 메타 정보 조회
    * @request GET:/api/v1/letters/meta
@@ -251,16 +258,16 @@ export class ApiApi<SecurityDataType = unknown> extends HttpClient {
       format: "json",
       ...variables?.params,
     }) /**
-   * No description
+   * @description 랜딩 페이지 데이터를 조회합니다
    *
-   * @tags 랜딩 컨텐츠 API
+   * @tags 랜딩 API
    * @name GetLandingContent
-   * @summary 랜딩 컨텐츠 조회 API
+   * @summary 랜딩 데이터
    * @request GET:/api/v1/landing
    * @secure
    */
   getLandingContent = (variables?: { params?: RequestParams }) =>
-    this.request<ApiResponseType, any>({
+    this.request<ApiResponseListLandingResponseType, any>({
       path: `/api/v1/landing`,
       method: "GET",
       secure: true,
