@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server"
 import type { NextRequest } from "next/server"
 
-import { ACCESS_TOKEN_KEY } from "./app/api/oauth/kakao/route"
+import { ACCESS_TOKEN_KEY } from "./constants/cookies"
 
 const PUBLIC_PATHS = ["/favicon.ico", "/_next", "/api"]
 const PROTECTED_MATCHERS = [

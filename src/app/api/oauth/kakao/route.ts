@@ -1,8 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 
 import { apiApi } from "@/__generated__/Api/Api.api"
-
-export const ACCESS_TOKEN_KEY = "access_token"
+import { ACCESS_TOKEN_KEY } from "@/constants/cookies"
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url)
