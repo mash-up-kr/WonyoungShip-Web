@@ -28,9 +28,9 @@ const KakaoOauthPage = () => {
         data: { data },
       } = await apiApi.kakaoLogin({ data: { token: code } })
 
-      const token = data as unknown as string
+      const response = data as unknown as { token: string } | null
 
-      if (token === null) {
+      if (!response || !response.token) {
         showSnackbar({
           message: "로그인 중 오류가 발생했어요",
         })
@@ -38,7 +38,7 @@ const KakaoOauthPage = () => {
         return
       }
 
-      accessTokenStorage.set(token)
+      accessTokenStorage.set(response.token)
       showSnackbar({
         message: "둥둥에 찾아와주어 고마워요",
       })
