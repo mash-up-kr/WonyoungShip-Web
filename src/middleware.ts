@@ -2,6 +2,8 @@
 import { NextResponse } from "next/server"
 import type { NextRequest } from "next/server"
 
+import { ACCESS_TOKEN_KEY } from "./app/api/oauth/kakao/route"
+
 const PUBLIC_PATHS = ["/favicon.ico", "/_next", "/api"]
 const PROTECTED_MATCHERS = [
   "/home",
@@ -32,7 +34,7 @@ export async function middleware(req: NextRequest) {
   })
 
   if (isProtected) {
-    const token = req.cookies.get("access_token")?.value
+    const token = req.cookies.get(ACCESS_TOKEN_KEY)?.value
 
     if (!token) {
       const url = req.nextUrl.clone()
