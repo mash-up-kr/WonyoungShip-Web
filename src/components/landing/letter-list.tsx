@@ -10,8 +10,36 @@ import { convertServerToIconWeatherName } from "@/utils/weather"
 
 import { Text, WeatherIcon } from "../common"
 
+const DEFAULT_LETTER_LIST: LandingResponseType[] = [
+  { date: "2023-10-01", weather: "SUNNY", letter: "" },
+  {
+    date: "2023-10-02",
+    weather: "CLOUDY",
+    letter: "아름다운 날씨가 계속되네요! 오늘은 어떤 계획이 있으신가요? ",
+  },
+  {
+    date: "2023-10-03",
+    weather: "RAINY",
+    letter:
+      "오늘도 비가 오네요. 우산 챙기셨나요? 비 오는 날은 따뜻한 차 한 잔이 생각나네요.",
+  },
+  { date: "2023-10-01", weather: "SUNNY", letter: "" },
+  {
+    date: "2023-10-02",
+    weather: "CLOUDY",
+    letter: "오늘은 흐린 날씨네요. 그래도 기분 좋은 하루 되세요!",
+  },
+  {
+    date: "2023-10-03",
+    weather: "RAINY",
+    letter:
+      "비가 오는 날은 창밖을 바라보며 생각에 잠기기 좋은 날이죠. 오늘은 어떤 생각을 하고 계신가요?",
+  },
+]
+
 export const LetterList = () => {
-  const [letterList, setLetterList] = useState<LandingResponseType[]>([])
+  const [letterList, setLetterList] =
+    useState<LandingResponseType[]>(DEFAULT_LETTER_LIST)
 
   const copiedLetterList = [...letterList, ...letterList, ...letterList]
 
@@ -32,7 +60,7 @@ export const LetterList = () => {
         const letters = response.data.data
 
         // 편지 목록을 상태에 저장합니다.
-        setLetterList(letters ?? [])
+        setLetterList(letters ?? DEFAULT_LETTER_LIST)
       } catch (error) {
         console.error("편지 목록을 가져오는 데 실패했습니다:", error)
       }
