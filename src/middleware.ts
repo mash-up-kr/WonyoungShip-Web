@@ -39,6 +39,7 @@ export async function middleware(req: NextRequest) {
     if (!token) {
       const url = req.nextUrl.clone()
       url.pathname = "/landing"
+      url.searchParams.set("error", "unauthorized")
       return NextResponse.redirect(url)
     }
   }
