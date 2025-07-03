@@ -1,3 +1,5 @@
+import { redirect } from "next/navigation"
+
 /**
  * 인터셉터 처리를 위한 핸들러 함수
  */
@@ -74,6 +76,10 @@ interceptors.request.use(async (config) => {
 
 // 응답 인터셉터 설정
 interceptors.response.use(async (response) => {
+  if (response.status === 401) {
+    redirect("/landing?error=unauthorized")
+  }
+
   return response
 })
 
