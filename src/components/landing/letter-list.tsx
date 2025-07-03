@@ -1,20 +1,19 @@
-import Image from "next/image"
+"use client"
 
+import Image from "next/image"
+import { useEffect, useState } from "react"
+
+import { LandingResponseType } from "@/__generated__/@types"
 import { apiApi } from "@/__generated__/Api/Api.api"
 import LetterBackground from "@/assets/images/letter-background.png"
 import { convertServerToIconWeatherName } from "@/utils/weather"
 
 import { Text, WeatherIcon } from "../common"
 
-export const LetterList = async () => {
-  const {
-    data: { data },
-  } = await apiApi.getLandingContent()
+export const LetterList = () => {
+  const [letterList, setLetterList] = useState<LandingResponseType[]>([])
 
-  // TODO: API 제너레이터 정상화 후 제거 필요
-  const letters = data as { date: string; letter: string; weather: string }[]
-
-  const letterList = [...letters, ...letters, ...letters]
+  const copiedLetterList = [...letterList, ...letterList, ...letterList]
 
   const formatDate = (date: string | Date) => {
     const d = new Date(date)
@@ -25,6 +24,23 @@ export const LetterList = async () => {
     return `${month}월 ${day}일 ${dayOfWeek}`
   }
 
+  useEffect(() => {
+    // API 호출을 통해 편지 목록을 가져옵니다.
+    const fetchLetters = async () => {
+      try {
+        const response = await apiApi.getLandingContent()
+        const letters = response.data.data
+
+        // 편지 목록을 상태에 저장합니다.
+        setLetterList(letters ?? [])
+      } catch (error) {
+        console.error("편지 목록을 가져오는 데 실패했습니다:", error)
+      }
+    }
+
+    fetchLetters()
+  }, [])
+
   return (
     <div className="relative overflow-hidden">
       {/* 측면 그라데이션 숨김을 위한 요소 */}
@@ -32,7 +48,7 @@ export const LetterList = async () => {
       <div className="absolute top-0 right-0 bottom-0 z-10 w-[100px] bg-gradient-to-l from-[#f2f5f7] to-[#f2f5f700] md:w-[50px] xl:w-[100px]"></div>
       {/* 편지 목록 */}
       <div className="animate-infinite-slide-left flex w-max will-change-transform">
-        {letterList.map(({ date, letter, weather }, index) => (
+        {copiedLetterList.map(({ date, letter, weather }, index) => (
           <section
             key={index}
             className="bg-blue-10 relative mr-3 flex h-[209px] w-[209px] flex-none flex-col gap-3 rounded-[13px] p-6"

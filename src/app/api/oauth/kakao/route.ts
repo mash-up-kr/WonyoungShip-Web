@@ -32,7 +32,7 @@ export async function GET(req: NextRequest) {
     secure: process.env.NODE_ENV === "production",
     maxAge: 60 * 60 * 24 * 3, // 유효 기간 3일
     path: "/", // root-level
-    sameSite: "lax",
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
   })
   return res
 }
