@@ -1,5 +1,13 @@
 import { LetterWriteRequestType } from "@/__generated__/@types"
 
+export const MESSAGE_MAP = {
+  IS_PASS: "통과",
+  WEATHER_REQUIRED: "날씨를 선택해주세요.",
+  CONTENT_REQUIRED: "내용을 입력해주세요.",
+  NICKNAME_REQUIRED: "닉네임을 입력해주세요.",
+  MUSIC_REQUIRED: "음악을 선택해주세요.",
+}
+
 export const validateStep1 = ({
   formData,
 }: {
@@ -8,26 +16,26 @@ export const validateStep1 = ({
   const { weather, content, senderNickname, musicId } = formData
   if (!weather) {
     return {
-      message: "날씨를 선택해주세요.",
+      message: MESSAGE_MAP.WEATHER_REQUIRED,
     }
   }
   if (!content.trim()) {
     return {
-      message: "내용을 입력해주세요.",
+      message: MESSAGE_MAP.CONTENT_REQUIRED,
     }
   }
   if (!senderNickname.trim()) {
     return {
-      message: "닉네임을 입력해주세요.",
+      message: MESSAGE_MAP.NICKNAME_REQUIRED,
     }
   }
   if (!musicId) {
     return {
-      message: "음악을 선택해주세요.",
+      message: MESSAGE_MAP.MUSIC_REQUIRED,
     }
   }
   return {
-    message: "통과",
+    message: MESSAGE_MAP.IS_PASS,
   }
 }
 

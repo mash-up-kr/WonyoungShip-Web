@@ -2,13 +2,13 @@
 
 import { Textarea } from "@headlessui/react"
 import clsx from "clsx"
-import React, { useEffect, useState } from "react"
+import { useRouter } from "next/navigation"
+import React, { useState } from "react"
 
 import {
   LetterMusicResponseType,
   LetterWriteRequestType,
 } from "@/__generated__/@types"
-import { apiApi } from "@/__generated__/Api/Api.api"
 import { WeatherIconName } from "@/assets/svg/weather"
 import { Button, Icon, Text, WeatherIcon } from "@/components/common"
 import BaseDialog from "@/components/common/dialog/base-dialog"
@@ -17,7 +17,7 @@ import { useDialog } from "@/contexts/dialog-context"
 import { useLetterForm } from "@/contexts/letter-form-context"
 import { useSnackbar } from "@/contexts/snackbar"
 
-import { validateStep1 } from "../utils/step-validate"
+import { MESSAGE_MAP, validateStep1 } from "../utils/step-validate"
 
 const WEATHER_MAP: Record<string, LetterWriteRequestType["weather"]> = {
   sunny: "SUNNY",
@@ -47,8 +47,7 @@ const WeatherList = () => {
 
   const handleWeatherClick = (weather: LetterWriteRequestType["weather"]) => {
     updateFormData({
-      weather:
-        formData.weather.toLocaleLowerCase() === weather ? undefined : weather,
+      weather: formData.weather.toLowerCase() === weather ? undefined : weather,
     })
   }
 
@@ -83,18 +82,18 @@ const WeatherList = () => {
   )
 }
 
-const Step1 = () => {
+const Step1 = ({ musicList }: { musicList: LetterMusicResponseType[] }) => {
+  const router = useRouter()
   const { open, close } = useDialog()
   const { showSnackbar } = useSnackbar()
   const { formData, updateFormData, setStep } = useLetterForm()
   const [isEditNameDialogOpen, setIsEditNameDialogOpen] = useState(false)
   const [tempAuthorName, setTempAuthorName] = useState(formData.senderNickname)
-  const [musicList, setMusicList] = useState<LetterMusicResponseType[]>([])
 
   const handleNext = () => {
     const validateResult = validateStep1({ formData })
     const { message } = validateResult
-    if (message !== "통과") {
+    if (message !== MESSAGE_MAP.IS_PASS) {
       showSnackbar({ message, icon: "clear" })
       return
     }
@@ -119,87 +118,16 @@ const Step1 = () => {
         cancelText: "취소",
         confirmText: "나가기",
         onCancel: close,
-        onConfirm: close,
+        onConfirm: () => {
+          router.replace("/")
+        },
       },
     })
   }
 
   const handleCancel = () => {
-    // TODO: 작성 취소 확인 다이얼로그
-    // resetForm() 호출
     onOpenConfirmDialog()
   }
-
-  useEffect(() => {
-    const getLetterMeta = async () => {
-      try {
-        const letterMeta = await apiApi.readLetterMeta({
-          query: {
-            receiverId: 1,
-          },
-        })
-
-        console.log("#letterMeta.data:", letterMeta?.data.data?.musics)
-
-        const { musics } = letterMeta?.data.data || {}
-
-        if (musics && musics.length > 0) {
-          setMusicList(musics)
-        } else {
-          const mockMusics: LetterMusicResponseType[] = [
-            {
-              id: 1,
-              title: "봄날",
-              artist: "BTS",
-              url: "https://dl.espressif.com/dl/audio/ff-16b-2c-44100hz.mp4",
-              mood: "따뜻한",
-              isRecommended: true,
-            },
-            {
-              id: 2,
-              title: "밤편지",
-              artist: "아이유",
-              url: "https://dl.espressif.com/dl/audio/ff-16b-2c-44100hz.mp4",
-              mood: "감성적인",
-              isRecommended: false,
-            },
-            {
-              id: 3,
-              title: "가을아침",
-              artist: "아이유",
-              url: "https://dl.espressif.com/dl/audio/ff-16b-2c-44100hz.mp4",
-              mood: "차분한",
-              isRecommended: false,
-            },
-            {
-              id: 4,
-              title: "호랑이",
-              artist: "QWER",
-              url: "https://dl.espressif.com/dl/audio/ff-16b-2c-44100hz.mp4",
-              mood: "신나는",
-              isRecommended: false,
-            },
-            {
-              id: 5,
-              title: "Drama",
-              artist: "aespa",
-              url: "https://dl.espressif.com/dl/audio/ff-16b-2c-44100hz.mp4",
-              mood: "강렬한",
-              isRecommended: false,
-            },
-          ]
-          setMusicList(mockMusics)
-        }
-
-        const landingContent = await apiApi.getLandingContent()
-
-        console.log("#landingContent.data:", landingContent?.data)
-      } catch (error) {
-        console.error("API 호출 중 에러:", error)
-      }
-    }
-    getLetterMeta()
-  }, [])
 
   return (
     <section>
