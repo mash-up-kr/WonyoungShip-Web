@@ -17,7 +17,7 @@ export async function GET(req: NextRequest) {
     data: { token: code, url: req.url.split("?")[0] ?? "" },
   })
 
-  const token = (data as { token?: string } | null)?.token
+  const token = data?.accessToken
 
   if (!token) {
     return NextResponse.redirect(new URL("/landing?error=login", req.url))
