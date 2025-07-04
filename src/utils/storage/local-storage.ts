@@ -12,11 +12,11 @@ export class LocalStorageManager<T> {
     this.initialValue = initialValue
     this.inMemoryStorage = new Map<string, T | null>()
 
-    this.value = this.getSnapshot(key, initialValue)
+    this.value = this.get(key, initialValue)
     this.initialize()
   }
 
-  private getSnapshot = (key: string, initialValue: T | null): T | null => {
+  private get = (key: string, initialValue: T | null): T | null => {
     try {
       const item = localStorage.getItem(key)
       return item !== null ? (JSON.parse(item) as T) : initialValue
