@@ -74,9 +74,11 @@ interceptors.request.use(async (config) => {
   }
 })
 
+const UNAUTHORIZED = 401
+
 // 응답 인터셉터 설정
 interceptors.response.use(async (response) => {
-  if (response.status === 401) {
+  if (response.status === UNAUTHORIZED) {
     redirect("/landing?error=unauthorized")
   }
 
