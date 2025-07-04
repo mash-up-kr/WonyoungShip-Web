@@ -59,7 +59,7 @@ const LetterFormContent = () => {
         centerText={step === 1 ? `To. ${receiverName}` : ""}
       />
       {step === 1 && <Step1 musicList={musicList} />}
-      {step === 2 && <Step2 />}
+      {step === 2 && <Step2 receiverName={receiverName} />}
       {step === 3 && <Step3 />}
     </section>
   )

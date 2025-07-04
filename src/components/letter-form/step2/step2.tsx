@@ -12,7 +12,7 @@ import { useSnackbar } from "@/contexts/snackbar"
 
 import { validateStep2 } from "../utils/step-validate"
 
-const Step2 = () => {
+const Step2 = ({ receiverName }: { receiverName: string }) => {
   const { showSnackbar } = useSnackbar()
   const { formData, setStep, updateFormData } = useLetterForm()
   const searchParams = useSearchParams()
@@ -74,7 +74,7 @@ const Step2 = () => {
 
             <div className="flex min-w-0 flex-col">
               <Text variant="body" size="small" color="secondary">
-                TO.예인
+                To. {receiverName}
               </Text>
 
               <Text
