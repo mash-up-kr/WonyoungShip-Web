@@ -3,6 +3,8 @@ import { NextRequest, NextResponse } from "next/server"
 import { apiApi } from "@/__generated__/Api/Api.api"
 import { ACCESS_TOKEN_KEY } from "@/constants/cookies"
 
+const THREE_DAYS = 60 * 60 * 24 * 3 // 3일
+
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url)
   const code = searchParams.get("code")
@@ -29,7 +31,7 @@ export async function GET(req: NextRequest) {
     value: token,
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
-    maxAge: 60 * 60 * 24 * 3, // 유효 기간 3일
+    maxAge: THREE_DAYS, // 유효 기간 3일
     path: "/", // root-level
     sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
   })
