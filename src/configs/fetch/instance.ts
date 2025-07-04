@@ -1,12 +1,23 @@
 import { redirect } from "next/navigation"
 
+type CustomRequestInit = RequestInit & {
+  headers: {
+    Authorization?: string
+    [key: string]: string | undefined
+  }
+}
+
+type RequestInterceptor =
+  | ((config: RequestInit) => Promise<CustomRequestInit>)
+  | null
+
+type ResponseInterceptor = ((response: Response) => Promise<Response>) | null
+
 /**
  * 인터셉터 처리를 위한 핸들러 함수
  */
-let requestInterceptor: ((config: RequestInit) => Promise<RequestInit>) | null =
-  null
-let responseInterceptor: ((response: Response) => Promise<Response>) | null =
-  null
+let requestInterceptor: RequestInterceptor = null
+let responseInterceptor: ResponseInterceptor = null
 
 /**
  * fetch API를 확장한 커스텀 함수
@@ -42,7 +53,7 @@ const customFetch = async (
  */
 const interceptors = {
   request: {
-    use: (handler: (config: RequestInit) => Promise<RequestInit>) => {
+    use: (handler: RequestInterceptor) => {
       requestInterceptor = handler
     },
   },
