@@ -6,6 +6,7 @@ export const MESSAGE_MAP = {
   CONTENT_REQUIRED: "내용을 입력해주세요.",
   NICKNAME_REQUIRED: "닉네임을 입력해주세요.",
   MUSIC_REQUIRED: "음악을 선택해주세요.",
+  DATE_REQUIRED: "날짜를 선택해주세요.",
 }
 
 export const validateStep1 = ({
@@ -47,10 +48,10 @@ export const validateStep2 = ({
   const { scheduleDate } = formData
   if (!scheduleDate) {
     return {
-      message: "날짜를 선택해주세요.",
+      message: MESSAGE_MAP.DATE_REQUIRED,
     }
   }
   return {
-    message: "통과",
+    message: MESSAGE_MAP.IS_PASS,
   }
 }
