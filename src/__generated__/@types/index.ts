@@ -28,8 +28,6 @@ export interface ChangeEmailSettingRequestType {
 
 export interface LetterWriteRequestType {
   /** @format int64 */
-  senderId?: number
-  /** @format int64 */
   receiverId: number
   content: string
   /** @format date */
@@ -41,10 +39,38 @@ export interface LetterWriteRequestType {
   needFortuneCookie: boolean
 }
 
-export type ApiResponseType = object
+export interface ApiResponseLetterWriteResponseType {
+  code: string
+  message: string
+  data?: LetterWriteResponseType
+  /** @format int32 */
+  pageIndex?: number
+  /** @format int32 */
+  pageSize?: number
+}
+
+export interface LetterWriteResponseType {
+  /** @format int64 */
+  letterId: number
+}
 
 export interface KakaoLoginRequestType {
   token: string
+  url: string
+}
+
+export interface ApiResponseKakaoLoginResponseType {
+  code: string
+  message: string
+  data?: KakaoLoginResponseType
+  /** @format int32 */
+  pageIndex?: number
+  /** @format int32 */
+  pageSize?: number
+}
+
+export interface KakaoLoginResponseType {
+  accessToken: string
 }
 
 export interface ApiResponseLetterMarkedResponseType {
@@ -108,6 +134,29 @@ export interface LettersMonthlyResponseType {
   days: string[]
 }
 
+export interface ApiResponseLetterMetaReadResponseType {
+  code: string
+  message: string
+  data?: LetterMetaReadResponseType
+  /** @format int32 */
+  pageIndex?: number
+  /** @format int32 */
+  pageSize?: number
+}
+
+export interface LetterMetaReadResponseType {
+  senderNickname?: string
+  receiverNickname: string
+  musics: LetterMusicResponseType[]
+}
+
+export interface LetterMusicResponseType {
+  title: string
+  artist: string
+  url: string
+  mood: string
+}
+
 export interface ApiResponseLetterDetailResponseType {
   code: string
   message: string
@@ -129,12 +178,6 @@ export interface LetterDetailResponseType {
   content: string
   music?: LetterMusicResponseType
   fortuneCookieMessage?: string
-}
-
-export interface LetterMusicResponseType {
-  title: string
-  artist: string
-  url: string
 }
 
 export interface ApiResponseLettersDailyResponseType {
@@ -167,4 +210,21 @@ export interface LettersWeeklyCountResponseType {
   /** @format int64 */
   notViewedCount: number
   receivedCountPerDay: number[]
+}
+
+export interface ApiResponseListLandingResponseType {
+  code: string
+  message: string
+  data?: LandingResponseType[]
+  /** @format int32 */
+  pageIndex?: number
+  /** @format int32 */
+  pageSize?: number
+}
+
+export interface LandingResponseType {
+  /** @format date */
+  date: string
+  weather: "SUNNY" | "CLOUDY" | "RAINY" | "SNOWY" | "NIGHT_SHINING"
+  letter: string
 }

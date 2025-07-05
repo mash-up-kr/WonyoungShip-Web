@@ -1,3 +1,5 @@
+"use client"
+
 import { Text } from "@/components/common"
 import { cn } from "@/utils/cn"
 import { checkSameDay } from "@/utils/date"
