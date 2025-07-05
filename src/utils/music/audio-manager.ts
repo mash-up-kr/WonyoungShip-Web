@@ -31,18 +31,6 @@ export class AudioManager {
     }
   }
 
-  isPlaying(index: number): boolean {
-    return this.currentPlayingIndex === index && !this.audioList[index].paused
-  }
-
-  toggle(index: number) {
-    if (this.isPlaying(index)) {
-      this.pause(index)
-    } else {
-      this.play(index)
-    }
-  }
-
   reset() {
     this.audioList.forEach((audio) => {
       if (!audio.paused) {
@@ -52,11 +40,6 @@ export class AudioManager {
     })
 
     this.currentPlayingIndex = null
-  }
-
-
-  getAudioList() {
-    return this.audioList
   }
 }
 
