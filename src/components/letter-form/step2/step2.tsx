@@ -10,7 +10,7 @@ import Checkbox from "@/components/common/checkbox"
 import { useLetterForm } from "@/contexts/letter-form-context"
 import { useSnackbar } from "@/contexts/snackbar"
 
-import { validateStep2 } from "../utils/step-validate"
+import { MESSAGE_MAP, validateStep2 } from "../utils/step-validate"
 
 const Step2 = ({ receiverName }: { receiverName: string }) => {
   const { showSnackbar } = useSnackbar()
@@ -45,7 +45,7 @@ const Step2 = ({ receiverName }: { receiverName: string }) => {
   const handleSubmit = async () => {
     const validateResult = validateStep2({ formData })
     const { message } = validateResult
-    if (message !== "통과") {
+    if (message !== MESSAGE_MAP.IS_PASS) {
       showSnackbar({ message, icon: "clear" })
       return
     }
