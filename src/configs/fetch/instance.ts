@@ -1,8 +1,23 @@
+import { redirect } from "next/navigation"
+
+type CustomRequestInit = RequestInit & {
+  headers: {
+    Authorization?: string
+    [key: string]: string | undefined
+  }
+}
+
+type RequestInterceptor =
+  | ((config: RequestInit) => Promise<CustomRequestInit>)
+  | null
+
+type ResponseInterceptor = ((response: Response) => Promise<Response>) | null
+
 /**
  * 인터셉터 처리를 위한 핸들러 함수
  */
-let requestInterceptor: ((config: RequestInit) => RequestInit) | null = null
-let responseInterceptor: ((response: Response) => Response) | null = null
+let requestInterceptor: RequestInterceptor = null
+let responseInterceptor: ResponseInterceptor = null
 
 /**
  * fetch API를 확장한 커스텀 함수
@@ -16,7 +31,7 @@ const customFetch = async (
     // 요청 전 인터셉터 적용
     let config = init || {}
     if (requestInterceptor) {
-      config = requestInterceptor(config)
+      config = await requestInterceptor(config)
     }
 
     // 실제 fetch 요청 실행
@@ -38,35 +53,45 @@ const customFetch = async (
  */
 const interceptors = {
   request: {
-    use: (handler: (config: RequestInit) => RequestInit) => {
+    use: (handler: RequestInterceptor) => {
       requestInterceptor = handler
     },
   },
   response: {
-    use: (handler: (response: Response) => Response) => {
+    use: (handler: (response: Response) => Promise<Response>) => {
       responseInterceptor = handler
     },
   },
 }
 
 // 요청 인터셉터 설정
-interceptors.request.use((config) => {
+interceptors.request.use(async (config) => {
+  const cookieResponse = await fetch("/api/oauth/kakao/token", {
+    credentials: "include",
+  })
+
+  const data = await cookieResponse.json()
+
+  const token = data?.token || null
+
   return {
     ...config,
     headers: {
       ...config.headers,
-      Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      // 필요한 헤더 추가
+      // 예: "Content-Type": "application/json",
+      ...(token && { Authorization: `Bearer ${token}` }),
     },
-    // headers: {
-    //   ...config.headers,
-    //   // 필요한 헤더 추가
-    //   // 예: "Content-Type": "application/json",
-    // },
   }
 })
 
+const UNAUTHORIZED = 401
+
 // 응답 인터셉터 설정
-interceptors.response.use((response) => {
+interceptors.response.use(async (response) => {
+  if (response.status === UNAUTHORIZED) {
+    redirect("/landing?error=unauthorized")
+  }
   return response
 })
 

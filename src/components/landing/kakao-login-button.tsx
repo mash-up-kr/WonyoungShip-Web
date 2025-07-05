@@ -10,7 +10,7 @@ export const KakaoLoginButton = () => {
       return
     }
 
-    const redirectUri = `${window.location.origin}/oauth/kakao`
+    const redirectUri = `${window.location.origin}/api/oauth/kakao`
 
     window.Kakao.Auth.authorize({
       redirectUri,
