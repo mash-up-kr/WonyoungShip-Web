@@ -1,4 +1,8 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
+# 타입 컴파일 체크
+pnpm type:check
+
+# 린트 체크
 npx lint-staged

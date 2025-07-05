@@ -204,7 +204,7 @@ const MusicDropdown = ({
                               </Text>
 
                               <div className="flex items-center gap-[4px]">
-                                {music.isRecommended && (
+                                {music.isRecommend && (
                                   <Text
                                     variant="description"
                                     size="small"
