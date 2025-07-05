@@ -39,18 +39,38 @@ export interface LetterWriteRequestType {
   needFortuneCookie: boolean
 }
 
-export interface ApiResponseType {
+export interface ApiResponseLetterWriteResponseType {
   code: string
   message: string
-  data?: object
+  data?: LetterWriteResponseType
   /** @format int32 */
   pageIndex?: number
   /** @format int32 */
   pageSize?: number
 }
 
+export interface LetterWriteResponseType {
+  /** @format int64 */
+  letterId: number
+}
+
 export interface KakaoLoginRequestType {
   token: string
+  url: string
+}
+
+export interface ApiResponseKakaoLoginResponseType {
+  code: string
+  message: string
+  data?: KakaoLoginResponseType
+  /** @format int32 */
+  pageIndex?: number
+  /** @format int32 */
+  pageSize?: number
+}
+
+export interface KakaoLoginResponseType {
+  accessToken: string
 }
 
 export interface ApiResponseLetterMarkedResponseType {
@@ -133,11 +153,11 @@ export interface LetterMetaReadResponseType {
 export interface LetterMusicResponseType {
   /** @format int64 */
   id: number
+  isRecommend: boolean
   title: string
   artist: string
   url: string
   mood: string
-  isRecommended: boolean
 }
 
 export interface ApiResponseLetterDetailResponseType {
@@ -193,4 +213,21 @@ export interface LettersWeeklyCountResponseType {
   /** @format int64 */
   notViewedCount: number
   receivedCountPerDay: number[]
+}
+
+export interface ApiResponseListLandingResponseType {
+  code: string
+  message: string
+  data?: LandingResponseType[]
+  /** @format int32 */
+  pageIndex?: number
+  /** @format int32 */
+  pageSize?: number
+}
+
+export interface LandingResponseType {
+  /** @format date */
+  date: string
+  weather: "SUNNY" | "CLOUDY" | "RAINY" | "SNOWY" | "NIGHT_SHINING"
+  letter: string
 }

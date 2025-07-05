@@ -74,7 +74,7 @@ const mockMusics: LetterMusicResponseType[] = [
     artist: "BTS",
     url: "https://dl.espressif.com/dl/audio/ff-16b-2c-44100hz.mp4",
     mood: "따뜻한",
-    isRecommended: true,
+    isRecommend: true,
   },
   {
     id: 2,
@@ -82,7 +82,7 @@ const mockMusics: LetterMusicResponseType[] = [
     artist: "아이유",
     url: "https://dl.espressif.com/dl/audio/ff-16b-2c-44100hz.mp4",
     mood: "감성적인",
-    isRecommended: false,
+    isRecommend: false,
   },
   {
     id: 3,
@@ -90,7 +90,7 @@ const mockMusics: LetterMusicResponseType[] = [
     artist: "아이유",
     url: "https://dl.espressif.com/dl/audio/ff-16b-2c-44100hz.mp4",
     mood: "차분한",
-    isRecommended: false,
+    isRecommend: false,
   },
   {
     id: 4,
@@ -98,7 +98,7 @@ const mockMusics: LetterMusicResponseType[] = [
     artist: "QWER",
     url: "https://dl.espressif.com/dl/audio/ff-16b-2c-44100hz.mp4",
     mood: "신나는",
-    isRecommended: false,
+    isRecommend: false,
   },
   {
     id: 5,
@@ -106,6 +106,6 @@ const mockMusics: LetterMusicResponseType[] = [
     artist: "aespa",
     url: "https://dl.espressif.com/dl/audio/ff-16b-2c-44100hz.mp4",
     mood: "강렬한",
-    isRecommended: false,
+    isRecommend: false,
   },
 ]
