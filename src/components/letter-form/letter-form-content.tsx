@@ -1,6 +1,6 @@
 "use client"
 
-import { useSearchParams } from "next/navigation"
+import { useRouter, useSearchParams } from "next/navigation"
 import React, { useEffect, useState } from "react"
 
 import {
@@ -10,12 +10,15 @@ import {
 import { apiApi } from "@/__generated__/Api/Api.api"
 import BasicHeader from "@/components/common/header/basic-header"
 import { useLetterForm } from "@/contexts/letter-form-context"
+import { useSnackbar } from "@/contexts/snackbar"
 
 import Step1 from "./step1/step1"
 import Step2 from "./step2/step2"
 import Step3 from "./step3/step3"
 
 const LetterFormContent = () => {
+  const router = useRouter()
+  const { showSnackbar } = useSnackbar()
   const searchParams = useSearchParams()
   const receiverId = searchParams.get("receiverId")
   const { step, setStep, updateFormData } = useLetterForm()
@@ -29,9 +32,6 @@ const LetterFormContent = () => {
     updateFormData({ senderNickname: senderNickname || "" })
     if (musics && musics.length > 0) {
       setMusicList(musics)
-    } else {
-      // TODO: DB 데이터 추가되면 삭제
-      setMusicList(mockMusics)
     }
   }
 
@@ -44,8 +44,12 @@ const LetterFormContent = () => {
           },
         })
         initLetterMeta(response.data?.data)
-      } catch (error) {
-        console.error("API 호출 중 에러:", error)
+      } catch {
+        showSnackbar({
+          message: "편지 정보를 불러오는데 실패했습니다.",
+          icon: "clear",
+        })
+        router.replace("/")
       }
     }
     getLetterMeta()
@@ -66,46 +70,3 @@ const LetterFormContent = () => {
 }
 
 export default LetterFormContent
-
-const mockMusics: LetterMusicResponseType[] = [
-  {
-    id: 1,
-    title: "봄날",
-    artist: "BTS",
-    url: "https://dl.espressif.com/dl/audio/ff-16b-2c-44100hz.mp4",
-    mood: "따뜻한",
-    isRecommend: true,
-  },
-  {
-    id: 2,
-    title: "밤편지",
-    artist: "아이유",
-    url: "https://dl.espressif.com/dl/audio/ff-16b-2c-44100hz.mp4",
-    mood: "감성적인",
-    isRecommend: false,
-  },
-  {
-    id: 3,
-    title: "가을아침",
-    artist: "아이유",
-    url: "https://dl.espressif.com/dl/audio/ff-16b-2c-44100hz.mp4",
-    mood: "차분한",
-    isRecommend: false,
-  },
-  {
-    id: 4,
-    title: "호랑이",
-    artist: "QWER",
-    url: "https://dl.espressif.com/dl/audio/ff-16b-2c-44100hz.mp4",
-    mood: "신나는",
-    isRecommend: false,
-  },
-  {
-    id: 5,
-    title: "Drama",
-    artist: "aespa",
-    url: "https://dl.espressif.com/dl/audio/ff-16b-2c-44100hz.mp4",
-    mood: "강렬한",
-    isRecommend: false,
-  },
-]

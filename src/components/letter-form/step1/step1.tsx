@@ -19,13 +19,14 @@ import { useSnackbar } from "@/contexts/snackbar"
 
 import { MESSAGE_MAP, validateStep1 } from "../utils/step-validate"
 
-const WEATHER_MAP: Record<string, LetterWriteRequestType["weather"]> = {
-  sunny: "SUNNY",
-  cloudy: "CLOUDY",
-  rainy: "RAINY",
-  snow: "SNOWY",
-  shiny: "NIGHT_SHINING",
-}
+const WEATHER_MAP: Record<WeatherIconName, LetterWriteRequestType["weather"]> =
+  {
+    sunny: "SUNNY",
+    cloudy: "CLOUDY",
+    rainy: "RAINY",
+    snow: "SNOWY",
+    shiny: "NIGHT_SHINING",
+  }
 
 const WeatherList = () => {
   const { formData, updateFormData } = useLetterForm()
@@ -53,7 +54,12 @@ const WeatherList = () => {
 
   return (
     <div className="flex w-full justify-center gap-[12px] px-[16px]">
-      {Object.entries(WEATHER_MAP).map(([key, value]) => {
+      {(
+        Object.entries(WEATHER_MAP) as [
+          WeatherIconName,
+          LetterWriteRequestType["weather"],
+        ][]
+      ).map(([key, value]) => {
         const isSelected = formData.weather === value
 
         return (
@@ -64,7 +70,7 @@ const WeatherList = () => {
             type="button"
           >
             <WeatherIcon
-              weather={key as WeatherIconName}
+              weather={key}
               size="lg"
               color={isSelected ? undefined : "disabled"}
             />
