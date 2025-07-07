@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 import { LettersWeeklyCountResponseType } from "@/__generated__/@types";
 import { apiApi } from "@/__generated__/Api/Api.api";
-import { Text } from "@/components/common"
+import { Header, Text } from "@/components/common"
 import {
   WriteLetterButton,
   LetterCountdown,
@@ -52,6 +52,8 @@ useEffect(() => {
 
 
   return (
+    <>
+    <Header notificationCount={letterList?.notViewedCount ?? 0}/>
     <div className="flex flex-col px-2 pt-2 pb-6">
       <WriteLetterButton />
       <section className="mt-10 mb-4 flex flex-col">
@@ -68,6 +70,7 @@ useEffect(() => {
         </div>
       </section>
       <LetterCountdown letterList={letterList?.receivedCountPerDay ?? [0,0,0,0,0,0,0]} />
-    </div>
+    </div></>
+    
   )
 }
