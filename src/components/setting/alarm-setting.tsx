@@ -1,8 +1,10 @@
-'use client'
+"use client"
 
 import { useState } from "react"
 
+import { apiApi } from "@/__generated__/Api/Api.api"
 import { Text, Switch } from "@/components/common"
+import { useSnackbar } from "@/contexts/snackbar"
 
 interface AlarmProp {
   emailAlarm: boolean
@@ -10,11 +12,19 @@ interface AlarmProp {
 
 export const AlarmSetting = ({ emailAlarm }: AlarmProp) => {
   const [isEmail, setIsEmail] = useState<boolean>(emailAlarm)
+  const { showSnackbar } = useSnackbar()
 
-  const handleClickToggle = () => {
-    setIsEmail((prev) => !prev)
-
-    // TODO : 이메일 알림 수신 API 연결
+  const handleClickToggle = async () => {
+    try {
+      setIsEmail((prev) => !prev)
+      await apiApi.changeEmailAlarm({ data: { isOn: !isEmail } })
+      showSnackbar({ message: "이메일 알람 설정이 변경되었어요" })
+    } catch (error) {
+      showSnackbar({
+        message: "이메일 알람 설정 변경에 실패했어요" + error,
+      })
+      setIsEmail((prev) => !prev)
+    }
   }
 
   return (
