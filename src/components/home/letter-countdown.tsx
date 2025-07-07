@@ -5,23 +5,16 @@ import Image from "next/image"
 
 import LetterBackground from "@/assets/images/letter-background.png"
 import { Text } from "@/components/common"
-import { getDaysDelivery } from "@/utils/date"
 
 import { HOME_LOTTIES } from "../../../public/assets/lottie"
-
 
 import { LetterWeekContainer } from "./letter-week-container"
 
 type LetterStatus = "EMPTY" | "IN_DELIVERY" | "ARRIVED"
 type TextColor = "secondary" | "tertiary"
 
-interface Letter {
-  id: number
-  scheduleDate: string
-}
-
 interface LetterCountdownProps {
-  letterList: Letter[]
+  letterList: number[] 
 }
 
 const LETTER_CONFIG: Record<
@@ -57,56 +50,39 @@ const LETTER_CONFIG: Record<
   },
 }
 
-// TODO : 서버에서 데이터 넘겨주는 거 보고 사용하기.
-// 서버에서 남은 날짜 + status 넘겨주면 필요 없고 날짜만 주면 utils로 옮기기
-// 근데 생각해보니까 공통 아니라서 util로 안 옮겨도 될 것 같기도 하고...
 const getLetterStatus = (
-  letterList: Letter[],
+  letterList: number[],
 ): { status: LetterStatus; daysLeft?: number } => {
-  if (letterList.length === 0) {
+  if (!letterList || letterList.every((count) => count === 0)) {
     return { status: "EMPTY" }
   }
 
-  const lettersWithDays = letterList.map((letter) => ({
-    ...letter,
-    daysLeft: getDaysDelivery(letter.scheduleDate),
-  }))
-
-  const hasArrivedLetter = lettersWithDays.some(
-    (letter) => letter.daysLeft === 0,
-  )
-  if (hasArrivedLetter) {
-    return { status: "ARRIVED" }
-  }
-
-  const deliveryLetters = lettersWithDays
-    .filter((letter) => letter.daysLeft > 0)
-    .sort((a, b) => a.daysLeft - b.daysLeft)
-
-  if (deliveryLetters.length > 0) {
-    return {
-      status: "IN_DELIVERY",
-      daysLeft: deliveryLetters[0].daysLeft,
+  const today = new Date().getDay()
+  for (let i = 0; i < 7; i++) {
+    const dayIndex = (today + i) % 7 
+    if (letterList[dayIndex] > 0) {
+      if (i === 0) {
+        return { status: "ARRIVED" } 
+      }
+      return { status: "IN_DELIVERY", daysLeft: i } 
     }
   }
 
-  return { status: "EMPTY" }
+  return { status: "EMPTY" } 
 }
 
 export const LetterCountdown = ({ letterList }: LetterCountdownProps) => {
-  const { status, daysLeft } = letterList[0]
-    ? getLetterStatus(letterList)
-    : { status: "EMPTY" as const }
+  const { status, daysLeft } = getLetterStatus(letterList)
 
-  const { title, subtitle, subtitleColor, lottieData } = LETTER_CONFIG[status]
+  const { title, subtitle, subtitleColor, lottieData, lottieSize } = LETTER_CONFIG[status]
 
   return (
     <section className="relative flex h-[378px] w-full flex-col items-center overflow-hidden justify-between rounded-3xl bg-blue-10 px-4 pt-7 pb-3">
       <Image
-              src={LetterBackground}
-              alt=""
-              className="absolute top-0 right-0 bottom-0 left-0 mix-blend-multiply"
-            />
+        src={LetterBackground}
+        alt=""
+        className="absolute top-0 right-0 bottom-0 left-0 mix-blend-multiply"
+      />
       <div className="flex flex-col items-center">
         <div className="flex flex-col items-center gap-2">
           <Text
@@ -132,10 +108,10 @@ export const LetterCountdown = ({ letterList }: LetterCountdownProps) => {
         <div className="my-9 mt-3 flex h-[140px] flex-col items-center justify-center">
           <Lottie
             animationData={lottieData}
-            className={`${LETTER_CONFIG[status].lottieSize} object-contain`}
+            className={`${lottieSize} object-contain`}
           />
 
-          {status == "ARRIVED" && (
+          {status === "ARRIVED" && (
             <button className="bg-background-primary flex active:bg-neutral-40 items-center justify-center rounded-lg px-2.5 py-2 transition-colors">
               <Text
                 variant="body"

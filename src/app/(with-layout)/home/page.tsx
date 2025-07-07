@@ -1,3 +1,9 @@
+'use client';
+
+import { useEffect, useState } from "react";
+
+import { LettersWeeklyCountResponseType } from "@/__generated__/@types";
+import { apiApi } from "@/__generated__/Api/Api.api";
 import { Text } from "@/components/common"
 import {
   WriteLetterButton,
@@ -7,24 +13,44 @@ import {
 
 // TODO : API 연결 시 제거
 const tempData = {
-  letterCount: 5,
-  letterList: [
-    {
-      id: 1,
-      scheduleDate: "2025-06-23",
-    },
-    {
-      id: 2,
-      scheduleDate: "2025-06-23",
-    },
-    {
-      id: 3,
-      scheduleDate: "2025-06-24",
-    },
-  ],
-}
+    notViewedCount: 5,
+    receivedCountPerDay: [
+      1,
+      2,
+      1,
+      0,
+      1,
+      0,
+      0
+    ]
+  }
 
 export default function Home() {
+   const [letterList, setLetterList] =
+    useState<LettersWeeklyCountResponseType | undefined>()
+
+useEffect(() => {
+   const fetchLetters = async () => {
+      try {
+        const response = await apiApi.readWeeklyCount()
+        const letters = response.data.data
+
+        setLetterList(letters ?? tempData)
+        console.log(letters)
+      } catch (error) {
+        
+        setLetterList( tempData)
+        console.error("편지 목록을 가져오는 데 실패했습니다:", error)
+      }
+    }
+
+    fetchLetters()
+}, [])
+
+
+  const totalReceivedCount = letterList?.receivedCountPerDay?.reduce((sum, count) => sum + count, 0) ?? 0;
+
+
   return (
     <div className="flex flex-col px-2 pt-2 pb-6">
       <WriteLetterButton />
@@ -35,13 +61,13 @@ export default function Home() {
               나에게 오고 있는 편지
             </Text>
             <Text variant="heading" size="small" color="tertiary">
-              {tempData.letterCount}
+              {totalReceivedCount}
             </Text>
           </h2>
           <CopyAddressButton />
         </div>
       </section>
-      <LetterCountdown letterList={tempData.letterList} />
+      <LetterCountdown letterList={letterList?.receivedCountPerDay ?? [0,0,0,0,0,0,0]} />
     </div>
   )
 }

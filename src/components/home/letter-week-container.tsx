@@ -1,39 +1,25 @@
 import { Text } from "@/components/common"
-import { formatDate, currentWeekDates } from "@/utils/date"
+import { formatDate } from "@/utils/date"
 
 import { LetterCountBox } from "./letter-count-box"
 
-// TODO : API 연결할 때 letter-countdown 확인해서 공통으로 옮기기
-interface Letter {
-  id: number
-  scheduleDate: string
-}
-
-interface LetterCountdownProps {
-  letterList: Letter[]
+interface LetterWeekContainerProps {
+  letterList: number[]
 }
 
 const DAY_KO_LABELS = ["월", "화", "수", "목", "금", "토", "일"]
 
-export const LetterWeekContainer = ({ letterList }: LetterCountdownProps) => {
+export const LetterWeekContainer = ({ letterList }: LetterWeekContainerProps) => {
   const today = new Date()
-
-  const countMap: Record<string, number> = {}
-
-  letterList.forEach(({ scheduleDate }) => {
-    countMap[scheduleDate] = (countMap[scheduleDate] || 0) + 1
-  })
-
-  const currentWeekDate = currentWeekDates
-
-  const countsByDay = currentWeekDate.map((date) => {
-    const key = formatDate(date)
-    return countMap[key] || 0
+  const currentWeekDates = Array.from({ length: 7 }, (_, i) => {
+    const date = new Date()
+    date.setDate(today.getDate() - today.getDay() + 1 + i) // 월요일부터 시작
+    return date
   })
 
   return (
     <ul className="bg-alpha-60 flex h-[93px] w-full justify-between gap-2 rounded-2xl p-3">
-      {currentWeekDate.map((date, idx) => {
+      {currentWeekDates.map((date, idx) => {
         const isToday = formatDate(date) === formatDate(today)
 
         return (
@@ -49,7 +35,7 @@ export const LetterWeekContainer = ({ letterList }: LetterCountdownProps) => {
             >
               {DAY_KO_LABELS[idx]}
             </Text>
-            <LetterCountBox letterCount={countsByDay[idx]} isToday={isToday} />
+            <LetterCountBox letterCount={letterList[idx]} isToday={isToday} />
           </li>
         )
       })}
