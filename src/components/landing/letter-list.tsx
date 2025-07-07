@@ -54,23 +54,6 @@ export const LetterList = async () => {
     return `${month}월 ${day}일 ${dayOfWeek}`
   }
 
-  // useEffect(() => {
-  //   // API 호출을 통해 편지 목록을 가져옵니다.
-  //   const fetchLetters = async () => {
-  //     try {
-  //       const response = await apiApi.getLandingContent()
-  //       const letters = response.data.data
-
-  //       // 편지 목록을 상태에 저장합니다.
-  //       setLetterList(letters ?? DEFAULT_LETTER_LIST)
-  //     } catch (error) {
-  //       console.error("편지 목록을 가져오는 데 실패했습니다:", error)
-  //     }
-  //   }
-
-  //   fetchLetters()
-  // }, [])
-
   return (
     <div className="relative overflow-hidden">
       {/* 측면 그라데이션 숨김을 위한 요소 */}
