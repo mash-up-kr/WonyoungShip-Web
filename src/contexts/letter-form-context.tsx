@@ -2,38 +2,41 @@
 
 import React, { createContext, useContext, useState, ReactNode } from "react"
 
-import { WeatherIconName } from "@/assets/svg/weather"
+import { LetterWriteRequestType } from "@/__generated__/@types"
 
-interface LetterFormData {
-  weather: WeatherIconName | null
-  music: string | null
-  content: string
-  authorName: string
-}
+export type FormDataType = {
+  weather?: LetterWriteRequestType["weather"]
+} & LetterWriteRequestType
 
 interface LetterFormContextType {
   step: number
-  formData: LetterFormData
+  formData: FormDataType
   setStep: (step: number) => void
-  updateFormData: (data: Partial<LetterFormData>) => void
+  updateFormData: (data: Partial<FormDataType>) => void
   resetForm: () => void
 }
 
-const LetterFormContext = createContext<LetterFormContextType | undefined>(undefined)
+const LetterFormContext = createContext<LetterFormContextType | undefined>(
+  undefined,
+)
 
-const initialFormData: LetterFormData = {
-  weather: null,
-  music: null,
+const initialFormData: FormDataType = {
+  receiverId: 0,
+  scheduleDate: "",
+  weather: "SUNNY",
+  musicId: 0,
+  senderNickname: "",
+  needFortuneCookie: false,
   content: "",
-  authorName: "익명의 너구리",
 }
 
 export const LetterFormProvider = ({ children }: { children: ReactNode }) => {
   const [step, setStep] = useState(1)
-  const [formData, setFormData] = useState<LetterFormData>(initialFormData)
+  const [formData, setFormData] =
+    useState<LetterWriteRequestType>(initialFormData)
 
-  const updateFormData = (data: Partial<LetterFormData>) => {
-    setFormData(prev => ({ ...prev, ...data }))
+  const updateFormData = (data: Partial<LetterWriteRequestType>) => {
+    setFormData((prev) => ({ ...prev, ...data }))
   }
 
   const resetForm = () => {
@@ -62,4 +65,4 @@ export const useLetterForm = () => {
     throw new Error("useLetterForm must be used within LetterFormProvider")
   }
   return context
-} 
+}

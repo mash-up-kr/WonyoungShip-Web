@@ -1,19 +1,60 @@
 "use client"
 
+import dayjs from "dayjs"
+import { useSearchParams } from "next/navigation"
 import React, { useState } from "react"
 
+import { apiApi } from "@/__generated__/Api/Api.api"
 import { Button, CalendarDialog, Icon, Text } from "@/components/common"
 import Checkbox from "@/components/common/checkbox"
 import { useLetterForm } from "@/contexts/letter-form-context"
+import { useSnackbar } from "@/contexts/snackbar"
 
-const Step2 = () => {
+import { MESSAGE_MAP, validateStep2 } from "../utils/step-validate"
+
+const Step2 = ({ receiverName }: { receiverName: string }) => {
+  const { showSnackbar } = useSnackbar()
+  const { formData, setStep, updateFormData } = useLetterForm()
+  const searchParams = useSearchParams()
+  const receiverId = searchParams.get("receiverId")
+
   const [isOpen, setIsOpen] = useState(false)
-  const { formData, setStep } = useLetterForm()
+  const [selectedDate, setSelectedDate] = useState(new Date())
 
-  const handleSubmit = () => {
-    // TODO: 편지 제출 로직
-    console.log("편지 데이터:", formData)
-    setStep(3)
+  const onSubmit = async () => {
+    try {
+      const response = await apiApi.writeLetter({
+        data: {
+          ...formData,
+          receiverId: Number(receiverId),
+        },
+      })
+      return {
+        success: true,
+        data: response.data,
+      }
+    } catch (error) {
+      console.error(error)
+      return {
+        success: false,
+        data: null,
+      }
+    }
+  }
+
+  const handleSubmit = async () => {
+    const validateResult = validateStep2({ formData })
+    const { message } = validateResult
+    if (message !== MESSAGE_MAP.IS_PASS) {
+      showSnackbar({ message, icon: "clear" })
+      return
+    }
+
+    const { success } = await onSubmit()
+    if (success) setStep(3)
+    else {
+      showSnackbar({ message: "편지 전송에 실패했습니다.", icon: "clear" })
+    }
   }
 
   return (
@@ -33,7 +74,7 @@ const Step2 = () => {
 
             <div className="flex min-w-0 flex-col">
               <Text variant="body" size="small" color="secondary">
-                TO.예인
+                To. {receiverName}
               </Text>
 
               <Text
@@ -42,7 +83,7 @@ const Step2 = () => {
                 color="tertiary"
                 className="line-clamp-1"
               >
-                내용들어가요내용들어가0요내용내용들어가요내용들어가0요내용내용들어가요내용들어가0요내용
+                {formData.content}
               </Text>
             </div>
           </div>
@@ -53,7 +94,7 @@ const Step2 = () => {
                 보내는날
               </Text>
               <Text variant="body" size="small" color="secondary">
-                24.05.0.5(토)
+                {dayjs(new Date()).format("YYYY.MM.DD(ddd)")}
               </Text>
             </div>
 
@@ -65,7 +106,9 @@ const Step2 = () => {
                 받는 날
               </Text>
               <Text variant="body" size="small" color="brand">
-                날짜 선택
+                {formData.scheduleDate
+                  ? dayjs(formData.scheduleDate).format("YYYY.MM.DD(ddd)")
+                  : "날짜 선택"}
               </Text>
             </div>
           </div>
@@ -74,7 +117,13 @@ const Step2 = () => {
         <footer className="fixed right-0 bottom-0 left-0 px-[16px] py-[24px]">
           <div className="mx-auto max-w-[420px]">
             <div className="flex items-center justify-center gap-[8px]">
-              <Checkbox />
+              <Checkbox
+                onClick={() => {
+                  updateFormData({
+                    needFortuneCookie: !formData.needFortuneCookie,
+                  })
+                }}
+              />
 
               <div className="flex items-center gap-[4px]">
                 <Icon
@@ -100,7 +149,16 @@ const Step2 = () => {
       <CalendarDialog
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
-        onConfirm={() => setIsOpen(false)}
+        onConfirm={(date) => {
+          updateFormData({
+            scheduleDate: dayjs(date).format("YYYY-MM-DD"),
+          })
+          setIsOpen(false)
+        }}
+        selectedDate={selectedDate}
+        onSelectDate={(date) => {
+          setSelectedDate(date)
+        }}
       />
     </>
   )

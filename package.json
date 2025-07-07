@@ -8,11 +8,13 @@
     "start": "next start",
     "lint": "next lint",
     "lint:staged": "next lint --fix --file",
-    "prepare": "husky"
+    "prepare": "husky",
+    "type:check": "tsc --noEmit"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.4",
     "clsx": "^2.1.1",
+    "dayjs": "^1.11.13",
     "lottie-react": "^2.4.1",
     "next": "15.3.0",
     "react": "^19.0.0",

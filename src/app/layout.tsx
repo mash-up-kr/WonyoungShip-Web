@@ -1,3 +1,4 @@
+import dayjs from "dayjs"
 import type { Metadata } from "next"
 import localFont from "next/font/local"
 
@@ -11,6 +12,10 @@ const pretendard = localFont({
   display: "swap",
   variable: "--font-pretendard",
 })
+
+import "dayjs/locale/ko"
+
+dayjs.locale("ko")
 
 // TODO: 메타 태그 설정 필요
 export const metadata: Metadata = {

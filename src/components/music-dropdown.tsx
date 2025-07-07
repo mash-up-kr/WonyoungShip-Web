@@ -5,10 +5,15 @@ import {
   ButtonHTMLAttributes,
   HTMLAttributes,
   PropsWithChildren,
+  useCallback,
+  useEffect,
+  useRef,
   useState,
 } from "react"
 
+import { LetterMusicResponseType } from "@/__generated__/@types"
 import { cn } from "@/utils/cn"
+import { audioManager } from "@/utils/music/audio-manager"
 
 import { Icon, Text } from "./common"
 
@@ -38,44 +43,102 @@ export const IconButton = ({
   )
 }
 
-/** TEMP */
-export type MusicType = {
-  id: string
-  title: string
-  link: string
-  isRecommended: boolean
-  type: string
-}
-
 export interface MusicDropdownProps {
   className?: HTMLAttributes<HTMLDivElement>["className"]
-  musicList?: MusicType[]
+  musicList?: LetterMusicResponseType[]
+  selectedMusicId?: number | null
+  onSelectMusic?: (music: LetterMusicResponseType) => void
 }
 
-const MusicDropdown = ({ className, musicList = [] }: MusicDropdownProps) => {
-  const [playingMusicId, setPlayingMusicId] = useState<string | null>(null)
-  const [selectedMusic, setSelectedMusic] = useState<MusicType | null>(null)
+const MusicDropdown = ({
+  className,
+  musicList = [],
+  selectedMusicId,
+  onSelectMusic,
+}: MusicDropdownProps) => {
+  const [playingMusicId, setPlayingMusicId] = useState<number | null>(null)
+  const [selectedMusic, setSelectedMusic] =
+    useState<LetterMusicResponseType | null>(
+      musicList.find((music) => music.id === selectedMusicId) ?? null,
+    )
 
-  const handlePlayMusic = (music: MusicType) => {
+  // Menu의 open 상태를 추적하기 위한 상태
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const prevOpenRef = useRef<boolean>(false)
+
+  const handlePlayMusic = ({
+    index,
+    music,
+  }: {
+    index: number
+    music: LetterMusicResponseType
+  }) => {
     if (playingMusicId === music.id) {
       setPlayingMusicId(null)
+      audioManager.pause(index)
     } else {
       setPlayingMusicId(music.id)
+      audioManager.play(index)
     }
   }
 
-  const handleSelectMusic = (music: MusicType) => {
+  const handleSelectMusic = (music: LetterMusicResponseType) => {
     if (selectedMusic?.id === music.id) {
       setSelectedMusic(null)
     } else {
       setSelectedMusic(music)
     }
+
+    onSelectMusic?.(music)
   }
+
+  const initMusicList = useCallback(() => {
+    const urls = musicList.map((music) => music.url)
+    audioManager.init(urls)
+  }, [musicList])
+
+  useEffect(
+    function initAudioManager() {
+      if (musicList.length > 0) {
+        initMusicList()
+      }
+    },
+    [initMusicList, musicList],
+  )
+
+  useEffect(
+    function detectMenuOpen() {
+      const isClose = prevOpenRef.current && !isMenuOpen
+      const isOpen = !prevOpenRef.current && isMenuOpen && musicList.length > 0
+
+      if (isClose) {
+        const clear = () => {
+          audioManager.reset()
+          setPlayingMusicId(null)
+        }
+        clear()
+      } else if (isOpen) {
+        initMusicList()
+      }
+
+      const updatePrevOpenRef = () => {
+        prevOpenRef.current = isMenuOpen
+      }
+
+      // 현재 open 상태를 ref에 저장
+      updatePrevOpenRef()
+    },
+    [initMusicList, isMenuOpen, musicList],
+  )
 
   return (
     <div className={cn("h-[46px] w-full max-w-[343px]", className)}>
       <Menu>
         {({ open }) => {
+          // open 상태를 별도 state에 동기화 (렌더링 중에는 setState 호출 안 함)
+          if (open !== isMenuOpen) {
+            setTimeout(() => setIsMenuOpen(open), 0)
+          }
           return (
             <div className="flex flex-col items-center">
               {open && (
@@ -119,7 +182,7 @@ const MusicDropdown = ({ className, musicList = [] }: MusicDropdownProps) => {
                 transition
                 className="bg-background-white relative z-50 mt-[8px] flex w-full max-w-[319px] flex-col gap-[20px] rounded-[12px] p-[16px] focus:outline-none"
               >
-                {musicList.map((music) => {
+                {musicList.map((music, index) => {
                   return (
                     <MenuItem key={`music-item-${music.id}`}>
                       {({}) => {
@@ -141,7 +204,7 @@ const MusicDropdown = ({ className, musicList = [] }: MusicDropdownProps) => {
                               </Text>
 
                               <div className="flex items-center gap-[4px]">
-                                {music.isRecommended && (
+                                {music.isRecommend && (
                                   <Text
                                     variant="description"
                                     size="small"
@@ -156,7 +219,7 @@ const MusicDropdown = ({ className, musicList = [] }: MusicDropdownProps) => {
                                   size="small"
                                   color="tertiary"
                                 >
-                                  {music.type}
+                                  {music.mood}
                                 </Text>
                               </div>
                             </div>
@@ -167,7 +230,10 @@ const MusicDropdown = ({ className, musicList = [] }: MusicDropdownProps) => {
                                   <IconButton
                                     icon="playing"
                                     onClick={() => {
-                                      handlePlayMusic(music)
+                                      handlePlayMusic({
+                                        index,
+                                        music,
+                                      })
                                     }}
                                   />
 
@@ -187,7 +253,10 @@ const MusicDropdown = ({ className, musicList = [] }: MusicDropdownProps) => {
                                   <IconButton
                                     icon="play"
                                     onClick={() => {
-                                      handlePlayMusic(music)
+                                      handlePlayMusic({
+                                        index,
+                                        music,
+                                      })
                                     }}
                                   />
 

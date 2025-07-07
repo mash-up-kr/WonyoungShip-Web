@@ -2,70 +2,75 @@
 
 import { Textarea } from "@headlessui/react"
 import clsx from "clsx"
-import React, { useEffect, useState } from "react"
+import { useRouter } from "next/navigation"
+import React, { useState } from "react"
 
-import { apiApi } from "@/__generated__/Api/Api.api"
+import {
+  LetterMusicResponseType,
+  LetterWriteRequestType,
+} from "@/__generated__/@types"
 import { WeatherIconName } from "@/assets/svg/weather"
 import { Button, Icon, Text, WeatherIcon } from "@/components/common"
 import BaseDialog from "@/components/common/dialog/base-dialog"
 import MusicDropdown from "@/components/music-dropdown"
 import { useDialog } from "@/contexts/dialog-context"
 import { useLetterForm } from "@/contexts/letter-form-context"
+import { useSnackbar } from "@/contexts/snackbar"
 
-const WEATHER_MAP: Record<string, WeatherIconName> = {
-  sunny: "sunny",
-  cloudy: "cloudy",
-  rainy: "rainy",
-  snow: "snow",
-  shiny: "shiny",
-}
+import { MESSAGE_MAP, validateStep1 } from "../utils/step-validate"
+
+const WEATHER_MAP: Record<WeatherIconName, LetterWriteRequestType["weather"]> =
+  {
+    sunny: "SUNNY",
+    cloudy: "CLOUDY",
+    rainy: "RAINY",
+    snow: "SNOWY",
+    shiny: "NIGHT_SHINING",
+  }
 
 const WeatherList = () => {
   const { formData, updateFormData } = useLetterForm()
 
-  const getWeatherLabel = (weather: WeatherIconName) => {
+  const getWeatherLabel = (weather: LetterWriteRequestType["weather"]) => {
     switch (weather) {
-      case "sunny":
+      case "SUNNY":
         return "맑은 날"
-      case "cloudy":
+      case "CLOUDY":
         return "흐린 날"
-      case "rainy":
+      case "RAINY":
         return "비오는 날"
-      case "snow":
+      case "SNOWY":
         return "눈오는 날"
-      case "shiny":
+      case "NIGHT_SHINING":
         return "빛나는 날"
     }
   }
 
-  const handleWeatherClick = (weather: WeatherIconName) => {
+  const handleWeatherClick = (weather: LetterWriteRequestType["weather"]) => {
     updateFormData({
-      weather: formData.weather === weather ? null : weather,
+      weather: formData.weather.toLowerCase() === weather ? undefined : weather,
     })
   }
 
-  useEffect(() => {
-    const getLandingContent = async () => {
-      const res = await apiApi.getLandingContent()
-      console.log(res)
-    }
-    getLandingContent()
-  }, [])
-
   return (
     <div className="flex w-full justify-center gap-[12px] px-[16px]">
-      {Object.entries(WEATHER_MAP).map(([, value]) => {
+      {(
+        Object.entries(WEATHER_MAP) as [
+          WeatherIconName,
+          LetterWriteRequestType["weather"],
+        ][]
+      ).map(([key, value]) => {
         const isSelected = formData.weather === value
 
         return (
           <button
-            key={`weather-item-${value}`}
+            key={`weather-item-${key}`}
             onClick={() => handleWeatherClick(value)}
             className="flex min-w-[50px] cursor-pointer flex-col items-center gap-[6px]"
             type="button"
           >
             <WeatherIcon
-              weather={value}
+              weather={key}
               size="lg"
               color={isSelected ? undefined : "disabled"}
             />
@@ -83,16 +88,19 @@ const WeatherList = () => {
   )
 }
 
-const Step1 = () => {
+const Step1 = ({ musicList }: { musicList: LetterMusicResponseType[] }) => {
+  const router = useRouter()
   const { open, close } = useDialog()
+  const { showSnackbar } = useSnackbar()
   const { formData, updateFormData, setStep } = useLetterForm()
   const [isEditNameDialogOpen, setIsEditNameDialogOpen] = useState(false)
-  const [tempAuthorName, setTempAuthorName] = useState(formData.authorName)
+  const [tempAuthorName, setTempAuthorName] = useState(formData.senderNickname)
 
   const handleNext = () => {
-    // 필수 필드 검증
-    if (!formData.weather || !formData.content.trim()) {
-      // TODO: 에러 처리 (스낵바나 토스트 메시지)
+    const validateResult = validateStep1({ formData })
+    const { message } = validateResult
+    if (message !== MESSAGE_MAP.IS_PASS) {
+      showSnackbar({ message, icon: "clear" })
       return
     }
     setStep(2)
@@ -103,7 +111,7 @@ const Step1 = () => {
   }
 
   const handleAuthorNameSave = () => {
-    updateFormData({ authorName: tempAuthorName })
+    updateFormData({ senderNickname: tempAuthorName })
     setIsEditNameDialogOpen(false)
   }
 
@@ -116,15 +124,24 @@ const Step1 = () => {
         cancelText: "취소",
         confirmText: "나가기",
         onCancel: close,
-        onConfirm: close,
+        onConfirm: () => {
+          router.replace("/")
+          close()
+        },
       },
     })
   }
 
   const handleCancel = () => {
-    // TODO: 작성 취소 확인 다이얼로그
-    // resetForm() 호출
     onOpenConfirmDialog()
+  }
+
+  const handleMusicSelect = (music: LetterMusicResponseType) => {
+    if (formData.musicId === music.id) {
+      updateFormData({ musicId: undefined })
+    } else {
+      updateFormData({ musicId: music.id })
+    }
   }
 
   return (
@@ -134,7 +151,11 @@ const Step1 = () => {
 
       {/* 음악 드롭다운 */}
       <div className="mt-[24px] flex place-content-center">
-        <MusicDropdown />
+        <MusicDropdown
+          musicList={musicList}
+          selectedMusicId={formData.musicId}
+          onSelectMusic={handleMusicSelect}
+        />
       </div>
 
       <div className="bg-background-assistive mx-[16px] mt-[24px] flex h-[346px] flex-col rounded-[20px] px-[24px] pt-[24px]">
@@ -155,7 +176,7 @@ const Step1 = () => {
             color="secondary"
             font="Ownglyph ryurue"
           >
-            From.{formData.authorName}
+            From.{formData.senderNickname}
           </Text>
           <button
             type="button"

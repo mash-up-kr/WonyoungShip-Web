@@ -92,7 +92,6 @@ interceptors.response.use(async (response) => {
   if (response.status === UNAUTHORIZED) {
     redirect("/landing?error=unauthorized")
   }
-
   return response
 })
 
