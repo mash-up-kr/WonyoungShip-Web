@@ -18,7 +18,7 @@ export const LetterWeekContainer = ({ letterList }: LetterWeekContainerProps) =>
   })
 
   return (
-    <ul className="bg-alpha-60 flex h-[93px] w-full justify-between gap-2 rounded-2xl p-3">
+    <ul className="bg-white bg-opacity-60 flex h-[93px] w-full justify-between gap-2 rounded-2xl p-3">
       {currentWeekDates.map((date, idx) => {
         const isToday = formatDate(date) === formatDate(today)
 
