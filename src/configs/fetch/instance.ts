@@ -1,5 +1,7 @@
 import { redirect } from "next/navigation"
 
+import { ACCESS_TOKEN_KEY } from "@/constants/cookies"
+
 type CustomRequestInit = RequestInit & {
   headers: {
     Authorization?: string
@@ -66,26 +68,27 @@ const interceptors = {
 
 // 요청 인터셉터 설정
 interceptors.request.use(async (config) => {
-  const cookieEndpoint = "/api/oauth/kakao/token"
-  const cookieUrl =
-    typeof window !== "undefined"
-      ? cookieEndpoint
-      : process.env.NODE_ENV === "development"
-        ? (process.env.NEXT_PUBLIC_DEVELOPMENT_URL ?? "") + cookieEndpoint
-        : (process.env.NEXT_PUBLIC_PRODUCTION_URL ?? "") + cookieEndpoint
+  let token: string
 
-  const cookieResponse = await fetch(cookieUrl, {
-    credentials: "include",
-  })
+  if (typeof window !== "undefined") {
+    const cookieResponse = await fetch("/api/oauth/kakao/token", {
+      credentials: "include",
+    })
 
-  const data = await cookieResponse.json()
+    const data = await cookieResponse.json()
 
-  const token = data?.token || null
+    token = data?.token
+  } else {
+    const { cookies } = await import("next/headers")
+    const serverCookie = await cookies()
+
+    token = serverCookie.get(ACCESS_TOKEN_KEY)?.value || ""
+  }
 
   return {
     ...config,
     headers: {
-      ...config.headers,
+      ...(config.headers as Record<string, string>),
       // 필요한 헤더 추가
       // 예: "Content-Type": "application/json",
       ...(token && { Authorization: `Bearer ${token}` }),
