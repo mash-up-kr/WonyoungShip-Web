@@ -15,7 +15,7 @@ export interface LetterResponse {
   letters: {
     letterId: string
     scheduleDate: string
-    content: string | null
+    content?: string
     marked: boolean
   }[]
 }
@@ -37,7 +37,6 @@ export const LETTERS_RESPONSE: LetterResponse = {
       marked: false,
     },
     {
-      content: null,
       letterId: "2",
       scheduleDate: "2025-06-12",
       marked: false,
