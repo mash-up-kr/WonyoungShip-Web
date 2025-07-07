@@ -1,7 +1,4 @@
-"use client"
-
 import Image from "next/image"
-import { useEffect, useState } from "react"
 
 import { LandingResponseType } from "@/__generated__/@types"
 import { apiApi } from "@/__generated__/Api/Api.api"
@@ -37,9 +34,14 @@ const DEFAULT_LETTER_LIST: LandingResponseType[] = [
   },
 ]
 
-export const LetterList = () => {
-  const [letterList, setLetterList] =
-    useState<LandingResponseType[]>(DEFAULT_LETTER_LIST)
+export const LetterList = async () => {
+  const {
+    data: { data },
+  } = await apiApi.getLandingContent()
+  // const [letterList, setLetterList] =
+  //   useState<LandingResponseType[]>(DEFAULT_LETTER_LIST)
+
+  const letterList = data ?? DEFAULT_LETTER_LIST
 
   const copiedLetterList = [...letterList, ...letterList, ...letterList]
 
@@ -52,22 +54,22 @@ export const LetterList = () => {
     return `${month}월 ${day}일 ${dayOfWeek}`
   }
 
-  useEffect(() => {
-    // API 호출을 통해 편지 목록을 가져옵니다.
-    const fetchLetters = async () => {
-      try {
-        const response = await apiApi.getLandingContent()
-        const letters = response.data.data
+  // useEffect(() => {
+  //   // API 호출을 통해 편지 목록을 가져옵니다.
+  //   const fetchLetters = async () => {
+  //     try {
+  //       const response = await apiApi.getLandingContent()
+  //       const letters = response.data.data
 
-        // 편지 목록을 상태에 저장합니다.
-        setLetterList(letters ?? DEFAULT_LETTER_LIST)
-      } catch (error) {
-        console.error("편지 목록을 가져오는 데 실패했습니다:", error)
-      }
-    }
+  //       // 편지 목록을 상태에 저장합니다.
+  //       setLetterList(letters ?? DEFAULT_LETTER_LIST)
+  //     } catch (error) {
+  //       console.error("편지 목록을 가져오는 데 실패했습니다:", error)
+  //     }
+  //   }
 
-    fetchLetters()
-  }, [])
+  //   fetchLetters()
+  // }, [])
 
   return (
     <div className="relative overflow-hidden">
