@@ -151,6 +151,9 @@ export interface LetterMetaReadResponseType {
 }
 
 export interface LetterMusicResponseType {
+  /** @format int64 */
+  id: number
+  isRecommend: boolean
   title: string
   artist: string
   url: string

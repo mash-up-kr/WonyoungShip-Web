@@ -66,7 +66,15 @@ const interceptors = {
 
 // 요청 인터셉터 설정
 interceptors.request.use(async (config) => {
-  const cookieResponse = await fetch("/api/oauth/kakao/token", {
+  const cookieEndpoint = "/api/oauth/kakao/token"
+  const cookieUrl =
+    typeof window !== "undefined"
+      ? cookieEndpoint
+      : process.env.NODE_ENV === "development"
+        ? (process.env.NEXT_PUBLIC_DEVELOPMENT_URL ?? "") + cookieEndpoint
+        : (process.env.NEXT_PUBLIC_PRODUCTION_URL ?? "") + cookieEndpoint
+
+  const cookieResponse = await fetch(cookieUrl, {
     credentials: "include",
   })
 
