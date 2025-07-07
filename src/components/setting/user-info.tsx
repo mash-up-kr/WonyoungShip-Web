@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 
+import { apiApi } from "@/__generated__/Api/Api.api"
 import { Text, ConfirmDialog } from "@/components/common"
 import { useDialog } from "@/contexts/dialog-context"
 import { useSnackbar } from "@/contexts/snackbar"
@@ -15,6 +16,12 @@ export const UserInfo = () => {
 
   const { open, close } = useDialog()
 
+  const handleLogout = async () => {
+    await fetch("/api/oauth/logout", {
+      method: "POST",
+    })
+  }
+
   const handleClickLogout = () => {
     open({
       type: "confirm",
@@ -25,9 +32,7 @@ export const UserInfo = () => {
         confirmText: "네",
         onCancel: close,
         onConfirm: async () => {
-          await fetch("/api/oauth/logout", {
-            method: "POST",
-          })
+          await handleLogout()
           showSnackbar({
             message: "로그아웃 되었어요",
           })
@@ -46,7 +51,14 @@ export const UserInfo = () => {
         cancelText: "취소",
         confirmText: "탈퇴",
         onCancel: close,
-        onConfirm: close,
+        onConfirm: async () => {
+          await apiApi.withdraw()
+          await handleLogout()
+          showSnackbar({
+            message: "어디선가 다시 만나요",
+          })
+          router.replace("/landing")
+        },
       },
     })
   }
