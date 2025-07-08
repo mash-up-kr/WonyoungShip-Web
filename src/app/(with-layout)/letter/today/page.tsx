@@ -79,7 +79,7 @@ const TodayLettersPage = () => {
             <li key={letter.letterId}>
               <LetterCard
                 to={`/letter/${letter.letterId}`}
-                content={letter.content}
+                content={letter.content ?? undefined}
                 receivedAt={today}
               />
             </li>

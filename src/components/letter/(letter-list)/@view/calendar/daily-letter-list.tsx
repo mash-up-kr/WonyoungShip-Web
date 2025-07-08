@@ -1,10 +1,9 @@
+import { LetterPreviewResponseType } from "@/__generated__/@types"
 import { LetterCard, Text } from "@/components/common"
-
-import { LetterResponse } from "./calendar-view"
 
 interface DailyLetterListProps {
   selectedDate: Date | null
-  letters: LetterResponse["letters"]
+  letters: LetterPreviewResponseType[]
 }
 
 export const DailyLetterList = ({
@@ -30,7 +29,7 @@ export const DailyLetterList = ({
       {letters.map((letter) => (
         <li key={letter.letterId}>
           <LetterCard
-            to={letter.letterId}
+            to={`/letter/${letter.letterId}`}
             receivedAt={new Date(letter.scheduleDate)}
             content={letter.content}
           />
