@@ -2,22 +2,23 @@
 
 import { useState } from "react"
 
+import { useFetchLetterList } from "../../hooks/use-fetch-letter-list"
 import { MonthSwipeNavigator } from "../../month-swipe-navigator"
-import { LETTERS_RESPONSE } from "../calendar"
 
 import { FavoriteLetterFilterButton } from "./favorite-letter-filter-button"
 import { ListLetterItem } from "./list-letter-item"
 
 export const ListView = () => {
   const [isFavoriteFiltered, setIsFavoriteFiltered] = useState(false)
+  const { letterList } = useFetchLetterList()
 
   const handleFavoritFilterChanged = () => {
     setIsFavoriteFiltered((prev) => !prev)
   }
 
   const letters = isFavoriteFiltered
-    ? LETTERS_RESPONSE.letters.filter((letter) => letter.marked)
-    : LETTERS_RESPONSE.letters
+    ? letterList.filter((letter) => letter.marked)
+    : letterList
 
   return (
     <MonthSwipeNavigator>
