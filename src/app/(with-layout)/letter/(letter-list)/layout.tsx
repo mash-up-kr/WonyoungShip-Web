@@ -1,4 +1,4 @@
-import { PropsWithChildren, ReactNode } from "react"
+import { PropsWithChildren, ReactNode, Suspense } from "react"
 
 interface LetterListLayoutProps extends PropsWithChildren {
   view?: ReactNode
@@ -7,8 +7,10 @@ interface LetterListLayoutProps extends PropsWithChildren {
 const LetterListLayout = ({ view, children }: LetterListLayoutProps) => {
   return (
     <div className="flex flex-col gap-4">
-      {children}
-      {view}
+      <Suspense>
+        {children}
+        {view}
+      </Suspense>
     </div>
   )
 }
