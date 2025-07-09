@@ -1,8 +1,7 @@
 import { apiApi } from "@/__generated__/Api/Api.api"
 import HeaderStar from "@/components/common/header/header-star"
 import { DateText, MusicPlayer, LetterContent } from "@/components/letter/[id]"
-
-type Weather = "sunny" | "cloudy" | "rainy" | "snow" | "shiny"
+import { WeatherServerName } from "@/utils/weather"
 
 const LetterDetailPage = async () => {
   const response = await apiApi.readDetailLetter({ letterId: 7 })
@@ -25,6 +24,7 @@ const LetterDetailPage = async () => {
     fortuneCookieMessage: null,
   }
 
+  console.log(letter)
   return (
     <div className="from-background-white to-background-brandassistive flex h-dvh flex-col items-center bg-gradient-to-b px-4">
       <HeaderStar
@@ -32,7 +32,7 @@ const LetterDetailPage = async () => {
         title={`${letter.senderNickname}로부터`}
       />
       <DateText
-        weather={letter.weatherType as Weather}
+        weather={letter.weatherType as WeatherServerName}
         createdAt={letter.createdDate}
         scheduledAt={letter.scheduleDate}
       />
