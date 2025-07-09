@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     siteName: "둥둥",
     images: [
       {
-        url: "/opengraph-image.png",
+        url: "/images/opengraph-image.png",
       },
     ],
     locale: "ko_KR",
