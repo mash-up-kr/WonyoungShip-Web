@@ -1,12 +1,14 @@
 import Link from "next/link"
 
+import { LetterPreviewResponseType } from "@/__generated__/@types"
+
 import { Icon } from "./icon"
 import { Text } from "./text"
 
 interface LetterCardProps {
   to: string
   receivedAt: Date
-  content?: string
+  content: LetterPreviewResponseType["content"]
 }
 
 const UNREAD_CONTENT = "편지를 열면 내용을 확인할 수 있어요"
