@@ -69,7 +69,7 @@ useEffect(() => {
           <CopyAddressButton />
         </div>
       </section>
-      <LetterCountdown letterList={letterList?.receivedCountPerDay ?? [0,0,0,0,0,0,0]} />
+      <LetterCountdown letterCountPerDate={letterList?.receivedCountPerDay ?? [0,0,0,0,0,0,0]} />
     </div></>
     
   )

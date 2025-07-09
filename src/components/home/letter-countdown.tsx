@@ -14,7 +14,7 @@ type LetterStatus = "EMPTY" | "IN_DELIVERY" | "ARRIVED"
 type TextColor = "secondary" | "tertiary"
 
 interface LetterCountdownProps {
-  letterList: number[] 
+  letterCountPerDate: number[] 
 }
 
 const LETTER_CONFIG: Record<
@@ -51,16 +51,16 @@ const LETTER_CONFIG: Record<
 }
 
 const getLetterStatus = (
-  letterList: number[],
+  letterCountPerDate: number[],
 ): { status: LetterStatus; daysLeft?: number } => {
-  if (!letterList || letterList.every((count) => count === 0)) {
+  if (!letterCountPerDate || letterCountPerDate.every((count) => count === 0)) {
     return { status: "EMPTY" }
   }
 
   const today = new Date().getDay()
   for (let i = 0; i < 7; i++) {
     const dayIndex = (today + i) % 7 
-    if (letterList[dayIndex] > 0) {
+    if (letterCountPerDate[dayIndex] > 0) {
       if (i === 0) {
         return { status: "ARRIVED" } 
       }
@@ -71,8 +71,8 @@ const getLetterStatus = (
   return { status: "EMPTY" } 
 }
 
-export const LetterCountdown = ({ letterList }: LetterCountdownProps) => {
-  const { status, daysLeft } = getLetterStatus(letterList)
+export const LetterCountdown = ({ letterCountPerDate }: LetterCountdownProps) => {
+  const { status, daysLeft } = getLetterStatus(letterCountPerDate)
 
   const { title, subtitle, subtitleColor, lottieData, lottieSize } = LETTER_CONFIG[status]
 
@@ -125,7 +125,7 @@ export const LetterCountdown = ({ letterList }: LetterCountdownProps) => {
           )}
         </div>
       </div>
-      <LetterWeekContainer letterList={letterList} />
+      <LetterWeekContainer letterList={letterCountPerDate} />
     </section>
   )
 }
