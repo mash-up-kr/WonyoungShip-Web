@@ -6,7 +6,7 @@ import { Text } from "./text"
 interface LetterCardProps {
   to: string
   receivedAt: Date
-  content: string | null
+  content?: string
 }
 
 const UNREAD_CONTENT = "편지를 열면 내용을 확인할 수 있어요"
