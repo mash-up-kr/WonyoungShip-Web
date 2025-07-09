@@ -1,3 +1,5 @@
+import { Suspense } from "react"
+
 import {
   LandingHeader,
   KakaoLoginButton,
@@ -10,7 +12,9 @@ const LandingPage = () => {
   return (
     <main className="relative h-dvh w-full">
       <div className="flex flex-col gap-7 overflow-hidden">
-        <LandingToast />
+        <Suspense>
+          <LandingToast />
+        </Suspense>
         <LandingHeader />
         <LetterList />
         <KakaoLoginButton />
