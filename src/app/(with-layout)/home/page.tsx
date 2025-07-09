@@ -11,15 +11,14 @@ import {
   CopyAddressButton,
 } from "@/components/home"
 
-// TODO : API 연결 시 제거
-const tempData = {
-    notViewedCount: 5,
+const errorData = {
+    notViewedCount: 0,
     receivedCountPerDay: [
-      1,
-      2,
-      1,
       0,
-      1,
+      0,
+      0,
+      0,
+      0,
       0,
       0
     ]
@@ -35,11 +34,9 @@ useEffect(() => {
         const response = await apiApi.readWeeklyCount()
         const letters = response.data.data
 
-        setLetterList(letters ?? tempData)
-        console.log(letters)
+        setLetterList(letters ?? errorData)
       } catch (error) {
-        
-        setLetterList( tempData)
+        setLetterList( errorData)
         console.error("편지 목록을 가져오는 데 실패했습니다:", error)
       }
     }
