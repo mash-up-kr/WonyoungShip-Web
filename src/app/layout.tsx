@@ -23,7 +23,6 @@ export const metadata: Metadata = {
   openGraph: {
     title: "둥둥 - 느리지만 진심을 담은 편지",
     description: "미래의 누군가에게 진심을 전하는 디지털 타임캡슐 편지 서비스",
-    url: "https://doongdoong.org",
     siteName: "둥둥",
     images: [
       {
