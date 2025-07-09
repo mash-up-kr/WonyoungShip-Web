@@ -5,9 +5,12 @@ import { useState } from "react"
 import { Text, Icon } from "@/components/common"
 
 interface MusicType {
-  title: string
-  link: string
-  singer: string
+  id?: number
+  isRecommend?: boolean
+  title?: string
+  artist?: string
+  url?: string
+  mood?: string
 }
 
 interface MusicProp {
@@ -33,7 +36,7 @@ export const MusicPlayer = ({ music }: MusicProp) => {
           className="font-medium text-ellipsis whitespace-nowrap overflow-hidden max-w-[257px]"
           color="secondary"
         >
-          {music.title} - {music.singer}
+          {music.title} - {music.artist}
         </Text>
       </div>
       <button onClick={handleClickMusicPlay}>
