@@ -14,7 +14,7 @@ type LetterStatus = "EMPTY" | "IN_DELIVERY" | "ARRIVED"
 type TextColor = "secondary" | "tertiary"
 
 interface LetterCountdownProps {
-  letterCountPerDate: number[] 
+  letterCountPerDate: number[]
 }
 
 const LETTER_CONFIG: Record<
@@ -58,26 +58,30 @@ const getLetterStatus = (
   }
 
   const today = new Date().getDay()
+
   for (let i = 0; i < 7; i++) {
-    const dayIndex = (today + i) % 7 
+    const dayIndex = (today + i) % 7
     if (letterCountPerDate[dayIndex] > 0) {
       if (i === 0) {
-        return { status: "ARRIVED" } 
+        return { status: "ARRIVED" }
       }
-      return { status: "IN_DELIVERY", daysLeft: i } 
+      return { status: "IN_DELIVERY", daysLeft: i }
     }
   }
 
-  return { status: "EMPTY" } 
+  return { status: "EMPTY" }
 }
 
-export const LetterCountdown = ({ letterCountPerDate }: LetterCountdownProps) => {
+export const LetterCountdown = ({
+  letterCountPerDate,
+}: LetterCountdownProps) => {
   const { status, daysLeft } = getLetterStatus(letterCountPerDate)
 
-  const { title, subtitle, subtitleColor, lottieData, lottieSize } = LETTER_CONFIG[status]
+  const { title, subtitle, subtitleColor, lottieData, lottieSize } =
+    LETTER_CONFIG[status]
 
   return (
-    <section className="relative flex h-[378px] w-full flex-col items-center overflow-hidden justify-between rounded-3xl bg-blue-10 px-4 pt-7 pb-3">
+    <section className="bg-blue-10 relative flex h-[378px] w-full flex-col items-center justify-between overflow-hidden rounded-3xl px-4 pt-7 pb-3">
       <Image
         src={LetterBackground}
         alt=""
@@ -112,12 +116,12 @@ export const LetterCountdown = ({ letterCountPerDate }: LetterCountdownProps) =>
           />
 
           {status === "ARRIVED" && (
-            <button className="bg-background-primary flex active:bg-neutral-40 items-center justify-center rounded-lg px-2.5 py-2 transition-colors">
+            <button className="bg-background-primary active:bg-neutral-40 flex items-center justify-center rounded-lg px-2.5 py-2 transition-colors">
               <Text
                 variant="body"
                 size="small"
                 color="inverse"
-                className="font-medium leading-4"
+                className="leading-4 font-medium"
               >
                 편지 열어보기
               </Text>
