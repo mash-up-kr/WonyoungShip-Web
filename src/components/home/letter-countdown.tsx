@@ -57,7 +57,7 @@ const getLetterStatus = (
     return { status: "EMPTY" }
   }
 
-  const today = new Date().getDay()
+  const today = new Date().getDay() - 1
 
   for (let i = 0; i < 7; i++) {
     const dayIndex = (today + i) % 7
@@ -66,6 +66,10 @@ const getLetterStatus = (
         return { status: "ARRIVED" }
       }
       return { status: "IN_DELIVERY", daysLeft: i }
+    }
+
+    if (dayIndex == 6) {
+      break
     }
   }
 
