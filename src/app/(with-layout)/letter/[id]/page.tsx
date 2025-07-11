@@ -1,6 +1,6 @@
 import { apiApi } from "@/__generated__/Api/Api.api"
 import HeaderStar from "@/components/common/header/header-star"
-import { DateText, MusicPlayer, LetterContent } from "@/components/letter/[id]"
+import { DateText, MusicPlay, LetterContent } from "@/components/letter/[id]"
 import { WeatherServerName } from "@/utils/weather"
 
 const LetterDetailPage = async () => {
@@ -36,7 +36,7 @@ const LetterDetailPage = async () => {
         createdAt={letter.createdDate}
         scheduledAt={letter.scheduleDate}
       />
-      <MusicPlayer music={letter.music ?? {title: "전송된 노래가 없어요." , artist: ""}} />
+      <MusicPlay music={letter.music ?? {title: "전송된 노래가 없어요." , artist: ""}} />
       <LetterContent
         content={letter.content}
         fortuneCookie={letter.fortuneCookieMessage}
