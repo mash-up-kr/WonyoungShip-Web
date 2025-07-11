@@ -1,0 +1,1 @@
+export type LetterType = "SELF" | "TARGET" | "RANDOM"

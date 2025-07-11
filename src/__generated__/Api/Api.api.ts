@@ -108,7 +108,7 @@ export class ApiApi<SecurityDataType = unknown> extends HttpClient {
       format: "json",
       ...variables.params,
     }) /**
-   * @description 보내는 사람, 받는 사람, 메시지, 예약 날짜, 날씨, 음악, 닉네임, 포춘쿠키 정보를 포함해 편지를 작성합니다.
+   * @description 보내는 사람, 받는 사람, 메시지, 예약 날짜, 날씨, 음악, 닉네임, 포춘쿠키를 바디로, 타입(TARGET/SELF/RANDOM)은 쿼리스트링으로 받습니다.
    *
    * @tags 편지 쓰기 API
    * @name WriteLetter
@@ -116,10 +116,19 @@ export class ApiApi<SecurityDataType = unknown> extends HttpClient {
    * @request POST:/api/v1/letters
    * @secure
    */
-  writeLetter = (variables: { data: LetterWriteRequestType; params?: RequestParams }) =>
+  writeLetter = (
+    variables: {
+      query: {
+        type: "TARGET" | "SELF" | "RANDOM"
+      }
+      data: LetterWriteRequestType
+      params?: RequestParams
+    },
+  ) =>
     this.request<ApiResponseLetterWriteResponseType, any>({
       path: `/api/v1/letters`,
       method: "POST",
+      query: variables.query,
       body: variables.data,
       secure: true,
       type: ContentType.Json,
@@ -187,8 +196,9 @@ export class ApiApi<SecurityDataType = unknown> extends HttpClient {
   readLetterMeta = (
     variables: {
       query: {
+        type: "TARGET" | "SELF" | "RANDOM"
         /** @format int64 */
-        receiverId: number
+        receiverId?: number
       }
       params?: RequestParams
     },
