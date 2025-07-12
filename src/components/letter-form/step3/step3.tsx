@@ -1,12 +1,24 @@
 import Lottie from "lottie-react"
+import { useRouter } from "next/navigation"
 import React from "react"
 
 import { Button, Text } from "@/components/common"
+import { ERoutes } from "@/routes"
 
 import { HOME_LOTTIES } from "../../../../public/assets/lottie"
 
 const Step3 = () => {
-  const onConfirm = () => {}
+  const router = useRouter()
+
+  const onConfirm = async () => {
+    const data = await fetch(
+      `${process.env.NEXT_PUBLIC_PRODUCTION_URL}/api/oauth/kakao/token`,
+    )
+    const token = await data.json()
+
+    router.push(token ? ERoutes.HOME : ERoutes.LANDING)
+  }
+
   return (
     <section className="px-[16px]">
       <Text

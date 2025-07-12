@@ -1,8 +1,11 @@
 "use client"
 
+import Link from "next/link"
 import { useState } from "react"
 
 import FortuneCookie from "@/assets/svg/fortune-cookie.svg"
+import { LETTER_TYPE } from "@/constants/letter"
+import { ERoutes } from "@/routes"
 
 import { Button, Tooltip } from "../common"
 
@@ -17,13 +20,15 @@ export const RandomLetterButton = () => {
         wrapperClassName="flex-1 flex justify-center"
         onClose={() => setOpenTooltip(false)}
       >
-        <Button
-          variant="blue"
-          className="flex h-12 items-center justify-center gap-2.5 py-4"
-        >
-          <FortuneCookie className="animate-cookie-shake h-8 w-8" />
-          <span>랜덤하게 마음 전하기</span>
-        </Button>
+        <Link href={`${ERoutes.LETTER_FORM}?type=${LETTER_TYPE.RANDOM}`} className="w-full">
+          <Button
+            variant="blue"
+            className="flex h-12 items-center justify-center gap-2.5 py-4"
+          >
+            <FortuneCookie className="animate-cookie-shake h-8 w-8" />
+            <span>랜덤하게 마음 전하기</span>
+          </Button>
+        </Link>
       </Tooltip>
     </div>
   )

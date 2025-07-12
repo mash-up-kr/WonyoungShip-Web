@@ -1,9 +1,9 @@
 export enum ERoutes {
     LANDING = "landing",
     HOME = "/home",
-    LETTER = 'letter', 
+    LETTER = '/letter', 
     LETTER_FORM = '/letter-form',
-    LETTER_TODAY = `${LETTER}/TODAY`,
+    LETTER_TODAY = `${LETTER}/today`,
     SETTING = '/setting',
 
     OAUTH = '/api/oauth',
