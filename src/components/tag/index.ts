@@ -1,1 +1,1 @@
-export * from "./register-tag"
+export * from "./register-card"
