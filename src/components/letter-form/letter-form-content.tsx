@@ -11,6 +11,7 @@ import { apiApi } from "@/__generated__/Api/Api.api"
 import BasicHeader from "@/components/common/header/basic-header"
 import { useLetterForm } from "@/contexts/letter-form-context"
 import { useSnackbar } from "@/contexts/snackbar"
+import { LetterType } from "@/types/letter-form"
 
 import Step1 from "./step1/step1"
 import Step2 from "./step2/step2"
@@ -21,6 +22,7 @@ const LetterFormContent = () => {
   const { showSnackbar } = useSnackbar()
   const searchParams = useSearchParams()
   const receiverId = searchParams.get("receiverId")
+  const type = searchParams.get("type") as LetterType
   const { step, setStep, updateFormData } = useLetterForm()
   const [musicList, setMusicList] = useState<LetterMusicResponseType[]>([])
   const [receiverName, setReceiverName] = useState("")
@@ -40,7 +42,8 @@ const LetterFormContent = () => {
       try {
         const response = await apiApi.readLetterMeta({
           query: {
-            receiverId: Number(receiverId) || -1,
+            type,
+            receiverId: Number(receiverId),
           },
         })
         initLetterMeta(response.data?.data)
@@ -53,6 +56,7 @@ const LetterFormContent = () => {
       }
     }
     getLetterMeta()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
@@ -60,7 +64,7 @@ const LetterFormContent = () => {
       <BasicHeader
         hasBackButton={step === 2}
         onClickBackButton={() => setStep(step - 1)}
-        centerText={step === 1 ? `To. ${receiverName}` : ""}
+        centerText={step === 1 ? `${receiverName}` : ""}
       />
       {step === 1 && <Step1 musicList={musicList} />}
       {step === 2 && <Step2 receiverName={receiverName} />}

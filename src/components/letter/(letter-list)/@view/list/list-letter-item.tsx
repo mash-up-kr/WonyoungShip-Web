@@ -1,13 +1,12 @@
 import Image from "next/image"
 import Link from "next/link"
 
+import { LetterPreviewResponseType } from "@/__generated__/@types"
 import LetterBackground from "@/assets/images/letter-background.png"
 import { Text } from "@/components/common"
 
-import { LetterResponse } from "../calendar"
-
 interface ListLetterItemProps {
-  letter: LetterResponse["letters"][number]
+  letter: LetterPreviewResponseType
 }
 
 export const ListLetterItem = ({ letter }: ListLetterItemProps) => {

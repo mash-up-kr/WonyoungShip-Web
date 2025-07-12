@@ -9,6 +9,7 @@
  * ---------------------------------------------------------------
  */
 
+
 export interface ApiResponseUnitType {
   code: string
   message: string
@@ -27,7 +28,7 @@ export interface ChangeEmailSettingRequestType {
 
 export interface LetterWriteRequestType {
   /** @format int64 */
-  receiverId: number
+  receiverId?: number
   content: string
   /** @format date */
   scheduleDate: string
