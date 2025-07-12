@@ -1,12 +1,24 @@
 import Lottie from "lottie-react"
+import { useRouter } from "next/navigation"
 import React from "react"
 
 import { Button, Text } from "@/components/common"
+import { ROUTES } from "@/constants/routes"
 
 import { HOME_LOTTIES } from "../../../../public/assets/lottie"
 
 const Step3 = () => {
-  const onConfirm = () => {}
+  const router = useRouter()
+
+  const onConfirm = async () => {
+    const data = await fetch(
+      `${process.env.NEXT_PUBLIC_PRODUCTION_URL}${ROUTES.API.REDIRECT_LOGIN}/token`,
+    )
+    const token = await data.json()
+
+    router.push(token ? ROUTES.PAGE.HOME : ROUTES.PAGE.LANDING)
+  }
+
   return (
     <section className="px-[16px]">
       <Text

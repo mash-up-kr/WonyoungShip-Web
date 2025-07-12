@@ -2,6 +2,7 @@ import { apiApi } from "@/__generated__/Api/Api.api"
 import { LetterCard } from "@/components/common"
 import BasicHeader from "@/components/common/header/basic-header"
 import { TodayLetterCount } from "@/components/letter/today"
+import { ROUTES } from "@/constants/routes"
 
 const TodayLettersPage = async () => {
   const today = new Date()
@@ -21,8 +22,8 @@ const TodayLettersPage = async () => {
           {letters.map((letter) => (
             <li key={letter.letterId}>
               <LetterCard
-                to={`/letter/${letter.letterId}`}
-                content={letter?.content}
+                to={`${ROUTES.PAGE.LETTER}/${letter.letterId}`}
+                content={letter.content ?? undefined}
                 receivedAt={today}
               />
             </li>
