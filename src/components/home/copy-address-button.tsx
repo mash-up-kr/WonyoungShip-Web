@@ -3,21 +3,24 @@
 import { useState } from "react"
 
 import { IconButton, Tooltip } from "@/components/common"
+import { LETTER_TYPE } from "@/constants/letter"
+import { ROUTES } from "@/constants/routes"
 import { useSnackbar } from "@/contexts/snackbar"
 import { copyToClipboard } from "@/utils/copy-to-clipboard"
 
-export const CopyAddressButton = () => {
+interface CopyAddressButtonProps {
+  receiverId: number
+}
+
+export const CopyAddressButton = ({ receiverId }: CopyAddressButtonProps) => {
   const [isTooltipOpen, setIsTooltipOpen] = useState(true)
 
   const { showSnackbar } = useSnackbar()
 
   const handleClickCopy = async () => {
-      // TODO : 추후 복사할 url 결정되면 수정
-      const tempAddress = "https://doong-doong/~"
+    const tempAddress = `${process.env.NEXT_PUBLIC_PRODUCTION_URL}${ROUTES.PAGE.LETTER_FORM}?receiverId=${receiverId}&type=${LETTER_TYPE.TARGET}`
 
-      copyToClipboard(tempAddress, showSnackbar)
-
-     
+    copyToClipboard(tempAddress, showSnackbar)
   }
 
   const handleTooltipClose = () => {

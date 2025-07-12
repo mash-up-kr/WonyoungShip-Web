@@ -10,6 +10,7 @@ import { HomeToast } from "@/components/home/home-toast"
 const DEFAULT_VALUE = {
   notViewedCount: 0,
   receivedCountPerDay: [0, 0, 0, 0, 0, 0, 0],
+  receiverId: 0
 }
 
 const Home = async () => {
@@ -35,7 +36,7 @@ const Home = async () => {
                 {totalReceivedCount}
               </Text>
             </h2>
-            <CopyAddressButton />
+            <CopyAddressButton receiverId={letterList.receiverId}/>
           </div>
         </section>
         <LetterCountdown
