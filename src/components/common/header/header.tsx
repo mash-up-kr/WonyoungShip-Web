@@ -1,3 +1,5 @@
+import Link from "next/link"
+
 import Logo from "@/assets/svg/logo.svg"
 import { Icon, Text } from "@/components/common"
 
@@ -17,7 +19,11 @@ export const Header = ({
       </h1>
 
       <div className="flex items-center gap-3">
-        <button className="relative" aria-label="알림 버튼">
+        <Link
+          href="/letter"
+          className="relative"
+          aria-label="알림 버튼"
+        >
           {notificationCount > 0 && (
             <div className="absolute -top-0.5 left-[22px] flex h-[14px] min-w-[14px] items-center justify-center rounded-full bg-[#ff6464] px-1">
               <Text
@@ -30,10 +36,10 @@ export const Header = ({
             </div>
           )}
           <Icon icon="letter" size="xl" />
-        </button>
-        <button aria-label="설정 버튼">
+        </Link>
+        <Link href="/setting" aria-label="설정 버튼">
           <Icon icon="setting" size="xl" />
-        </button>
+        </Link>
       </div>
     </header>
   )
