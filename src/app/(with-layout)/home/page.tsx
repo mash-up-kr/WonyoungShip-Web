@@ -6,14 +6,14 @@ import {
   CopyAddressButton,
 } from "@/components/home"
 
-const errorData = {
+const DEFAULT_VALUE = {
   notViewedCount: 0,
   receivedCountPerDay: [0, 0, 0, 0, 0, 0, 0],
 }
 
 const Home = async () => {
   const response = await apiApi.readWeeklyCount()
-  const letterList = response.data.data ?? errorData
+  const letterList = response.data.data ?? DEFAULT_VALUE
 
   const totalReceivedCount =
     letterList?.receivedCountPerDay?.reduce((sum, count) => sum + count, 0) ?? 0
@@ -38,7 +38,7 @@ const Home = async () => {
         </section>
         <LetterCountdown
           letterCountPerDate={
-            letterList?.receivedCountPerDay ?? [0, 0, 0, 0, 0, 0, 0]
+            letterList?.receivedCountPerDay ?? DEFAULT_VALUE.receivedCountPerDay
           }
         />
       </div>
