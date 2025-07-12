@@ -1,5 +1,6 @@
 import { Text } from "../common"
 
+import { LoginButton } from "./login-button"
 import { RegisterTagButton } from "./register-tag-button"
 
 interface CardRegistrationPromptProps {
@@ -21,7 +22,7 @@ const CARD_REGISTRATION_PROMPT_CONTENT = {
       "로그인 후 카드를 등록하면,",
       "누구나 이 카드를 태그해서 나에게 편지를 보낼 수 있어요.",
     ],
-    button: <RegisterTagButton />,
+    button: <LoginButton />,
   },
 }
 

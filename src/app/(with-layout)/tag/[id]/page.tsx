@@ -3,6 +3,7 @@ import { redirect, RedirectType } from "next/navigation"
 import { tagApi } from "@/__generated__/Tag/Tag.api"
 import { RegisterCard } from "@/components/tag"
 import { LETTER_TYPE } from "@/constants/letter"
+import { ROUTES } from "@/constants/routes"
 import { TOAST_ERROR } from "@/constants/toast-error"
 
 const INVALID_TAG_ID_STATUS = "5000"
@@ -27,7 +28,7 @@ const TagPage = async ({ params }: { params: Promise<{ id: string }> }) => {
   }
 
   redirect(
-    `/letter-form?type=${LETTER_TYPE.TARGET}&receiveId=${data.memberId}`,
+    `${ROUTES.PAGE.LETTER_FORM}?type=${LETTER_TYPE.TARGET}&receiveId=${data.memberId}`,
     RedirectType.replace,
   )
 }
