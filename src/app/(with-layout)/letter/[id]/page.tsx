@@ -3,8 +3,15 @@ import HeaderStar from "@/components/common/header/header-star"
 import { DateText, MusicPlay, LetterContent } from "@/components/letter/[id]"
 import { WeatherServerName } from "@/utils/weather"
 
-const LetterDetailPage = async () => {
-  const response = await apiApi.readDetailLetter({ letterId: 7 })
+interface LetterDetailPageProps {
+  params: Promise<{ id: string }>
+}
+
+const LetterDetailPage = async ({ params }: LetterDetailPageProps) => {
+  const { id } = await params
+  const letterId = parseInt(id)
+
+  const response = await apiApi.readDetailLetter({ letterId })
 
   const letter = response.data?.data ?? {
     senderNickname: "",
@@ -16,7 +23,7 @@ const LetterDetailPage = async () => {
     music: {
       id: 0,
       isRecommend: false,
-      title: "",
+      title: "전송된 노래가 없어요.",
       artist: "",
       url: "",
       mood: "",
@@ -24,7 +31,6 @@ const LetterDetailPage = async () => {
     fortuneCookieMessage: null,
   }
 
-  console.log(letter)
   return (
     <div className="from-background-white to-background-brandassistive flex h-dvh flex-col items-center bg-gradient-to-b px-4">
       <HeaderStar
@@ -36,7 +42,9 @@ const LetterDetailPage = async () => {
         createdAt={letter.createdDate}
         scheduledAt={letter.scheduleDate}
       />
-      <MusicPlay music={letter.music ?? {title: "전송된 노래가 없어요." , artist: ""}} />
+      <MusicPlay
+        music={letter.music ?? { title: "전송된 노래가 없어요.", artist: "" }}
+      />
       <LetterContent
         content={letter.content}
         fortuneCookie={letter.fortuneCookieMessage}
