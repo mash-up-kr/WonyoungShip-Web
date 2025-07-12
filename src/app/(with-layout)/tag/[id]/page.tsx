@@ -1,6 +1,7 @@
 import { redirect, RedirectType } from "next/navigation"
 
 import { tagApi } from "@/__generated__/Tag/Tag.api"
+import { RegisterCard } from "@/components/tag"
 import { LETTER_TYPE } from "@/constants/letter"
 import { TOAST_ERROR } from "@/constants/toast-error"
 
@@ -18,7 +19,11 @@ const TagPage = async ({ params }: { params: Promise<{ id: string }> }) => {
   }
 
   if (!data || !data.memberId) {
-    return <>아직 등록되지 않은 카드예요</>
+    return (
+      <div className="relative h-screen">
+        <RegisterCard />
+      </div>
+    )
   }
 
   redirect(
