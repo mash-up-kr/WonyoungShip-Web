@@ -13,10 +13,6 @@ export const RegisterTagButton = () => {
   const handleRegisterTag = async () => {
     await tagApi.registerTag({
       tag: tagId,
-      // TODO: 지워야 함
-      data: {
-        memberId: 0,
-      },
     })
 
     router.replace("/tag/success")

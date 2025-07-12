@@ -11,8 +11,6 @@ export async function GET(
   try {
     await tagApi.registerTag({
       tag: tag,
-      //TODO: 지워야 됨
-      data: { memberId: 0 },
     })
 
     return NextResponse.redirect(new URL("/tag/success", req.url))

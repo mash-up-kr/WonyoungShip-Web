@@ -11,8 +11,8 @@
 
 
 import customFetch from "@/configs/fetch/instance"
-import { ContentType, HttpClient, RequestParams } from "../@http-client"
-import type { ApiResponseTagResponseType, RegisterTagRequestType } from "../@types"
+import { HttpClient, RequestParams } from "../@http-client"
+import type { ApiResponseTagResponseType } from "../@types"
 
 export class TagApi<SecurityDataType = unknown> extends HttpClient {
   /**
@@ -40,13 +40,11 @@ export class TagApi<SecurityDataType = unknown> extends HttpClient {
    * @request POST:/tag/{tag}
    * @secure
    */
-  registerTag = (variables: { tag: string; data: RegisterTagRequestType; params?: RequestParams }) =>
+  registerTag = (variables: { tag: string; params?: RequestParams }) =>
     this.request<ApiResponseTagResponseType, any>({
       path: `/tag/${variables.tag}`,
       method: "POST",
-      body: variables.data,
       secure: true,
-      type: ContentType.Json,
       format: "json",
       ...variables.params,
     })
