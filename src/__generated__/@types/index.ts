@@ -10,6 +10,24 @@
  */
 
 
+export interface ApiResponseTagResponseType {
+  code: string
+  message: string
+  data?: TagResponseType
+  /** @format int32 */
+  pageIndex?: number
+  /** @format int32 */
+  pageSize?: number
+}
+
+export interface TagResponseType {
+  /** @format int64 */
+  id: number
+  tag: string
+  /** @format int64 */
+  memberId?: number
+}
+
 export interface ApiResponseUnitType {
   code: string
   message: string
@@ -33,8 +51,11 @@ export interface LetterWriteRequestType {
   /** @format date */
   scheduleDate: string
   weather: "SUNNY" | "CLOUDY" | "RAINY" | "SNOWY" | "NIGHT_SHINING"
-  /** @format int64 */
-  musicId?: number
+  /**
+   * 음악 ID (선택)
+   * @format int64
+   */
+  musicId?: number | null
   senderNickname: string
   needFortuneCookie: boolean
 }
@@ -213,6 +234,8 @@ export interface LettersWeeklyCountResponseType {
   /** @format int64 */
   notViewedCount: number
   receivedCountPerDay: number[]
+  /** @format int64 */
+  receiverId: number
 }
 
 export interface ApiResponseListLandingResponseType {
