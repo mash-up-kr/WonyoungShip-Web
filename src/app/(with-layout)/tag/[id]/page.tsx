@@ -28,7 +28,7 @@ const TagPage = async ({ params }: { params: Promise<{ id: string }> }) => {
   }
 
   redirect(
-    `${ROUTES.PAGE.LETTER_FORM}?type=${LETTER_TYPE.TARGET}&receiveId=${data.memberId}`,
+    `${ROUTES.PAGE.LETTER_FORM}?type=${LETTER_TYPE.TARGET}&receiverId=${data.memberId}`,
     RedirectType.replace,
   )
 }
