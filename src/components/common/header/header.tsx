@@ -20,7 +20,7 @@ export const Header = ({
 
       <div className="flex items-center gap-3">
         <Link
-          href="/letter/today"
+          href="/letter"
           className="relative"
           aria-label="알림 버튼"
         >
