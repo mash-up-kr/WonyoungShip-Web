@@ -10,6 +10,29 @@
  */
 
 
+export interface RegisterTagRequestType {
+  /** @format int64 */
+  memberId: number
+}
+
+export interface ApiResponseTagResponseType {
+  code: string
+  message: string
+  data?: TagResponseType
+  /** @format int32 */
+  pageIndex?: number
+  /** @format int32 */
+  pageSize?: number
+}
+
+export interface TagResponseType {
+  /** @format int64 */
+  id: number
+  tag: string
+  /** @format int64 */
+  memberId?: number
+}
+
 export interface ApiResponseUnitType {
   code: string
   message: string
