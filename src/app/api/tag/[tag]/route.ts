@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 
-import { tagApi } from "@/__generated__/Tag/Tag.api"
+import { apiApi } from "@/__generated__/Api/Api.api"
 
 export async function GET(
   req: NextRequest,
@@ -9,7 +9,7 @@ export async function GET(
   const { tag } = await params
 
   try {
-    await tagApi.registerTag({
+    await apiApi.registerTag({
       tag,
     })
 

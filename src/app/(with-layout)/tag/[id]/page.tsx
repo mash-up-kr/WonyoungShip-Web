@@ -1,6 +1,6 @@
 import { redirect, RedirectType } from "next/navigation"
 
-import { tagApi } from "@/__generated__/Tag/Tag.api"
+import { apiApi } from "@/__generated__/Api/Api.api"
 import { RegisterCard } from "@/components/tag"
 import { LETTER_TYPE } from "@/constants/letter"
 import { ROUTES } from "@/constants/routes"
@@ -13,7 +13,7 @@ const TagPage = async ({ params }: { params: Promise<{ id: string }> }) => {
 
   const {
     data: { code, data },
-  } = await tagApi.getTag({ tag: id })
+  } = await apiApi.getTag({ tag: id })
 
   if (code === INVALID_TAG_ID_STATUS) {
     redirect(`/landing?error=${TOAST_ERROR.NOT_FOUND}`, RedirectType.replace)

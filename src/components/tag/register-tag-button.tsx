@@ -2,7 +2,7 @@
 
 import { useParams, useRouter } from "next/navigation"
 
-import { tagApi } from "@/__generated__/Tag/Tag.api"
+import { apiApi } from "@/__generated__/Api/Api.api"
 
 import { Button } from "../common"
 
@@ -11,7 +11,7 @@ export const RegisterTagButton = () => {
   const router = useRouter()
 
   const handleRegisterTag = async () => {
-    await tagApi.registerTag({
+    await apiApi.registerTag({
       tag: tagId,
     })
 
