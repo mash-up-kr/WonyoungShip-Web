@@ -4,9 +4,9 @@ import { tagApi } from "@/__generated__/Tag/Tag.api"
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { tag: string } },
+  { params }: { params: Promise<{ tag: string }> },
 ) {
-  const { tag } = params
+  const { tag } = await params
 
   try {
     await tagApi.registerTag({
