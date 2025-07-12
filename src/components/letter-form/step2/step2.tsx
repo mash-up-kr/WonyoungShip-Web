@@ -31,7 +31,7 @@ const Step2 = ({ receiverName }: { receiverName: string }) => {
         },
         data: {
           ...formData,
-          receiverId: Number(receiverId),
+          receiverId: receiverId ? Number(receiverId) : undefined,
         },
       })
       return {

@@ -21,10 +21,10 @@ const LetterFormContext = createContext<LetterFormContextType | undefined>(
 )
 
 const initialFormData: FormDataType = {
-  receiverId: 0,
+  receiverId: undefined,
   scheduleDate: "",
   weather: "SUNNY",
-  musicId: 0,
+  musicId: null,
   senderNickname: "",
   needFortuneCookie: false,
   content: "",
