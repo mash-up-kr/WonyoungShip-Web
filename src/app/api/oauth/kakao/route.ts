@@ -8,6 +8,8 @@ const THREE_DAYS = 60 * 60 * 24 * 3 // 3일
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url)
   const code = searchParams.get("code")
+  const tag = searchParams.get("tag")
+
   if (!code) {
     return NextResponse.redirect(new URL("/landing", req.url))
   }
@@ -24,7 +26,9 @@ export async function GET(req: NextRequest) {
     return NextResponse.redirect(new URL("/landing?error=login", req.url))
   }
 
-  const res = NextResponse.redirect(new URL("/home", req.url))
+  const hasTag = !!tag
+  const redirectUrl = hasTag ? `/api/tag/${tag}` : "/home"
+  const res = NextResponse.redirect(new URL(redirectUrl, req.url))
 
   res.cookies.set({
     name: ACCESS_TOKEN_KEY,
@@ -35,5 +39,6 @@ export async function GET(req: NextRequest) {
     path: "/", // root-level
     sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
   })
+
   return res
 }

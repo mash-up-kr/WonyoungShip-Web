@@ -1,17 +1,17 @@
 "use client"
 
-import { useParams } from "next/navigation"
+import { useParams, useRouter } from "next/navigation"
 
 import { tagApi } from "@/__generated__/Tag/Tag.api"
 
 import { Button } from "../common"
 
 export const RegisterTagButton = () => {
-  const param = useParams()
-  const tagId = param.id as string
+  const tagId = useParams().id as string
+  const router = useRouter()
 
   const handleRegisterTag = async () => {
-    const response = await tagApi.registerTag({
+    await tagApi.registerTag({
       tag: tagId,
       // TODO: 지워야 함
       data: {
@@ -19,7 +19,7 @@ export const RegisterTagButton = () => {
       },
     })
 
-    alert(response.data.message)
+    router.replace("/tag/success")
   }
 
   return (
