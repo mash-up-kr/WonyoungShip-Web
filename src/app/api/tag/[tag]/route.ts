@@ -10,7 +10,7 @@ export async function GET(
 
   try {
     await tagApi.registerTag({
-      tag: tag,
+      tag,
     })
 
     return NextResponse.redirect(new URL("/tag/success", req.url))

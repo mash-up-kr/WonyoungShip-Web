@@ -2,6 +2,8 @@
 
 import { useParams } from "next/navigation"
 
+import { ROUTES } from "@/constants/routes"
+
 import { Button } from "../common"
 
 export const LoginButton = () => {
@@ -12,10 +14,11 @@ export const LoginButton = () => {
       return
     }
 
-    const redirectUri = `${window.location.origin}/api/oauth/kakao?tag=${tagId}`
+    const redirectUri = `${window.location.origin}${ROUTES.API.REDIRECT_LOGIN}`
 
     window.Kakao.Auth.authorize({
       redirectUri,
+      state: tagId,
     })
   }
 

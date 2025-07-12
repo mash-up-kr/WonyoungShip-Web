@@ -8,7 +8,7 @@ const THREE_DAYS = 60 * 60 * 24 * 3 // 3일
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url)
   const code = searchParams.get("code")
-  const tag = searchParams.get("tag")
+  const tag = searchParams.get("state")
 
   if (!code) {
     return NextResponse.redirect(new URL("/landing", req.url))
