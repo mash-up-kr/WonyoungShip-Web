@@ -1,25 +1,9 @@
+import { redirect } from "next/navigation"
+
 import { apiApi } from "@/__generated__/Api/Api.api"
 import HeaderStar from "@/components/common/header/header-star"
 import { DateText, MusicPlay, LetterContent } from "@/components/letter/[id]"
 import { WeatherServerName } from "@/utils/weather"
-
-const DEFAULT_VALUE = {
-  senderNickname: "",
-  marked: false,
-  createdDate: "",
-  scheduleDate: "",
-  weatherType: "SUNNY",
-  content: "",
-  music: {
-    id: 0,
-    isRecommend: false,
-    title: "전송된 노래가 없어요.",
-    artist: "",
-    url: "",
-    mood: "",
-  },
-  fortuneCookieMessage: null,
-}
 
 interface LetterDetailPageProps {
   params: Promise<{ id: string }>
@@ -31,8 +15,11 @@ const LetterDetailPage = async ({ params }: LetterDetailPageProps) => {
 
   const response = await apiApi.readDetailLetter({ letterId })
 
-  const letter = response.data?.data ?? DEFAULT_VALUE
+  if (!response || !response.data || !response.data.data || response.error) {
+    redirect("/home?error=letter-detail-error")
+  }
 
+  const letter = response.data.data
   return (
     <div className="from-background-white to-background-brandassistive flex h-dvh flex-col items-center bg-gradient-to-b px-4">
       <HeaderStar
@@ -44,7 +31,7 @@ const LetterDetailPage = async ({ params }: LetterDetailPageProps) => {
         createdAt={letter.createdDate}
         scheduledAt={letter.scheduleDate}
       />
-      <MusicPlay music={letter.music ?? DEFAULT_VALUE.music} />
+      {letter.music && <MusicPlay music={letter.music} />}
       <LetterContent
         content={letter.content}
         fortuneCookie={letter.fortuneCookieMessage}
