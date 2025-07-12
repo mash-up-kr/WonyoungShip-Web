@@ -1,37 +1,40 @@
+import { redirect } from "next/navigation"
+
+import { apiApi } from "@/__generated__/Api/Api.api"
 import HeaderStar from "@/components/common/header/header-star"
-import { DateText, MusicPlayer, LetterContent } from "@/components/letter/[id]"
+import { DateText, MusicPlay, LetterContent } from "@/components/letter/[id]"
+import { WeatherServerName } from "@/utils/weather"
 
-type Weather = "sunny" | "cloudy" | "rainy" | "snow" | "shiny"
-
-const tempData = {
-  senderNickname: "익명의 너구리",
-  isLiked: false,
-  weather: "sunny",
-  createdAt: "2025-06-22",
-  scheduledAt: "2025-06-28",
-  content:
-    "안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!다!안녕 오랜  .  이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜만이다!안녕 오랜",
-  music: { title: "Polaroid Love", singer: "SISO Wave", link: "" },
-  fortuneCooke: "당신의 하루에도 햇살이 가득할 거예요.",
-  // fortuneCooke: null
+interface LetterDetailPageProps {
+  params: Promise<{ id: string }>
 }
 
-const LetterDetailPage = () => {
+const LetterDetailPage = async ({ params }: LetterDetailPageProps) => {
+  const { id } = await params
+  const letterId = parseInt(id)
+
+  const response = await apiApi.readDetailLetter({ letterId })
+
+  if (!response || !response.data || !response.data.data || response.error) {
+    redirect("/home?error=letter-detail-error")
+  }
+
+  const letter = response.data.data
   return (
     <div className="from-background-white to-background-brandassistive flex h-dvh flex-col items-center bg-gradient-to-b px-4">
       <HeaderStar
-        isLiked={tempData.isLiked}
-        title={`${tempData.senderNickname}로부터`}
+        isLiked={letter.marked}
+        title={`${letter.senderNickname}로부터`}
       />
       <DateText
-        weather={tempData.weather as Weather}
-        createdAt={tempData.createdAt}
-        scheduledAt={tempData.scheduledAt}
+        weather={letter.weatherType as WeatherServerName}
+        createdAt={letter.createdDate}
+        scheduledAt={letter.scheduleDate}
       />
-      <MusicPlayer music={tempData.music} />
+      {letter.music && <MusicPlay music={letter.music} />}
       <LetterContent
-        content={tempData.content}
-        fortuneCookie={tempData.fortuneCooke}
+        content={letter.content}
+        fortuneCookie={letter.fortuneCookieMessage}
       />
     </div>
   )

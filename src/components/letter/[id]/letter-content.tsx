@@ -14,24 +14,26 @@ export const LetterContent = ({
   fortuneCookie,
 }: LetterContentProp) => {
   return (
-    <section className="bg-background-brandassistive relative mt-4 mb-6 flex h-[378px] w-full max-w-[343px] flex-col items-center justify-between overflow-hidden rounded-3xl pt-6 pr-1.5 pb-6 pl-6">
+    <section className="bg-background-brandassistive relative mt-4 mb-6 flex h-[378px] w-full max-w-[343px] flex-col justify-between overflow-hidden rounded-3xl pt-6 pr-1.5 pb-6 pl-6">
       <div
         className="absolute inset-0 bg-cover bg-center opacity-90"
         style={{ backgroundImage: `url(${LetterBackground.src})` }}
       />
 
-      <div className="custom-scrollbar z-10 flex flex-col justify-between overflow-y-scroll pr-5 h-full">
-        <Text
-          variant="body"
-          size="large"
-          font="Ownglyph ryurue"
-          className="leading-5 font-normal"
-        >
-          {content}
-        </Text>
+      <div className="custom-scrollbar z-10 flex h-full flex-col justify-between overflow-y-scroll pr-5">
+        <div className="flex-shrink-0">
+          <Text
+            variant="body"
+            size="large"
+            font="Ownglyph ryurue"
+            className="text-left leading-5 font-normal"
+          >
+            {content}
+          </Text>
+        </div>
 
         {fortuneCookie && (
-          <section className="mt-36 flex flex-col w-full items-start justify-end">
+          <section className="mt-36 flex w-full flex-col items-start justify-end">
             <div className="flex gap-1">
               <Text
                 variant="body"
@@ -44,9 +46,7 @@ export const LetterContent = ({
               </Text>
               <Icon icon="fortuneCookie" />
             </div>
-
-            <div className="relative bg-background-brandassistive overflow-hidden">
-              {/* TODO : 잘린 이미지 받으면 수정하기 */}
+            <div className="relative flex w-full justify-center">
               <Image
                 src={FortuneCookiePaper}
                 alt="포춘쿠키 배경"
@@ -59,7 +59,7 @@ export const LetterContent = ({
                 size="large"
                 font="Ownglyph ryurue"
                 color="secondary"
-                className="absolute inset-0 z-20 flex items-center justify-center leading-5 font-normal"
+                className="absolute top-1/2 left-1/2 z-20 w-full max-w-[240px] -translate-x-1/2 -translate-y-1/2 transform text-center leading-5 font-normal"
               >
                 {fortuneCookie}
               </Text>

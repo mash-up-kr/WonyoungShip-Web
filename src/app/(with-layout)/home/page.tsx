@@ -5,6 +5,7 @@ import {
   LetterCountdown,
   CopyAddressButton,
 } from "@/components/home"
+import { HomeToast } from "@/components/home/home-toast"
 
 const DEFAULT_VALUE = {
   notViewedCount: 0,
@@ -20,6 +21,7 @@ const Home = async () => {
 
   return (
     <>
+      <HomeToast />
       <Header notificationCount={letterList?.notViewedCount ?? 0} />
       <div className="flex flex-col px-2 pt-2 pb-6">
         <WriteLetterButton />

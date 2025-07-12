@@ -1,13 +1,13 @@
 import { Text } from "@/components/common"
 import { WeatherIcon } from "@/components/common"
 import { getDateDiffInDays, formatToYYMMDD } from "@/utils/date"
+import { WeatherServerName, convertServerToIconWeatherName } from "@/utils/weather"
 
 import LetterUnderline from "../../../assets/svg/letter-underline.svg"
 
-type Weather = "sunny" | "cloudy" | "rainy" | "snow" | "shiny"
 
 interface DateText {
-  weather: Weather
+  weather: WeatherServerName
   createdAt: string
   scheduledAt: string
 }
@@ -19,7 +19,7 @@ export const DateText = ({ weather, createdAt, scheduledAt }: DateText) => {
   return (
     <div className="mt-6 flex flex-col items-center">
       <div className="flex items-center gap-1">
-        <WeatherIcon weather={weather} size="sm" color="secondary" />
+        <WeatherIcon weather={convertServerToIconWeatherName(weather)} size="sm" color="secondary" />
         <Text
           variant="body"
           font="Ownglyph ryurue"
