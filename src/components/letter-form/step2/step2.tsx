@@ -9,6 +9,7 @@ import { Button, CalendarDialog, Icon, Text } from "@/components/common"
 import Checkbox from "@/components/common/checkbox"
 import { useLetterForm } from "@/contexts/letter-form-context"
 import { useSnackbar } from "@/contexts/snackbar"
+import { LetterType } from "@/types/letter-form"
 
 import { MESSAGE_MAP, validateStep2 } from "../utils/step-validate"
 
@@ -17,6 +18,7 @@ const Step2 = ({ receiverName }: { receiverName: string }) => {
   const { formData, setStep, updateFormData } = useLetterForm()
   const searchParams = useSearchParams()
   const receiverId = searchParams.get("receiverId")
+  const type = searchParams.get("type") as LetterType
 
   const [isOpen, setIsOpen] = useState(false)
   const [selectedDate, setSelectedDate] = useState(new Date())
@@ -24,6 +26,9 @@ const Step2 = ({ receiverName }: { receiverName: string }) => {
   const onSubmit = async () => {
     try {
       const response = await apiApi.writeLetter({
+        query: {
+          type,
+        },
         data: {
           ...formData,
           receiverId: Number(receiverId),
@@ -74,7 +79,7 @@ const Step2 = ({ receiverName }: { receiverName: string }) => {
 
             <div className="flex min-w-0 flex-col">
               <Text variant="body" size="small" color="secondary">
-                To. {receiverName}
+                {receiverName}
               </Text>
 
               <Text

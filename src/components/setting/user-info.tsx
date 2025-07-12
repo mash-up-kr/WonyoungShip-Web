@@ -1,14 +1,26 @@
 "use client"
 
+import { useRouter } from "next/navigation"
 import { useState } from "react"
 
+import { apiApi } from "@/__generated__/Api/Api.api"
 import { Text, ConfirmDialog } from "@/components/common"
 import { useDialog } from "@/contexts/dialog-context"
+import { useSnackbar } from "@/contexts/snackbar"
 
 export const UserInfo = () => {
   const [isOpen, setIsOpen] = useState(false)
 
+  const router = useRouter()
+  const { showSnackbar } = useSnackbar()
+
   const { open, close } = useDialog()
+
+  const handleLogout = async () => {
+    await fetch("/api/oauth/logout", {
+      method: "POST",
+    })
+  }
 
   const handleClickLogout = () => {
     open({
@@ -19,16 +31,19 @@ export const UserInfo = () => {
         cancelText: "아니오",
         confirmText: "네",
         onCancel: close,
-        // TODO : 로그아웃 로직 연결
-        onConfirm: close,
+        onConfirm: async () => {
+          await handleLogout()
+          showSnackbar({
+            message: "로그아웃 되었어요",
+          })
+          router.replace("/landing")
+        },
       },
     })
   }
 
   const handleClickWithdraw = () => {
-    // TODO : 회원 탈퇴 API  연결
-
-     open({
+    open({
       type: "confirm",
       props: {
         title: "정말 탈퇴 하시겠어요?",
@@ -36,8 +51,14 @@ export const UserInfo = () => {
         cancelText: "취소",
         confirmText: "탈퇴",
         onCancel: close,
-        // TODO : 탈퇴 로직 연결
-        onConfirm: close,
+        onConfirm: async () => {
+          await apiApi.withdraw()
+          await handleLogout()
+          showSnackbar({
+            message: "어디선가 다시 만나요",
+          })
+          router.replace("/landing")
+        },
       },
     })
   }
