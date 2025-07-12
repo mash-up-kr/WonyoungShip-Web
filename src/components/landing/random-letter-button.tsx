@@ -5,7 +5,7 @@ import { useState } from "react"
 
 import FortuneCookie from "@/assets/svg/fortune-cookie.svg"
 import { LETTER_TYPE } from "@/constants/letter"
-import { ERoutes } from "@/routes"
+import { ROUTES } from "@/constants/routes"
 
 import { Button, Tooltip } from "../common"
 
@@ -20,7 +20,7 @@ export const RandomLetterButton = () => {
         wrapperClassName="flex-1 flex justify-center"
         onClose={() => setOpenTooltip(false)}
       >
-        <Link href={`${ERoutes.LETTER_FORM}?type=${LETTER_TYPE.RANDOM}`} className="w-full">
+        <Link href={`${ROUTES.PAGE.LETTER_FORM}?type=${LETTER_TYPE.RANDOM}`} className="w-full">
           <Button
             variant="blue"
             className="flex h-12 items-center justify-center gap-2.5 py-4"

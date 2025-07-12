@@ -2,12 +2,12 @@ import Link from "next/link"
 
 import { Text, Icon } from "@/components/common"
 import { LETTER_TYPE } from "@/constants/letter"
-import { ERoutes } from "@/routes"
+import { ROUTES } from "@/constants/routes"
 
 export const WriteLetterButton = () => {
   return (
     <Link
-      href={`${ERoutes.LETTER_FORM}?type=${LETTER_TYPE.SELF}`}
+      href={`${ROUTES.PAGE.LETTER_FORM}?type=${LETTER_TYPE.SELF}`}
       className="bg-background-white mx-2 flex items-center justify-between rounded-2xl p-4 shadow-[0px_8px_40px_0px_rgba(101,142,185,0.10)]"
     >
       <div className="flex flex-col justify-between">

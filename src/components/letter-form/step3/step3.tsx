@@ -3,7 +3,7 @@ import { useRouter } from "next/navigation"
 import React from "react"
 
 import { Button, Text } from "@/components/common"
-import { ERoutes } from "@/routes"
+import { ROUTES } from "@/constants/routes"
 
 import { HOME_LOTTIES } from "../../../../public/assets/lottie"
 
@@ -12,11 +12,11 @@ const Step3 = () => {
 
   const onConfirm = async () => {
     const data = await fetch(
-      `${process.env.NEXT_PUBLIC_PRODUCTION_URL}/api/oauth/kakao/token`,
+      `${process.env.NEXT_PUBLIC_PRODUCTION_URL}${ROUTES.API.REDIRECT_LOGIN}/token`,
     )
     const token = await data.json()
 
-    router.push(token ? ERoutes.HOME : ERoutes.LANDING)
+    router.push(token ? ROUTES.PAGE.HOME : ROUTES.PAGE.LANDING)
   }
 
   return (

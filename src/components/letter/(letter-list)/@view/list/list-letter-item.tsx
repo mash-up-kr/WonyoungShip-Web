@@ -4,7 +4,7 @@ import Link from "next/link"
 import { LetterPreviewResponseType } from "@/__generated__/@types"
 import LetterBackground from "@/assets/images/letter-background.png"
 import { Text } from "@/components/common"
-import { ERoutes } from "@/routes"
+import { ROUTES } from "@/constants/routes"
 
 interface ListLetterItemProps {
   letter: LetterPreviewResponseType
@@ -18,7 +18,7 @@ export const ListLetterItem = ({ letter }: ListLetterItemProps) => {
 
   return (
     <Link
-      href={`${ERoutes.LETTER}/${letter.letterId}`}
+      href={`${ROUTES.PAGE.LETTER}/${letter.letterId}`}
       className="bg-blue-10 relative flex aspect-square flex-col justify-between overflow-hidden rounded-[13px] px-5 pt-5 pb-3"
     >
       <Image

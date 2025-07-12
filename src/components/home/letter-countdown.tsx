@@ -6,7 +6,7 @@ import Link from "next/link"
 
 import LetterBackground from "@/assets/images/letter-background.png"
 import { Text } from "@/components/common"
-import { ERoutes } from "@/routes"
+import { ROUTES } from "@/constants/routes"
 
 import { HOME_LOTTIES } from "../../../public/assets/lottie"
 
@@ -123,7 +123,7 @@ export const LetterCountdown = ({
 
           {status === "ARRIVED" && (
             <Link
-              href={ERoutes.LETTER_TODAY}
+              href={ROUTES.PAGE.LETTER_TODAY}
               className="bg-background-primary active:bg-neutral-40 z-10 flex items-center justify-center rounded-lg px-2.5 py-2 transition-colors"
             >
               <Text

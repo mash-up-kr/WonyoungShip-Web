@@ -2,7 +2,7 @@ import Link from "next/link"
 
 import Logo from "@/assets/svg/logo.svg"
 import { Icon, Text } from "@/components/common"
-import { ERoutes } from "@/routes"
+import { ROUTES } from "@/constants/routes"
 
 const MAX_COUNT = 99
 
@@ -21,7 +21,7 @@ export const Header = ({
 
       <div className="flex items-center gap-3">
         <Link
-          href={ERoutes.LETTER}
+          href={ROUTES.PAGE.LETTER}
           className="relative"
           aria-label="알림 버튼"
         >
@@ -38,7 +38,7 @@ export const Header = ({
           )}
           <Icon icon="letter" size="xl" />
         </Link>
-        <Link href={ERoutes.SETTING} aria-label="설정 버튼">
+        <Link href={ROUTES.PAGE.SETTING} aria-label="설정 버튼">
           <Icon icon="setting" size="xl" />
         </Link>
       </div>
