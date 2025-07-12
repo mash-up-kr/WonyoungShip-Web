@@ -1,6 +1,7 @@
 "use client"
 
 import KakaoLogo from "@/assets/svg/kakao-logo.svg"
+import { ROUTES } from "@/constants/routes"
 
 import { Text } from "../common"
 
@@ -10,7 +11,7 @@ export const KakaoLoginButton = () => {
       return
     }
 
-    const redirectUri = `${window.location.origin}/api/oauth/kakao`
+    const redirectUri = `${window.location.origin}${ROUTES.API.REDIRECT_LOGIN}`
 
     window.Kakao.Auth.authorize({
       redirectUri,
