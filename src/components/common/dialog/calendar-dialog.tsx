@@ -12,7 +12,7 @@ interface CalendarDialogProps {
   isOpen: boolean
   onClose: VoidFunction
   onConfirm: (data: Date) => void
-  selectedDate?: Date
+  selectedDate?: Date | null
   onSelectDate?: (date: Date) => void
 }
 
@@ -23,12 +23,14 @@ export const CalendarDialog = ({
   onClose,
   onConfirm,
 }: CalendarDialogProps) => {
-  const baseDate = selectedDate
-  baseDate.setHours(0, 0, 0, 0)
+  const TODAY = new Date()
+  TODAY.setHours(0, 0, 0, 0)
 
-  const [baseYear, setBaseYear] = useState(baseDate.getFullYear())
-  const [baseMonth, setBaseMonth] = useState(baseDate.getMonth())
-  const [currentSelectedDate, setCurrentSelectedDate] = useState(baseDate)
+  const [baseYear, setBaseYear] = useState(TODAY.getFullYear())
+  const [baseMonth, setBaseMonth] = useState(TODAY.getMonth())
+  const [currentSelectedDate, setCurrentSelectedDate] = useState<Date | null>(
+    selectedDate ? selectedDate : null,
+  )
 
   const firstOfMonth = new Date(baseYear, baseMonth, 1)
   const lastOfMonth = new Date(baseYear, baseMonth + 1, 0)
@@ -66,15 +68,19 @@ export const CalendarDialog = ({
       setBaseYear((prev) => prev + 1)
     }
   }
-
+  console.log("currentSelectedDate", currentSelectedDate)
   const handleDateClick = (date: Date) => {
+    if (date.getTime() < TODAY.getTime()) {
+      return
+    }
+
     const isCurrentMonth =
       date.getFullYear() === baseYear && date.getMonth() === baseMonth
 
     if (isCurrentMonth) {
       setCurrentSelectedDate(date)
       onSelectDate?.(date)
-    } else if (date.getTime() < baseDate.getTime()) {
+    } else if (date.getTime() < TODAY.getTime()) {
       handlePrevMonthClick()
     } else {
       handleNextMonthClick()
@@ -132,24 +138,32 @@ export const CalendarDialog = ({
               const isCurrentMonth =
                 date.getFullYear() === baseYear && date.getMonth() === baseMonth
               const isSelectedDate =
-                `${currentSelectedDate.getFullYear()}-${currentSelectedDate.getMonth()}-${currentSelectedDate.getDate()}` ===
+                `${currentSelectedDate?.getFullYear()}-${currentSelectedDate?.getMonth()}-${currentSelectedDate?.getDate()}` ===
                 `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`
+              // 오늘 이전 날짜인지 체크 (선택된 날짜가 아닌 오늘 날짜 기준)
+              const isPastDate = date.getTime() < TODAY.getTime()
               const dateLabel = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`
+
+              const isToday = date.getTime() === TODAY.getTime()
 
               return (
                 <button
                   key={dateLabel}
                   onClick={() => handleDateClick(date)}
                   className="flex items-center justify-center"
+                  disabled={isPastDate}
                 >
                   <Text
                     variant="body"
                     size="small"
-                    color={isCurrentMonth ? "primary" : "disabled"}
+                    color={
+                      !isCurrentMonth || isPastDate ? "disabled" : "primary"
+                    }
                     className={cn(
                       "h-6 w-6 rounded-md p-[1] text-center font-normal",
-                      isSelectedDate &&
+                      isToday &&
                         "bg-background-brandassistive text-text-brand font-medium",
+                      isSelectedDate && "bg-blue-100 text-white",
                     )}
                     aria-label={dateLabel}
                   >
@@ -162,10 +176,22 @@ export const CalendarDialog = ({
         </div>
       </div>
       <button
-        className="bg-neutral-20 rounded-lg px-2.5 py-2"
-        onClick={() => onConfirm(currentSelectedDate)}
+        className={cn(
+          "bg-neutral-20 cursor-pointer rounded-lg px-2.5 py-2 disabled:cursor-not-allowed",
+          currentSelectedDate && "bg-black",
+        )}
+        disabled={!currentSelectedDate}
+        onClick={() => {
+          if (currentSelectedDate) {
+            onConfirm(currentSelectedDate)
+          }
+        }}
       >
-        <Text variant="body" size="small" color="tertiary">
+        <Text
+          variant="body"
+          size="small"
+          color={currentSelectedDate ? "neutral-10" : "tertiary"}
+        >
           완료
         </Text>
       </button>

@@ -21,7 +21,9 @@ const Step2 = ({ receiverName }: { receiverName: string }) => {
   const type = searchParams.get("type") as LetterType
 
   const [isOpen, setIsOpen] = useState(false)
-  const [selectedDate, setSelectedDate] = useState(new Date())
+  const [selectedDate, setSelectedDate] = useState<Date | null>(
+    formData.scheduleDate ? new Date(formData.scheduleDate) : null,
+  )
 
   const onSubmit = async () => {
     try {
@@ -160,7 +162,7 @@ const Step2 = ({ receiverName }: { receiverName: string }) => {
           })
           setIsOpen(false)
         }}
-        selectedDate={selectedDate}
+        selectedDate={selectedDate ?? null}
         onSelectDate={(date) => {
           setSelectedDate(date)
         }}
