@@ -7,9 +7,9 @@ import React, { useState } from "react"
 import { apiApi } from "@/__generated__/Api/Api.api"
 import { Button, CalendarDialog, Icon, Text } from "@/components/common"
 import Checkbox from "@/components/common/checkbox"
+import { LETTER_TYPE } from "@/constants/letter"
 import { useLetterForm } from "@/contexts/letter-form-context"
 import { useSnackbar } from "@/contexts/snackbar"
-import { LetterType } from "@/types/letter-form"
 
 import { MESSAGE_MAP, validateStep2 } from "../utils/step-validate"
 
@@ -18,7 +18,7 @@ const Step2 = ({ receiverName }: { receiverName: string }) => {
   const { formData, setStep, updateFormData } = useLetterForm()
   const searchParams = useSearchParams()
   const receiverId = searchParams.get("receiverId")
-  const type = searchParams.get("type") as LetterType
+  const type = searchParams.get("type") as keyof typeof LETTER_TYPE
 
   const [isOpen, setIsOpen] = useState(false)
   const [selectedDate, setSelectedDate] = useState<Date | null>(
