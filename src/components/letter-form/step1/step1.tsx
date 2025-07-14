@@ -164,7 +164,7 @@ const Step1 = ({ musicList }: { musicList: LetterMusicResponseType[] }) => {
           onChange={handleContentChange}
           className={clsx(
             "text-text-primary font-ryurue min-h-[260px] w-full resize-none pb-[8px] text-[18px]",
-            "data-focus:outline-2 data-focus:-outline-offset-2 data-focus:outline-white/25",
+            "data-focus:outline-0",
             "custom-scrollbar pr-[10px]",
           )}
           placeholder="미래의 나에게 편지를 자유롭게 작성해주세요!"
