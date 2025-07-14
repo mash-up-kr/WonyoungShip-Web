@@ -11,12 +11,15 @@ const Step3 = () => {
   const router = useRouter()
 
   const onConfirm = async () => {
-    const data = await fetch(
-      `${process.env.NEXT_PUBLIC_PRODUCTION_URL}${ROUTES.API.REDIRECT_LOGIN}/token`,
-    )
-    const token = await data.json()
+    const baseUrl =
+      process.env.NODE_ENV === "development"
+        ? process.env.NEXT_PUBLIC_DEVELOPMENT_URL
+        : process.env.NEXT_PUBLIC_PRODUCTION_URL
 
-    router.push(token ? ROUTES.PAGE.HOME : ROUTES.PAGE.LANDING)
+    const res = await fetch(`${baseUrl}${ROUTES.API.REDIRECT_LOGIN}/token`)
+    const data = await res.json()
+
+    router.push(!data.token || data.token === "" ? ROUTES.PAGE.LANDING : ROUTES.PAGE.HOME)
   }
 
   return (
