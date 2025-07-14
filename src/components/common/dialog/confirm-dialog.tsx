@@ -44,7 +44,7 @@ export const ConfirmDialog = ({
 
       <div className="border-border-tertiary flex h-[48px] border-t-[1px]">
         <button
-          className="border-border-tertiary flex w-full cursor-pointer justify-center border-r-[1px]"
+          className="border-border-tertiary flex h-[48px] w-full cursor-pointer justify-center border-r-[1px]"
           onClick={onCancel}
         >
           <Text
@@ -58,7 +58,7 @@ export const ConfirmDialog = ({
         </button>
 
         <button
-          className="flex w-full cursor-pointer justify-center"
+          className="flex w-full h-[48px] cursor-pointer justify-center"
           onClick={onConfirm}
         >
           <Text
