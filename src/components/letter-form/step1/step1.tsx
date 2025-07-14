@@ -169,6 +169,13 @@ const Step1 = ({ musicList }: { musicList: LetterMusicResponseType[] }) => {
           )}
           placeholder="미래의 나에게 편지를 자유롭게 작성해주세요!"
         />
+        <div className="flex items-center justify-between">
+          <div className="flex items-center justify-start gap-[4px]">
+            <Text variant="body" size="small" color="neutral-30">
+              {formData.content.length}/500
+            </Text>
+          </div>
+        </div>
         <div className="flex items-center justify-end gap-[4px]">
           <Text
             variant="body"
