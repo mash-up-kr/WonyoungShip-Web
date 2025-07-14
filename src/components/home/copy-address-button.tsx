@@ -18,7 +18,11 @@ export const CopyAddressButton = ({ receiverId }: CopyAddressButtonProps) => {
   const { showSnackbar } = useSnackbar()
 
   const handleClickCopy = async () => {
-    const tempAddress = `${process.env.NEXT_PUBLIC_PRODUCTION_URL}${ROUTES.PAGE.LETTER_FORM}?receiverId=${receiverId}&type=${LETTER_TYPE.TARGET}`
+    const siteUrl =
+      typeof window !== "undefined"
+        ? window.location.origin
+        : process.env.NEXT_PUBLIC_PRODUCTION_URL
+    const tempAddress = `${siteUrl}${ROUTES.PAGE.LETTER_FORM}?receiverId=${receiverId}&type=${LETTER_TYPE.TARGET}`
 
     copyToClipboard(tempAddress, showSnackbar)
   }
