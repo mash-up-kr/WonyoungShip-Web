@@ -4,6 +4,8 @@ import BasicHeader from "@/components/common/header/basic-header"
 import { TodayLetterCount } from "@/components/letter/today"
 import { ROUTES } from "@/constants/routes"
 
+export const dynamic = "force-dynamic"
+
 const TodayLettersPage = async () => {
   const today = new Date()
 
