@@ -2,6 +2,8 @@
 
 import { useState } from "react"
 
+import { apiApi } from "@/__generated__/Api/Api.api"
+
 import { Icon } from "../icon"
 
 import BasicHeader from "./basic-header"
@@ -9,28 +11,25 @@ import BasicHeader from "./basic-header"
 interface HeaderStarType {
   isLiked: boolean
   title: string
+  letterId: number
 }
 
-const HeaderStar = ({ isLiked, title }: HeaderStarType) => {
+const HeaderStar = ({ isLiked, title, letterId }: HeaderStarType) => {
   const [liked, setLiked] = useState<boolean>(isLiked)
 
-  const handleClickLike = () => {
+  const handleClickLike = async () => {
     setLiked((prev) => !prev)
 
-    // TODO : 좋아요 버튼 클릭 API 연결
+    await apiApi.markedLetter({ letterId: letterId })
   }
 
   return (
-    <BasicHeader    
+    <BasicHeader
       hasBackButton
       centerText={title}
       rightSlot={
         <button onClick={handleClickLike}>
-          <Icon
-            icon="star"
-            size="lg"
-            fill={liked ? "secondary" : "disabled"}
-          />
+          <Icon icon="star" size="lg" fill={liked ? "secondary" : "disabled"} />
         </button>
       }
     />

@@ -25,6 +25,7 @@ const LetterDetailPage = async ({ params }: LetterDetailPageProps) => {
       <HeaderStar
         isLiked={letter.marked}
         title={`${letter.senderNickname}로부터`}
+        letterId = {Number(id)}
       />
       <DateText
         weather={letter.weatherType as WeatherServerName}
