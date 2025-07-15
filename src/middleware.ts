@@ -23,6 +23,14 @@ export async function middleware(req: NextRequest) {
   // 2) 루트('/')로 접속 시 무조건 /landing으로
   if (pathname === "/") {
     const url = req.nextUrl.clone()
+    const token = req.cookies.get(ACCESS_TOKEN_KEY)?.value
+
+    if (token) {
+      // 토큰이 있는 경우 홈으로 리다이렉트
+      url.pathname = "/home"
+      return NextResponse.redirect(url)
+    }
+
     url.pathname = "/landing"
     return NextResponse.redirect(url)
   }

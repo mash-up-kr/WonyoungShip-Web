@@ -15,7 +15,7 @@ const UNREAD_CONTENT = "편지를 열면 내용을 확인할 수 있어요"
 
 export const LetterCard = ({ content, receivedAt, to }: LetterCardProps) => {
   const formattedReceiveDate = `${receivedAt.getMonth() + 1}월 ${receivedAt.getDate()}일`
-  const isRead = content !== null
+  const isRead = !!content
 
   if (isNaN(receivedAt.getTime())) {
     return null
