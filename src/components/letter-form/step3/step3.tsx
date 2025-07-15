@@ -1,5 +1,7 @@
+"use client"
+
 import Lottie from "lottie-react"
-import Link from "next/link"
+import { useRouter } from "next/navigation"
 import React from "react"
 
 import { Button, Text } from "@/components/common"
@@ -8,6 +10,23 @@ import { ROUTES } from "@/constants/routes"
 import { HOME_LOTTIES } from "../../../../public/assets/lottie"
 
 const Step3 = () => {
+  const router = useRouter()
+
+  const handleComplete = async () => {
+    const response = await fetch(ROUTES.API.TOKEN, {
+      credentials: "include",
+    })
+    const data = await response.json()
+
+    const token = data?.token
+
+    if (token) {
+      router.replace(ROUTES.PAGE.HOME)
+    } else {
+      router.replace(ROUTES.PAGE.LANDING)
+    }
+  }
+
   return (
     <section className="px-[16px]">
       <Text
@@ -29,9 +48,12 @@ const Step3 = () => {
 
       <footer className="fixed right-0 bottom-0 left-0 px-[16px] py-[24px]">
         <div className="mx-auto max-w-[420px]">
-          <Link href={ROUTES.PAGE.HOME}>
-            <Button variant="blue" text="완료" className="mt-[16px]" />
-          </Link>
+          <Button
+            variant="blue"
+            text="완료"
+            className="mt-[16px]"
+            onClick={handleComplete}
+          />
         </div>
       </footer>
     </section>
