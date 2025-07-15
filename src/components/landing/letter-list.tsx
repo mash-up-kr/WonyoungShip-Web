@@ -1,47 +1,17 @@
 import Image from "next/image"
 
-import { LandingResponseType } from "@/__generated__/@types"
 import { apiApi } from "@/__generated__/Api/Api.api"
 import LetterBackground from "@/assets/images/letter-background.png"
 import { convertServerToIconWeatherName } from "@/utils/weather"
 
 import { Text, WeatherIcon } from "../common"
 
-const DEFAULT_LETTER_LIST: LandingResponseType[] = [
-  { date: "2023-10-01", weather: "SUNNY", letter: "" },
-  {
-    date: "2023-10-02",
-    weather: "CLOUDY",
-    letter: "아름다운 날씨가 계속되네요! 오늘은 어떤 계획이 있으신가요? ",
-  },
-  {
-    date: "2023-10-03",
-    weather: "RAINY",
-    letter:
-      "오늘도 비가 오네요. 우산 챙기셨나요? 비 오는 날은 따뜻한 차 한 잔이 생각나네요.",
-  },
-  { date: "2023-10-01", weather: "SUNNY", letter: "" },
-  {
-    date: "2023-10-02",
-    weather: "CLOUDY",
-    letter: "오늘은 흐린 날씨네요. 그래도 기분 좋은 하루 되세요!",
-  },
-  {
-    date: "2023-10-03",
-    weather: "RAINY",
-    letter:
-      "비가 오는 날은 창밖을 바라보며 생각에 잠기기 좋은 날이죠. 오늘은 어떤 생각을 하고 계신가요?",
-  },
-]
-
 export const LetterList = async () => {
   const {
     data: { data },
   } = await apiApi.getLandingContent()
-  // const [letterList, setLetterList] =
-  //   useState<LandingResponseType[]>(DEFAULT_LETTER_LIST)
 
-  const letterList = data ?? DEFAULT_LETTER_LIST
+  const letterList = data ?? []
 
   const copiedLetterList = [...letterList, ...letterList, ...letterList]
 
@@ -60,7 +30,10 @@ export const LetterList = async () => {
       <div className="absolute top-0 bottom-0 left-0 z-10 w-[100px] bg-gradient-to-r from-[#f2f5f7] to-[#f2f5f700] md:w-[50px] xl:w-[100px]"></div>
       <div className="absolute top-0 right-0 bottom-0 z-10 w-[100px] bg-gradient-to-l from-[#f2f5f7] to-[#f2f5f700] md:w-[50px] xl:w-[100px]"></div>
       {/* 편지 목록 */}
-      <div className="animate-infinite-slide-left flex w-max will-change-transform">
+      <div
+        className="animate-infinite-slide-left flex w-max will-change-transform"
+        style={{ animationDuration: `${letterList.length * 3}s` }}
+      >
         {copiedLetterList.map(({ date, letter, weather }, index) => (
           <section
             key={index}
