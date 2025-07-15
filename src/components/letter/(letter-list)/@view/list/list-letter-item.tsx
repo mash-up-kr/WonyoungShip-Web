@@ -31,11 +31,16 @@ export const ListLetterItem = ({ letter }: ListLetterItemProps) => {
         size="medium"
         font="Ownglyph ryurue"
         color={isRead ? "neutral-80" : "brand"}
-        className="line-clamp-6 leading-[100%] break-all whitespace-normal"
+        className="line-clamp-6 leading-[100%] font-normal break-all whitespace-normal"
       >
         {isRead ? letter.content : "편지를 열면 내용을 확인할 수 있어요"}
       </Text>
-      <Text variant="description" size="small" color="tertiary">
+      <Text
+        variant="description"
+        size="small"
+        color="tertiary"
+        className="font-normal"
+      >
         {formattedReceiveDate}에 받은 편지
       </Text>
     </Link>
