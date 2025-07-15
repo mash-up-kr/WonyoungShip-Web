@@ -8,7 +8,9 @@ import {
   LetterMusicResponseType,
 } from "@/__generated__/@types"
 import { apiApi } from "@/__generated__/Api/Api.api"
+import { getToken } from "@/apis/token.api"
 import BasicHeader from "@/components/common/header/basic-header"
+import { ROUTES } from "@/constants/routes"
 import { useLetterForm } from "@/contexts/letter-form-context"
 import { useSnackbar } from "@/contexts/snackbar"
 import { LetterType } from "@/types/letter-form"
@@ -37,6 +39,16 @@ const LetterFormContent = () => {
     }
   }
 
+  const onClickBackButton = async () => {
+    if (step === 2) {
+      setStep(step - 1)
+    } else {
+      const token = await getToken()
+      if (token) router.replace(ROUTES.PAGE.HOME)
+      else router.replace(ROUTES.PAGE.LANDING)
+    }
+  }
+
   useEffect(() => {
     const getLetterMeta = async () => {
       try {
@@ -62,8 +74,8 @@ const LetterFormContent = () => {
   return (
     <section className="relative h-dvh w-full">
       <BasicHeader
-        hasBackButton={step === 2}
-        onClickBackButton={() => setStep(step - 1)}
+        hasBackButton={step === 2 || type === "RANDOM" || type === "SELF"}
+        onClickBackButton={onClickBackButton}
         centerText={step === 1 ? `${receiverName}` : ""}
       />
       {step === 1 && <Step1 musicList={musicList} />}

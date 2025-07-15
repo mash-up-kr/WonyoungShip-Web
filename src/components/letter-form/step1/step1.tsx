@@ -9,13 +9,17 @@ import {
   LetterMusicResponseType,
   LetterWriteRequestType,
 } from "@/__generated__/@types"
+import { getToken } from "@/apis/token.api"
 import { WeatherIconName } from "@/assets/svg/weather"
 import { Button, Icon, Text, WeatherIcon } from "@/components/common"
 import BaseDialog from "@/components/common/dialog/base-dialog"
 import MusicDropdown from "@/components/music-dropdown"
 import { ROUTES } from "@/constants/routes"
 import { useDialog } from "@/contexts/dialog-context"
-import { DEFAULT_SENDER_NICKNAME, useLetterForm } from "@/contexts/letter-form-context"
+import {
+  DEFAULT_SENDER_NICKNAME,
+  useLetterForm,
+} from "@/contexts/letter-form-context"
 import { useSnackbar } from "@/contexts/snackbar"
 
 import { MESSAGE_MAP, validateStep1 } from "../utils/step-validate"
@@ -73,7 +77,7 @@ const WeatherList = () => {
             <WeatherIcon
               weather={key}
               size="lg"
-              color={isSelected ? undefined : "disabled"}
+              color={isSelected ? "secondary" : "disabled"}
             />
             <Text
               variant="description"
@@ -128,17 +132,9 @@ const Step1 = ({ musicList }: { musicList: LetterMusicResponseType[] }) => {
         confirmText: "나가기",
         onCancel: close,
         onConfirm: async () => {
-          const response = await fetch(ROUTES.API.TOKEN, {
-            credentials: "include",
-          })
-          const data = await response.json()
-          const token = data?.token
-
-          if (token) {
-            router.replace(ROUTES.PAGE.HOME)
-          } else {
-            router.replace(ROUTES.PAGE.LANDING)
-          }
+          const token = await getToken()
+          if (token) router.replace(ROUTES.PAGE.HOME)
+          else router.replace(ROUTES.PAGE.LANDING)
           close()
         },
       },
