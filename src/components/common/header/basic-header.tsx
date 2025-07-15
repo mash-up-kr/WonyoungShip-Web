@@ -30,7 +30,7 @@ const BasicHeader = ({
   }
 
   return (
-    <header className="flex w-full items-center justify-between px-4 py-3">
+    <header className="flex h-[61px] w-full items-center justify-between px-4 py-3">
       {/* Left Area */}
       <div className="flex min-w-[24px] items-center gap-2">
         {hasBackButton && (
