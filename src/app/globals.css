@@ -55,6 +55,7 @@
   --color-alpha-20: rgba(255, 255, 255, 0.2);
   --color-alpha-40: rgba(255, 255, 255, 0.4);
   --color-alpha-60: rgba(255, 255, 255, 0.6);
+  --color-alpha-80: rgba(255, 255, 255, 0.8);
 
   /* — Text 색상 토큰 — */
   --color-text-primary: var(--color-neutral-90);

@@ -48,7 +48,7 @@ export const LetterCountBox = ({
   return (
     <div
       className={cn(
-        "flex h-12 w-full items-center justify-center rounded-lg border",
+        "z-20 bg-alpha-80 flex h-12 w-full items-center justify-center rounded-lg border",
         box,
       )}
       aria-label={`${letterCount}개의 편지${isToday ? " (오늘)" : ""}`}

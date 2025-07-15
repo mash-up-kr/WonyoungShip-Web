@@ -87,11 +87,12 @@ export const LetterCountdown = ({
     LETTER_CONFIG[status]
 
   return (
-    <section className="bg-blue-10 relative flex h-[378px] w-full flex-col items-center justify-between overflow-hidden rounded-3xl px-4 pt-7 pb-3">
+    <section className="bg-blue-10 relative flex min-h-[378px] w-full flex-col items-center justify-between overflow-hidden rounded-3xl px-4 pt-7 pb-3">
       <Image
         src={LetterBackground}
         alt=""
         className="absolute top-0 right-0 bottom-0 left-0 mix-blend-multiply"
+        fill
       />
       <div className="flex flex-col items-center">
         <div className="flex flex-col items-center gap-2">
