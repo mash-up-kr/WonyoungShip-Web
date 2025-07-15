@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation"
 
 import { ACCESS_TOKEN_KEY } from "@/constants/cookies"
+import { ROUTES } from "@/constants/routes"
 
 type CustomRequestInit = RequestInit & {
   headers: {
@@ -85,7 +86,7 @@ const getClientSideToken = async (): Promise<string | null> => {
   // 토큰을 가져오는 Promise를 생성하고 변수에 할당
   tokenPromise = (async () => {
     try {
-      const cookieResponse = await fetch("/api/oauth/kakao/token", {
+      const cookieResponse = await fetch(ROUTES.API.TOKEN, {
         credentials: "include",
       })
 
