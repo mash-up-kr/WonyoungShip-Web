@@ -20,13 +20,15 @@ const LetterFormContext = createContext<LetterFormContextType | undefined>(
   undefined,
 )
 
+export const DEFAULT_SENDER_NICKNAME = "익명의 너구리"
+
 const initialFormData: FormDataType = {
   receiverId: undefined,
   scheduleDate: "",
   weather: "SUNNY",
   musicId: null,
-  senderNickname: "",
-  needFortuneCookie: false,
+  senderNickname: DEFAULT_SENDER_NICKNAME,
+  needFortuneCookie: true,
   content: "",
 }
 
