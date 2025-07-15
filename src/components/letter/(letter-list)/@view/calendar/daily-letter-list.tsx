@@ -2,7 +2,7 @@ import { LetterPreviewResponseType } from "@/__generated__/@types"
 import { LetterCard, Text } from "@/components/common"
 
 interface DailyLetterListProps {
-  selectedDate: Date | null
+  selectedDate: Date
   letters: LetterPreviewResponseType[]
 }
 
@@ -10,7 +10,7 @@ export const DailyLetterList = ({
   letters,
   selectedDate,
 }: DailyLetterListProps) => {
-  if (selectedDate === null) {
+  if (!selectedDate) {
     return null
   }
 

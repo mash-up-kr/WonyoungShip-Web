@@ -8,7 +8,7 @@ import { useCurrentMonth } from "../../hooks/use-current-month"
 
 interface LetterCalendarProps {
   receivedDates: string[] // YYYY-MM-dd 형태로 전달됨
-  selectedDate: Date | null
+  selectedDate: Date
   onDateSelect: (date: Date) => void
 }
 
