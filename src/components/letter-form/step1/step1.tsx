@@ -13,8 +13,9 @@ import { WeatherIconName } from "@/assets/svg/weather"
 import { Button, Icon, Text, WeatherIcon } from "@/components/common"
 import BaseDialog from "@/components/common/dialog/base-dialog"
 import MusicDropdown from "@/components/music-dropdown"
+import { ROUTES } from "@/constants/routes"
 import { useDialog } from "@/contexts/dialog-context"
-import { useLetterForm } from "@/contexts/letter-form-context"
+import { DEFAULT_SENDER_NICKNAME, useLetterForm } from "@/contexts/letter-form-context"
 import { useSnackbar } from "@/contexts/snackbar"
 
 import { MESSAGE_MAP, validateStep1 } from "../utils/step-validate"
@@ -94,7 +95,9 @@ const Step1 = ({ musicList }: { musicList: LetterMusicResponseType[] }) => {
   const { showSnackbar } = useSnackbar()
   const { formData, updateFormData, setStep } = useLetterForm()
   const [isEditNameDialogOpen, setIsEditNameDialogOpen] = useState(false)
-  const [tempAuthorName, setTempAuthorName] = useState(formData.senderNickname)
+  const [tempAuthorName, setTempAuthorName] = useState(
+    formData.senderNickname || DEFAULT_SENDER_NICKNAME,
+  )
 
   const handleNext = () => {
     const validateResult = validateStep1({ formData })
@@ -124,8 +127,18 @@ const Step1 = ({ musicList }: { musicList: LetterMusicResponseType[] }) => {
         cancelText: "취소",
         confirmText: "나가기",
         onCancel: close,
-        onConfirm: () => {
-          router.replace("/")
+        onConfirm: async () => {
+          const response = await fetch(ROUTES.API.TOKEN, {
+            credentials: "include",
+          })
+          const data = await response.json()
+          const token = data?.token
+
+          if (token) {
+            router.replace(ROUTES.PAGE.HOME)
+          } else {
+            router.replace(ROUTES.PAGE.LANDING)
+          }
           close()
         },
       },
@@ -183,7 +196,7 @@ const Step1 = ({ musicList }: { musicList: LetterMusicResponseType[] }) => {
             color="secondary"
             font="Ownglyph ryurue"
           >
-            From.{formData.senderNickname}
+            From.{formData.senderNickname || DEFAULT_SENDER_NICKNAME}
           </Text>
           <button
             type="button"
