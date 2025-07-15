@@ -28,7 +28,7 @@ const initialFormData: FormDataType = {
   weather: "SUNNY",
   musicId: null,
   senderNickname: DEFAULT_SENDER_NICKNAME,
-  needFortuneCookie: false,
+  needFortuneCookie: true,
   content: "",
 }
 
