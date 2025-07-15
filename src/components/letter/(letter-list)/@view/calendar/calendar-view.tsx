@@ -12,7 +12,7 @@ import { DailyLetterList } from "./daily-letter-list"
 import { LetterCalendar } from "./letter-calendar"
 
 export const CalendarView = () => {
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null)
+  const [selectedDate, setSelectedDate] = useState<Date>(new Date())
   const { showSnackbar } = useSnackbar()
   const { letterList, receivedDates } = useFetchLetterList()
 

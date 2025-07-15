@@ -29,7 +29,7 @@ export const ListView = () => {
             onFavoritFilterChange={handleFavoritFilterChanged}
           />
         </div>
-        <ul className="grid grid-cols-2 gap-2">
+        <ul className="grid grid-cols-2 gap-2 pb-4">
           {letters.map((letter) => (
             <ListLetterItem key={letter.letterId} letter={letter} />
           ))}
