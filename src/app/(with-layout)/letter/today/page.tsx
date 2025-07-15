@@ -1,10 +1,8 @@
 import { apiApi } from "@/__generated__/Api/Api.api"
-import { LetterCard } from "@/components/common"
+import { LetterCard, PageRefresher } from "@/components/common"
 import BasicHeader from "@/components/common/header/basic-header"
 import { TodayLetterCount } from "@/components/letter/today"
 import { ROUTES } from "@/constants/routes"
-
-export const dynamic = "force-dynamic"
 
 const TodayLettersPage = async () => {
   const today = new Date()
@@ -25,13 +23,14 @@ const TodayLettersPage = async () => {
             <li key={letter.letterId}>
               <LetterCard
                 to={`${ROUTES.PAGE.LETTER}/${letter.letterId}`}
-                content={letter.content ?? undefined}
+                content={letter.content}
                 receivedAt={today}
               />
             </li>
           ))}
         </ul>
       </div>
+      <PageRefresher />
     </>
   )
 }
