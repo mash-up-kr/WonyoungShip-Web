@@ -94,7 +94,7 @@ const getClientSideToken = async (): Promise<string | null> => {
       }
 
       const data = await cookieResponse.json()
-      clientSideToken = data?.token || null // 성공 시 토큰 캐싱
+      clientSideToken = data?.token ?? null
       return clientSideToken
     } catch (error) {
       console.error("Token fetch error:", error)
