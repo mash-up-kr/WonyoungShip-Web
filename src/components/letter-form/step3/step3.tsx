@@ -13,7 +13,7 @@ const Step3 = () => {
   const router = useRouter()
 
   const handleComplete = async () => {
-    const response = await fetch("/api/oauth/kakao/token", {
+    const response = await fetch(ROUTES.API.TOKEN, {
       credentials: "include",
     })
     const data = await response.json()
