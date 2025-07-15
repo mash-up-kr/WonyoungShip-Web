@@ -37,7 +37,7 @@ export const LetterList = async () => {
         {copiedLetterList.map(({ date, letter, weather }, index) => (
           <section
             key={index}
-            className="bg-blue-10 relative mr-3 flex h-[209px] w-[209px] flex-none flex-col gap-3 rounded-[13px] p-6"
+            className="bg-blue-10 relative mr-3 flex h-[209px] w-[209px] flex-none flex-col gap-3 overflow-hidden rounded-[13px] p-6"
           >
             <Image
               src={LetterBackground}
