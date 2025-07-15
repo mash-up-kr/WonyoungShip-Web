@@ -66,18 +66,54 @@ const interceptors = {
   },
 }
 
+// 클라이언트 사이드 토큰 캐싱을 위한 변수
+let clientSideToken: string | null = null
+// 토큰을 가져오는 중복 요청을 방지하기 위한 Promise 변수
+let tokenPromise: Promise<string | null> | null = null
+
+const getClientSideToken = async (): Promise<string | null> => {
+  // 이미 토큰이 캐싱되어 있으면 즉시 반환
+  if (clientSideToken) {
+    return clientSideToken
+  }
+
+  // 다른 요청에 의해 토큰을 이미 가져오는 중이면 해당 Promise를 기다림
+  if (tokenPromise) {
+    return await tokenPromise
+  }
+
+  // 토큰을 가져오는 Promise를 생성하고 변수에 할당
+  tokenPromise = (async () => {
+    try {
+      const cookieResponse = await fetch("/api/oauth/kakao/token", {
+        credentials: "include",
+      })
+
+      if (!cookieResponse.ok) {
+        throw new Error("Failed to fetch token")
+      }
+
+      const data = await cookieResponse.json()
+      clientSideToken = data?.token || null // 성공 시 토큰 캐싱
+      return clientSideToken
+    } catch (error) {
+      console.error("Token fetch error:", error)
+      return null // 실패 시 null 반환
+    } finally {
+      // 완료 후 Promise 초기화
+      tokenPromise = null
+    }
+  })()
+
+  return await tokenPromise
+}
+
 // 요청 인터셉터 설정
 interceptors.request.use(async (config) => {
   let token: string
 
   if (typeof window !== "undefined") {
-    const cookieResponse = await fetch("/api/oauth/kakao/token", {
-      credentials: "include",
-    })
-
-    const data = await cookieResponse.json()
-
-    token = data?.token
+    token = (await getClientSideToken()) || ""
   } else {
     const { cookies } = await import("next/headers")
     const serverCookie = await cookies()
