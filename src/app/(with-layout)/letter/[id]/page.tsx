@@ -21,22 +21,25 @@ const LetterDetailPage = async ({ params }: LetterDetailPageProps) => {
 
   const letter = response.data.data
   return (
-    <div className="from-background-white to-background-brandassistive flex h-dvh flex-col items-center bg-gradient-to-b px-4">
+    <>
       <HeaderStar
         isLiked={letter.marked}
         title={`${letter.senderNickname}로부터`}
+        letterId={Number(id)}
       />
-      <DateText
-        weather={letter.weatherType as WeatherServerName}
-        createdAt={letter.createdDate}
-        scheduledAt={letter.scheduleDate}
-      />
-      {letter.music && <MusicPlay music={letter.music} />}
-      <LetterContent
-        content={letter.content}
-        fortuneCookie={letter.fortuneCookieMessage}
-      />
-    </div>
+      <div className="from-background-white to-background-brandassistive flex h-dvh flex-col items-center bg-gradient-to-b px-4">
+        <DateText
+          weather={letter.weatherType as WeatherServerName}
+          createdAt={letter.createdDate}
+          scheduledAt={letter.scheduleDate}
+        />
+        {letter.music && <MusicPlay music={letter.music} />}
+        <LetterContent
+          content={letter.content}
+          fortuneCookie={letter.fortuneCookieMessage}
+        />
+      </div>
+    </>
   )
 }
 
