@@ -10,6 +10,7 @@ import {
   LetterWriteRequestType,
 } from "@/__generated__/@types"
 import { getToken } from "@/apis/token.api"
+import LetterBackgroundBlue from "@/assets/images/letter-background-blue.png"
 import { WeatherIconName } from "@/assets/svg/weather"
 import { Button, Icon, Text, WeatherIcon } from "@/components/common"
 import BaseDialog from "@/components/common/dialog/base-dialog"
@@ -167,7 +168,13 @@ const Step1 = ({ musicList }: { musicList: LetterMusicResponseType[] }) => {
         />
       </div>
 
-      <div className="bg-background-assistive mx-[16px] mt-[24px] flex h-[346px] flex-col rounded-[20px] px-[24px] pt-[24px]">
+      <div
+        className={clsx(
+          "bg-background-assistive mx-[16px] mt-[24px] h-[346px]",
+          "flex flex-col rounded-[20px] bg-cover bg-center bg-no-repeat px-[24px] pt-[24px]",
+        )}
+        style={{ backgroundImage: `url(${LetterBackgroundBlue.src})` }}
+      >
         <Textarea
           value={formData.content}
           onChange={handleContentChange}
