@@ -17,10 +17,16 @@ interface HeaderStarType {
 const HeaderStar = ({ isLiked, title, letterId }: HeaderStarType) => {
   const [liked, setLiked] = useState<boolean>(isLiked)
 
-  const handleClickLike = async () => {
-    setLiked((prev) => !prev)
+   const handleClickLike = async () => {
+    const previousLikedState = liked 
+    setLiked((prev) => !prev) 
 
-    await apiApi.markedLetter({ letterId: letterId })
+    try {
+      await apiApi.markedLetter({ letterId: letterId })
+    } catch (error) {
+      setLiked(previousLikedState)
+      console.error("편지 즐겨찾기 요청에 실패하였습니다.:", error)
+    }
   }
 
   return (
