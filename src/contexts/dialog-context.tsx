@@ -4,10 +4,10 @@ import { createContext, PropsWithChildren, useContext, useState } from "react"
 
 import { ConfirmDialog, ConfirmDialogProps } from "@/components/common"
 
-type ConfirmDialogType = ConfirmDialogProps
+type ConfirmDialogType = Omit<ConfirmDialogProps, "isOpen">
 
 type DialogMap = {
-  confirm: Omit<ConfirmDialogType, "isOpen">
+  confirm: ConfirmDialogType
 }
 
 type DialogType<T extends keyof DialogMap = keyof DialogMap> = {
@@ -25,6 +25,12 @@ interface DialogContextType {
     props: DialogMap[T]
   }) => void
   close: VoidFunction
+}
+
+export const isConfirmDialog = (
+  dialog: DialogType,
+): dialog is DialogType<"confirm"> => {
+  return dialog.type === "confirm"
 }
 
 export const DialogContext = createContext<DialogContextType>({
@@ -67,7 +73,7 @@ export const DialogProvider = ({ children }: PropsWithChildren) => {
       {children}
       {dialog && (
         <>
-          {dialog.type === "confirm" && (
+          {isConfirmDialog(dialog) && (
             <ConfirmDialog {...dialog.props} isOpen={isOpen} />
           )}
         </>
