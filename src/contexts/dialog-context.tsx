@@ -6,16 +6,23 @@ import { ConfirmDialog, ConfirmDialogProps } from "@/components/common"
 
 type ConfirmDialogType = ConfirmDialogProps
 
-type DialogType = { type: "confirm"; props: Omit<ConfirmDialogType, "isOpen"> }
+type DialogMap = {
+  confirm: Omit<ConfirmDialogType, "isOpen">
+}
+
+type DialogType<T extends keyof DialogMap = keyof DialogMap> = {
+  type: T
+  props: DialogMap[T]
+}
 
 interface DialogContextType {
   dialog: DialogType | null
-  open: <T extends DialogType["type"]>({
+  open: <T extends keyof DialogMap>({
     type,
     props,
   }: {
     type: T
-    props: Extract<DialogType, { type: T }>["props"]
+    props: DialogMap[T]
   }) => void
   close: VoidFunction
 }
@@ -39,14 +46,14 @@ export const DialogProvider = ({ children }: PropsWithChildren) => {
   const [isOpen, setIsOpen] = useState(false)
   const [dialog, setDialog] = useState<DialogType | null>(null)
 
-  const open = <T extends DialogType["type"]>({
+  const open = <T extends keyof DialogMap>({
     type,
     props,
   }: {
     type: T
-    props: Extract<DialogType, { type: T }>["props"]
+    props: DialogMap[T]
   }) => {
-    setDialog({ type, props } as DialogType)
+    setDialog({ type, props })
     setIsOpen(true)
   }
 
