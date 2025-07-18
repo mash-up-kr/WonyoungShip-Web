@@ -11,7 +11,10 @@ import { apiApi } from "@/__generated__/Api/Api.api"
 import { getToken } from "@/apis/token.api"
 import BasicHeader from "@/components/common/header/basic-header"
 import { ROUTES } from "@/constants/routes"
-import { DEFAULT_SENDER_NICKNAME, useLetterForm } from "@/contexts/letter-form-context"
+import {
+  DEFAULT_SENDER_NICKNAME,
+  useLetterForm,
+} from "@/contexts/letter-form-context"
 import { useSnackbar } from "@/contexts/snackbar"
 import { LetterType } from "@/types/letter-form"
 
@@ -33,7 +36,9 @@ const LetterFormContent = () => {
     if (!letterMeta) return
     const { musics, receiverNickname, senderNickname } = letterMeta
     setReceiverName(receiverNickname)
-    updateFormData({ senderNickname: senderNickname || DEFAULT_SENDER_NICKNAME })
+    updateFormData({
+      senderNickname: senderNickname || DEFAULT_SENDER_NICKNAME,
+    })
     if (musics && musics.length > 0) {
       setMusicList(musics)
     }
@@ -44,8 +49,13 @@ const LetterFormContent = () => {
       setStep(step - 1)
     } else {
       const token = await getToken()
-      if (token) router.replace(ROUTES.PAGE.HOME)
-      else router.replace(ROUTES.PAGE.LANDING)
+      if (token) {
+        window.location.href = ROUTES.PAGE.HOME
+        // router.push(ROUTES.PAGE.HOME)
+      } else {
+        window.location.href = ROUTES.PAGE.LANDING
+        // router.push(ROUTES.PAGE.LANDING)
+      }
     }
   }
 

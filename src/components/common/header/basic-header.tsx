@@ -34,7 +34,11 @@ const BasicHeader = ({
       {/* Left Area */}
       <div className="flex min-w-[24px] items-center gap-2">
         {hasBackButton && (
-          <button onClick={handleBackButton} aria-label="뒤로 가기">
+          <button
+            className="cursor-pointer"
+            onClick={handleBackButton}
+            aria-label="뒤로 가기"
+          >
             <Icon icon="chevronLeftThin" size="lg" fill="secondary" />
           </button>
         )}
