@@ -40,7 +40,7 @@ const LETTER_CONFIG: Record<
     subtitle: (daysLeft: number) => `D-${daysLeft}`,
     subtitleColor: "secondary",
     title: "열심히 배달 중...",
-    lottieData: HOME_LOTTIES.IN_DELIVERY,
+    lottieData: HOME_LOTTIES.SHIP_FLUTTING,
     lottieSize: "w-[12rem]",
   },
   ARRIVED: {

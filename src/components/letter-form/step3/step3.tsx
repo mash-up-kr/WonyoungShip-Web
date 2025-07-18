@@ -42,7 +42,7 @@ const Step3 = () => {
       <article className="mt-[78px] flex justify-center">
         <Lottie
           animationData={HOME_LOTTIES.SHIP_FLUTTING}
-          className="h-[240px] w-[240px]"
+          className="h-[400px] w-[400px]"
         />
       </article>
 
