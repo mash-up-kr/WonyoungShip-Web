@@ -11,6 +11,7 @@ import { apiApi } from "@/__generated__/Api/Api.api"
 import { getToken } from "@/apis/token.api"
 import BasicHeader from "@/components/common/header/basic-header"
 import { ROUTES } from "@/constants/routes"
+import { useDialog } from "@/contexts/dialog-context"
 import {
   DEFAULT_SENDER_NICKNAME,
   useLetterForm,
@@ -24,6 +25,7 @@ import Step3 from "./step3/step3"
 
 const LetterFormContent = () => {
   const router = useRouter()
+  const { open, close } = useDialog()
   const { showSnackbar } = useSnackbar()
   const searchParams = useSearchParams()
   const receiverId = searchParams.get("receiverId")
@@ -48,14 +50,21 @@ const LetterFormContent = () => {
     if (step === 2) {
       setStep(step - 1)
     } else {
-      const token = await getToken()
-      if (token) {
-        window.location.href = ROUTES.PAGE.HOME
-        // router.push(ROUTES.PAGE.HOME)
-      } else {
-        window.location.href = ROUTES.PAGE.LANDING
-        // router.push(ROUTES.PAGE.LANDING)
-      }
+      open({
+        type: "loading",
+        props: {},
+      })
+      getToken()
+        .then((token) => {
+          if (token) {
+            router.push(ROUTES.PAGE.HOME)
+          } else {
+            router.push(ROUTES.PAGE.LANDING)
+          }
+        })
+        .finally(() => {
+          close()
+        })
     }
   }
 

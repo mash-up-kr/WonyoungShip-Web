@@ -133,10 +133,21 @@ const Step1 = ({ musicList }: { musicList: LetterMusicResponseType[] }) => {
         confirmText: "나가기",
         onCancel: close,
         onConfirm: async () => {
-          const token = await getToken()
-          if (token) router.replace(ROUTES.PAGE.HOME)
-          else router.replace(ROUTES.PAGE.LANDING)
-          close()
+          open({
+            type: "loading",
+            props: {},
+          })
+          getToken()
+            .then((token) => {
+              if (token) {
+                router.replace(ROUTES.PAGE.HOME)
+              } else {
+                router.replace(ROUTES.PAGE.LANDING)
+              }
+            })
+            .finally(() => {
+              // close()
+            })
         },
       },
     })

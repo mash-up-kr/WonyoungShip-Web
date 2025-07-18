@@ -3,11 +3,16 @@
 import { createContext, PropsWithChildren, useContext, useState } from "react"
 
 import { ConfirmDialog, ConfirmDialogProps } from "@/components/common"
+import LoadingDialog, {
+  LoadingDialogProps,
+} from "@/components/common/dialog/loading-dialog"
 
 type ConfirmDialogType = Omit<ConfirmDialogProps, "isOpen">
+type LoadingDialogType = Omit<LoadingDialogProps, "isOpen">
 
 type DialogMap = {
   confirm: ConfirmDialogType
+  loading: LoadingDialogType
 }
 
 type DialogType<T extends keyof DialogMap = keyof DialogMap> = {
@@ -31,6 +36,12 @@ export const isConfirmDialog = (
   dialog: DialogType,
 ): dialog is DialogType<"confirm"> => {
   return dialog.type === "confirm"
+}
+
+export const isLoadingDialog = (
+  dialog: DialogType,
+): dialog is DialogType<"loading"> => {
+  return dialog.type === "loading"
 }
 
 export const DialogContext = createContext<DialogContextType>({
@@ -75,6 +86,9 @@ export const DialogProvider = ({ children }: PropsWithChildren) => {
         <>
           {isConfirmDialog(dialog) && (
             <ConfirmDialog {...dialog.props} isOpen={isOpen} />
+          )}
+          {isLoadingDialog(dialog) && (
+            <LoadingDialog {...dialog.props} isOpen={isOpen} />
           )}
         </>
       )}
