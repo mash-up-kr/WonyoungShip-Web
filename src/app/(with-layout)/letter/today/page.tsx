@@ -1,3 +1,5 @@
+import dayjs from "dayjs"
+
 import { apiApi } from "@/__generated__/Api/Api.api"
 import { LetterCard, PageRefresher } from "@/components/common"
 import BasicHeader from "@/components/common/header/basic-header"
@@ -8,7 +10,7 @@ const TodayLettersPage = async () => {
   const today = new Date()
 
   const response = await apiApi.readDailyLetters({
-    query: { date: today.toISOString().split("T")[0] },
+    query: { date: dayjs().format("YYYY-MM-DD") },
   })
 
   const letters = response.data.data?.letters ?? []
