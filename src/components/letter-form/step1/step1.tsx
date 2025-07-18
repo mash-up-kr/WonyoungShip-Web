@@ -140,13 +140,13 @@ const Step1 = ({ musicList }: { musicList: LetterMusicResponseType[] }) => {
           getToken()
             .then((token) => {
               if (token) {
-                router.replace(ROUTES.PAGE.HOME)
+                router.push(ROUTES.PAGE.HOME)
               } else {
-                router.replace(ROUTES.PAGE.LANDING)
+                router.push(ROUTES.PAGE.LANDING)
               }
             })
             .finally(() => {
-              // close()
+              close()
             })
         },
       },
