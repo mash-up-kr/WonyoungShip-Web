@@ -125,6 +125,7 @@ const Step2 = ({ receiverName }: { receiverName: string }) => {
           <div className="mx-auto max-w-[420px]">
             <div className="flex items-center justify-center gap-[8px]">
               <Checkbox
+                isChecked={formData.needFortuneCookie}
                 onClick={() => {
                   updateFormData({
                     needFortuneCookie: !formData.needFortuneCookie,

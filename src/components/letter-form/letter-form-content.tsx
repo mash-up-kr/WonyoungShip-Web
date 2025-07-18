@@ -11,7 +11,7 @@ import { apiApi } from "@/__generated__/Api/Api.api"
 import { getToken } from "@/apis/token.api"
 import BasicHeader from "@/components/common/header/basic-header"
 import { ROUTES } from "@/constants/routes"
-import { useLetterForm } from "@/contexts/letter-form-context"
+import { DEFAULT_SENDER_NICKNAME, useLetterForm } from "@/contexts/letter-form-context"
 import { useSnackbar } from "@/contexts/snackbar"
 import { LetterType } from "@/types/letter-form"
 
@@ -33,7 +33,7 @@ const LetterFormContent = () => {
     if (!letterMeta) return
     const { musics, receiverNickname, senderNickname } = letterMeta
     setReceiverName(receiverNickname)
-    updateFormData({ senderNickname: senderNickname || "" })
+    updateFormData({ senderNickname: senderNickname || DEFAULT_SENDER_NICKNAME })
     if (musics && musics.length > 0) {
       setMusicList(musics)
     }
