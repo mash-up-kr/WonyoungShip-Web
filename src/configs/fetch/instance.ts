@@ -1,7 +1,8 @@
 import { redirect } from "next/navigation"
 
+import { getToken } from "@/apis/token.api"
 import { ACCESS_TOKEN_KEY } from "@/constants/cookies"
-import { ROUTES } from "@/constants/routes"
+import { accessTokenState } from "@/utils/storage"
 
 type CustomRequestInit = RequestInit & {
   headers: {
@@ -67,15 +68,15 @@ const interceptors = {
   },
 }
 
-// 클라이언트 사이드 토큰 캐싱을 위한 변수
-let clientSideToken: string | null = null
 // 토큰을 가져오는 중복 요청을 방지하기 위한 Promise 변수
 let tokenPromise: Promise<string | null> | null = null
 
 const getClientSideToken = async (): Promise<string | null> => {
+  const cachedToken = accessTokenState.getValue()
+
   // 이미 토큰이 캐싱되어 있으면 즉시 반환
-  if (clientSideToken) {
-    return clientSideToken
+  if (cachedToken) {
+    return cachedToken
   }
 
   // 다른 요청에 의해 토큰을 이미 가져오는 중이면 해당 Promise를 기다림
@@ -86,17 +87,8 @@ const getClientSideToken = async (): Promise<string | null> => {
   // 토큰을 가져오는 Promise를 생성하고 변수에 할당
   tokenPromise = (async () => {
     try {
-      const cookieResponse = await fetch(ROUTES.API.TOKEN, {
-        credentials: "include",
-      })
-
-      if (!cookieResponse.ok) {
-        throw new Error("Failed to fetch token")
-      }
-
-      const data = await cookieResponse.json()
-      clientSideToken = data?.token ?? null
-      return clientSideToken
+      const token = await getToken()
+      return token
     } catch (error) {
       console.error("Token fetch error:", error)
       return null // 실패 시 null 반환
