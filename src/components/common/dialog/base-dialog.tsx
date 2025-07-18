@@ -21,6 +21,17 @@ export interface BaseDialogProps {
   dialogBackdropProps?: DialogBackdropProps
 }
 
+/**
+ * 확장 타입
+ * - isOpen, onClose 제외한 타입
+ * - 확장 타입은 확장 컴포넌트에서 사용
+ * - 확장 컴포넌트는 확장 타입을 사용하여 컴포넌트를 확장
+ */
+export type ExtendedBaseDialogProps = Omit<
+  BaseDialogProps,
+  "children" | "onClose"
+>
+
 const BaseDialog = ({
   isOpen,
   onClose,

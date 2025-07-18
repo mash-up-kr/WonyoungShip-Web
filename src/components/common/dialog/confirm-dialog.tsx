@@ -1,8 +1,8 @@
 import { Text } from "../text"
 
-import BaseDialog from "./base-dialog"
+import BaseDialog, { ExtendedBaseDialogProps } from "./base-dialog"
 
-export interface ConfirmDialogProps {
+export interface ConfirmDialogProps extends ExtendedBaseDialogProps {
   isOpen: boolean
   title?: string
   desc?: string
