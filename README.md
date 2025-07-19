@@ -1,14 +1,47 @@
-# WonyoungShip Web
+# 둥둥 <img width="100" height="100" alt="Group 21" src="https://github.com/user-attachments/assets/d15a0a49-dc20-4b48-8125-b19673ca47f2" align="left" />
+느리지만, 미래의 누군가에게 진심을 담아 보내는 편지
 
-미래의 나에게 편지를 보내는 서비스, WonyoungShip의 웹 프로젝트입니다.
+<img width="1920" height="1080" alt="Page5" src="https://github.com/user-attachments/assets/70f1adf9-c5ec-4347-b7ce-7ec44b5582b3" />
+
 
 ## 👥 Maintainers
-<table>
+<table align="center">
     <td align="center"><a href="https://github.com/Brightbong92"><img src="https://github.com/Brightbong92.png" width="100px;" alt=""/><br /><sub><b>장현봉</b></sub></a><br />💻</a></td>
     <td align="center"><a href="https://github.com/Pridesd"><img src="https://github.com/Pridesd.png" width="100px;" alt=""/><br /><sub><b>조재석</b></sub></a><br />💻</a></td>
     <td align="center"><a href="https://github.com/sinji2102"><img src="https://github.com/sinji2102.png" width="100px;" alt=""/><br /><sub><b>윤신지</b></sub></a><br />💻</a></td>
 </table>
 
+<h2>📷 Screen Shot</h2>
+<table align="center">
+        <tr align="center">
+            <th>뷰</th>
+            <th>1</th>
+            <th>2</th>
+            <th>3</th>
+            <th>4</th>
+        </tr>
+        <tr>
+            <td width="88" align="center">랜딩/홈</td>
+            <td><img width="1125" height="1860" alt="image" src="https://github.com/user-attachments/assets/4fc35f72-e51a-47af-bfb3-9dd7ba0dc149" /></td>
+            <td><img width="1125" height="1865" alt="image" src="https://github.com/user-attachments/assets/63b5cec4-35e2-4d17-aa52-04435c7ae640" /></td>
+            <td><img width="1125" height="1894" alt="image" src="https://github.com/user-attachments/assets/a4240895-1d26-4661-b4d5-2bfe01a20905" /></td>
+            <td><img width="1125" height="1879" alt="image" src="https://github.com/user-attachments/assets/3c9de390-43b5-4a62-995f-fd35dce07d5b" /></td>
+        </tr>
+        <tr>
+            <td align="center">편지</br>보내기</td>
+            <td><img width="1125" height="1884" alt="image" src="https://github.com/user-attachments/assets/5f4b8a87-28ab-46b2-9ae1-c2e6e05b90cf" /></td>
+            <td><img width="1125" height="1861" alt="image" src="https://github.com/user-attachments/assets/cc3f9fa0-2a7b-46fe-b105-61f5bdcaf109" /></td>
+            <td><img width="1125" height="1873" alt="image" src="https://github.com/user-attachments/assets/6c34b388-6417-433f-ab06-db9860bf19a3" /></td>
+            <td><img width="1125" height="1897" alt="image" src="https://github.com/user-attachments/assets/6722ae22-4556-4f35-bbdc-29f56e31b1e0" /></td>
+        </tr>
+        <tr>
+            <td align="center">편지</br>열어보기</td>
+            <td><img width="1125" height="1881" alt="image" src="https://github.com/user-attachments/assets/3c7530bd-15a0-4457-ba73-f20818c15d75" /></td>
+            <td><img width="1125" height="1878" alt="image" src="https://github.com/user-attachments/assets/a7448e4f-d2bf-4eee-8fe4-86c1427b0bbf" /></td>
+            <td><img width="1125" height="1876" alt="image" src="https://github.com/user-attachments/assets/d8ecbe6a-dc21-4849-88cd-41694ce4d3ca" /></td>
+            <td><img width="1125" height="1874" alt="image" src="https://github.com/user-attachments/assets/72eb6dad-a40f-4770-a9a1-b5d4d35df147" /></td>
+        </tr>
+    </table>
 
 ## 🏛️ 아키텍처
 <img width="5464" height="1661" alt="WonyoungShip Screenshot" src="https://github.com/user-attachments/assets/46de03d2-f43d-46b4-8077-b2eee1830eac" />
